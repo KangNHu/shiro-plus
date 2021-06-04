@@ -53,8 +53,9 @@ public class AuthMetadataManager implements EventListener , Initializable {
 			}
 			//初始化全局元信息
 			List<GlobalMetadata> globalMetadataList = metadataLoader.loadGlobal();
-			if (CollectionUtils.isEmpty(globalMetadataList)) {
+			if (!CollectionUtils.isEmpty(globalMetadataList)) {
 				for (GlobalMetadata globalMetadata : globalMetadataList){
+					logger.info("加载权限全局元信息 {}", globalMetadata.toString());
 					String tenantId = globalMetadata.getTenantId();
 					globalMetadataMap.put(tenantId == null ? DEFAULT_TENANT_ID : tenantId , globalMetadata);
 				}

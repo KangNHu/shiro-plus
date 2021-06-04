@@ -10,6 +10,16 @@ import java.util.List;
 public class GlobalMetadata {
 
 
+	public GlobalMetadata(String tenantId, List<String> anons, Boolean enableAuthentication, Boolean enableAuthorization) {
+		this.tenantId = tenantId;
+		this.anons = anons;
+		this.enableAuthentication = enableAuthentication;
+		this.enableAuthorization = enableAuthorization;
+	}
+
+	public GlobalMetadata() {
+	}
+
 	/**
 	 * 租户id
 	 * <p>如果不需要多租户则可以不用处理</p>
@@ -77,5 +87,15 @@ public class GlobalMetadata {
 
 	public void setEnableAuthorization(Boolean enableAuthorization) {
 		this.enableAuthorization = enableAuthorization;
+	}
+
+	@Override
+	public String toString() {
+		return "GlobalMetadata{" +
+				"tenantId='" + tenantId + '\'' +
+				", anons=" + anons +
+				", enableAuthentication=" + enableAuthentication +
+				", enableAuthorization=" + enableAuthorization +
+				'}';
 	}
 }

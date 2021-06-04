@@ -1,5 +1,6 @@
 package org.codingeasy.shiro.authorize.mgt;
 
+import org.codingeasy.shiro.authorize.interceptor.Invoker;
 import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +14,10 @@ public interface TenantIdGenerator {
 
 	/**
 	 * 生成租户id
-	 * @param request 请求对象
-	 * @param response 响应对象
+	 * @param invoker 调用对象
 	 * @return 返回租户id
 	 */
-	String generate(HttpServletRequest request , HttpServletResponse response);
+	String generate(Invoker invoker);
 
 
 	/**

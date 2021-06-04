@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import org.apache.shiro.authz.AuthorizationException;
 import org.codingeasy.shiro.authorize.handler.AuthExceptionHandler;
 import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
+import org.codingeasy.shiro.authorize.metadata.GlobalMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +19,7 @@ import java.io.PrintWriter;
  *
  * @author : KangNing Hu
  */
-public class DynamicAuthorizationFilter extends AbstractDynamicAuthorizationInterceptor implements Filter {
+public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor implements Filter {
 
 	private static final Logger logger = LoggerFactory.getLogger(DynamicAuthorizationFilter.class);
 
@@ -48,6 +49,14 @@ public class DynamicAuthorizationFilter extends AbstractDynamicAuthorizationInte
 	@Override
 	public void destroy() {
 
+	}
+
+
+	@Override
+	protected boolean isEnableAuthorization(Invoker invoker) {
+		String tenantId = this.tenantIdGenerator.generate(invoker);
+		GlobalMetadata globalMetadata = this.authMetadataManager.getGlobalMetadata(tenantId);
+		return globalMetadata == null || globalMetadata.getEnableAuthorization() == null || globalMetadata.getEnableAuthorization();
 	}
 
 	/**

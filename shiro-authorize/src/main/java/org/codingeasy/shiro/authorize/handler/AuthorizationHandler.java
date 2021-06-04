@@ -1,6 +1,7 @@
 package org.codingeasy.shiro.authorize.handler;
 
 import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.annotation.Logical;
 import org.codingeasy.shiro.authorize.metadata.PermissionMetadata;
 
 /**
@@ -21,4 +22,15 @@ public interface AuthorizationHandler {
 	 * @return 如果当前处理器执行则返回true  否则falsa
 	 */
 	boolean support(PermissionMetadata permissionMetadata);
+
+	/**
+	 * 获取授权 逻辑类型
+	 * @return 返回一个逻辑类型枚举
+	 */
+	default Logical getLogical(PermissionMetadata permissionMetadata){
+		org.codingeasy.shiro.authorize.metadata.Logical logical = permissionMetadata.getLogical();
+		return logical == null ?
+				Logical.AND :
+				org.codingeasy.shiro.authorize.metadata.Logical.AND == logical ? Logical.AND :Logical.OR;
+	}
 }

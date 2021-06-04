@@ -25,8 +25,8 @@ public class AnnotationUtils {
 	 */
 	public static  <T extends Annotation>T instantiateAnnotation(Class<T> annotationClass , Map<String , Object> attr){
 		Annotation annotation = map.get(annotationClass);
+		AnnotationInstanceInvocationHandler.setAttr(attr);
 		if (annotation != null){
-			AnnotationInstanceInvocationHandler.setAttr(attr);
 			return (T) annotation;
 		}
 		synchronized (map) {

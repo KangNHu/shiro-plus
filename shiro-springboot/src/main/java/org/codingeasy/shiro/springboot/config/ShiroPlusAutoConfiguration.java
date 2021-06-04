@@ -1,5 +1,6 @@
 package org.codingeasy.shiro.springboot.config;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authz.Authorizer;
@@ -19,106 +20,49 @@ import org.codingeasy.shiro.authorize.metadata.MetadataLoader;
 import org.codingeasy.shiro.authorize.mgt.DynamicPathMatchingFilterChainResolver;
 import org.codingeasy.shiro.authorize.mgt.TenantIdGenerator;
 import org.codingeasy.shiro.springboot.AuthMetadataEventPublisher;
+import org.codingeasy.shiro.springboot.ShiroFilterClassPathBeanDefinitionScanner;
 import org.codingeasy.shiro.springboot.ShiroPlusInitializer;
+import org.codingeasy.shiro.springboot.ShiroPlusSecurityManager;
+import org.codingeasy.shiro.springboot.annotaion.ShiroFilter;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
+import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 
+import javax.servlet.Filter;
 import java.util.*;
 
 /**
 * shiro plus的自动配置  
 * @author : KangNing Hu
 */
+@Configuration
 public class ShiroPlusAutoConfiguration {
 
 
-
-	private List<Realm> realms = new ArrayList<Realm>();
-
-	private CacheManager cacheManager;
-
-	private RememberMeManager rememberMeManager;
-
-	private SessionManager sessionManager;
-
-	private SubjectFactory subjectFactory;
-
-	private Authenticator authenticator;
-
-	private Authorizer authorizer;
-
-	private EventBus eventBus;
-
-	private MetadataLoader metadataLoader;
-
-	private TenantIdGenerator tenantIdGenerator;
-
-
 	/**
-	 * 注册shiro bean的生命周期处理器
-	 * @return
-	 */
-	@Bean
-	@ConditionalOnMissingBean(LifecycleBeanPostProcessor.class)
-	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
-		return new LifecycleBeanPostProcessor();
-	}
-
-	/**
-	 * 注册shiro的安全管理器到spring
+	 * 注册shiro plus的安全管理器到spring
 	 * @return
 	 */
 	@Bean
 	@ConditionalOnMissingBean(SecurityManager.class)
 	public SecurityManager securityManager(){
-		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-		securityManager.setRealms(realms);
-		if (cacheManager != null) {
-			securityManager.setCacheManager(cacheManager);
-		}
-		if (rememberMeManager != null){
-			securityManager.setRememberMeManager(rememberMeManager);
-		}
-		if (sessionManager != null){
-			securityManager.setSessionManager(sessionManager);
-		}
-		if (subjectFactory != null){
-			securityManager.setSubjectFactory(subjectFactory);
-		}
-		if (authenticator != null){
-			securityManager.setAuthenticator(authenticator);
-		}
-		if (authorizer != null){
-			securityManager.setAuthorizer(authorizer);
-		}
-		if (eventBus != null){
-			securityManager.setEventBus(eventBus);
-		}
-		return securityManager;
+		return new ShiroPlusSecurityManager();
 	}
 
-	/**
-	 * 注册一个权限元信息事件的发布器
-	 * @param cachingSecurityManager 元信息事件的发布器
-	 * @return
-	 */
-	@Bean
-	public AuthMetadataEventPublisher eventBus(CachingSecurityManager cachingSecurityManager){
-		return new AuthMetadataEventPublisher(cachingSecurityManager);
-	}
-
-
-	/**
-	 * 注册shiroPlus 初始化器
-	 * @return
-	 */
-	@Bean
-	public ShiroPlusInitializer shiroPlusInitializer(CachingSecurityManager cachingSecurityManager,
-	                                                 AuthMetadataManager authMetadataManager){
-		return new ShiroPlusInitializer(cachingSecurityManager , authMetadataManager);
-	}
 
 	/**
 	 * 注册一个shiro plus的属性对象
@@ -135,24 +79,21 @@ public class ShiroPlusAutoConfiguration {
 	 * @return
 	 */
 	@Bean
-	public AuthMetadataManager authMetadataManager(){
-		return new AuthMetadataManager(this.metadataLoader);
+	public AuthMetadataManager authMetadataManager(@Autowired(required = false) MetadataLoader metadataLoader){
+		return new AuthMetadataManager(metadataLoader);
 	}
 
 
 	@Bean
 	@ConditionalOnMissingBean(ShiroFilterFactoryBean.class)
-	public ShiroFilterFactoryBean  shiroFilterFactoryBean(SecurityManager sessionManager ,
+	public ShiroFilterFactoryBean  shiroFilterFactoryBean(SecurityManager securityManager ,
 	                                                      AuthMetadataManager authMetadataManager,
-	                                                      ShiroPlusProperties shiroPlusProperties){
-		//创建过滤链解析器
-		DynamicPathMatchingFilterChainResolver filterChainResolver = new DynamicPathMatchingFilterChainResolver(authMetadataManager);
-		if (this.tenantIdGenerator != null){
-			filterChainResolver.setTenantIdGenerator(tenantIdGenerator);
-		}
-		//创建shiro filter bean
-		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroPlusFilterFactoryBean(filterChainResolver);
+	                                                      ShiroPlusProperties shiroPlusProperties,
+	                                                      ApplicationContext applicationContext,
+	                                                      @Autowired(required = false) TenantIdGenerator tenantIdGenerator){
 
+		//创建shiro filter bean
+		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroPlusFilterFactoryBean(createFilterChainResolve(authMetadataManager , tenantIdGenerator));
 		//处理过滤链定义 如配置为 anon -> url 要转为 url -> anon
 		Map<String, String> filterChainDefinition = shiroPlusProperties.getFilterChainDefinition();
 		if (!MapUtils.isEmpty(filterChainDefinition)){
@@ -162,8 +103,9 @@ public class ShiroPlusAutoConfiguration {
 			}
 			shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		}
+		shiroFilterFactoryBean.setFilters(getFilters(applicationContext));
 		//设置基本配置
-		shiroFilterFactoryBean.setSecurityManager(sessionManager);
+		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		shiroFilterFactoryBean.setLoginUrl(shiroPlusProperties.getLoginUrl());
 		shiroFilterFactoryBean.setSuccessUrl(shiroPlusProperties.getSuccessUrl());
 		shiroFilterFactoryBean.setUnauthorizedUrl(shiroPlusProperties.getUnauthorizedUrl());
@@ -176,66 +118,32 @@ public class ShiroPlusAutoConfiguration {
 	}
 
 
-
-	@Bean
-	public void setEventBus(EventBus eventBus){
-		this.eventBus = eventBus;
+	/**
+	 * 创建过滤链解析器
+	 * @return  返回过滤链解析器
+	 */
+	private DynamicPathMatchingFilterChainResolver createFilterChainResolve(AuthMetadataManager authMetadataManager , TenantIdGenerator tenantIdGenerator){
+		//创建过滤链解析器
+		DynamicPathMatchingFilterChainResolver filterChainResolver = new DynamicPathMatchingFilterChainResolver(authMetadataManager);
+		if (tenantIdGenerator != null){
+			filterChainResolver.setTenantIdGenerator(tenantIdGenerator);
+		}
+		return filterChainResolver;
 	}
+
 
 	/**
-	 * 设置租户id生成器
-	 * @param tenantIdGenerator 注入租户id生成器
+	 * 获取shiro 的filters
+	 * <p>shiro 的filter不能被spring 进行管理防止重复注册</p>
+	 * @return 返回 filter名称 -> filter 的一个map
 	 */
-	@Autowired(required = false)
-	public void setTenantIdGenerator(TenantIdGenerator tenantIdGenerator){
-		this.tenantIdGenerator = tenantIdGenerator;
-	}
-
-	/**
-	 * 设置 元数据加载器
-	 * @param metadataLoader 注入元数据加载器
-	 */
-	@Autowired(required = false)
-	public void setMetadataLoader(MetadataLoader metadataLoader){
-		this.metadataLoader = metadataLoader;
+	private Map<String , Filter> getFilters(ApplicationContext applicationContext){
+		//创建 shiro fiter扫描器
+		ShiroFilterClassPathBeanDefinitionScanner scanner = new ShiroFilterClassPathBeanDefinitionScanner((AbstractAutowireCapableBeanFactory) applicationContext.getAutowireCapableBeanFactory());
+		//获取spring boot的包路径
+		List<String> packages = AutoConfigurationPackages.get(applicationContext);
+		return scanner.getFiltersByPackage(packages);
 	}
 
 
-	@Autowired(required = false)
-	public void setAuthorizer(Authorizer authorizer){
-		this.authorizer = authorizer;
-	}
-
-	@Autowired(required = false)
-	public void setAuthenticator(Authenticator authenticator){
-		this.authenticator = authenticator;
-	}
-
-
-	@Autowired(required = false)
-	public void setSubjectFactory(SubjectFactory subjectFactory){
-		this.subjectFactory = subjectFactory;
-	}
-
-	@Autowired(required = false)
-	public void setSessionManager(SessionManager sessionManager){
-		this.sessionManager = sessionManager;
-	}
-
-	@Autowired(required = false)
-	public void setRememberMeManager(RememberMeManager rememberMeManager){
-		this.rememberMeManager = rememberMeManager;
-	}
-
-
-	@Autowired(required = false)
-	public void setCacheManager(CacheManager cacheManager){
-		this.cacheManager = cacheManager;
-	}
-
-
-	@Autowired(required = false)
-	public void setRealms(List<Realm> realms){
-		this.realms.addAll(realms);
-	}
 }

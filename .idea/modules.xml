@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/shiro-authorize/shiro-authorize.iml" filepath="$PROJECT_DIR$/shiro-authorize/shiro-authorize.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shiro-example/shiro-example.iml" filepath="$PROJECT_DIR$/shiro-example/shiro-example.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/shiro-plus.iml" filepath="$PROJECT_DIR$/.idea/shiro-plus.iml" />
       <module fileurl="file://$PROJECT_DIR$/shiro-springboot/shiro-springboot.iml" filepath="$PROJECT_DIR$/shiro-springboot/shiro-springboot.iml" />
     </modules>

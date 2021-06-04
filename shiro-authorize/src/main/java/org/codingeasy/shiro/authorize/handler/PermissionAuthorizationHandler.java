@@ -22,7 +22,7 @@ public class PermissionAuthorizationHandler implements AuthorizationHandler{
 	public void authorize(PermissionMetadata permissionMetadata) {
 		Map<String , Object> attr = new HashMap<>();
 		attr.put("value" , permissionMetadata.getPermis());
-		attr.put("logical" , Logical.AND);
+		attr.put("logical" , getLogical(permissionMetadata));
 		RequiresPermissions requiresPermissions = AnnotationUtils.instantiateAnnotation(RequiresPermissions.class, attr);
 		permissionAnnotationHandler.assertAuthorized(requiresPermissions);
 	}

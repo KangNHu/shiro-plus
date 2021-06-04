@@ -24,7 +24,7 @@ public class RoleAuthorizationHandler implements AuthorizationHandler {
 	public void authorize(PermissionMetadata permissionMetadata) {
 		Map<String , Object> attr = new HashMap<>();
 		attr.put("value" , permissionMetadata.getPermis());
-		attr.put("logical" , Logical.AND);
+		attr.put("logical" , getLogical(permissionMetadata));
 		RequiresRoles requiresRoles = AnnotationUtils.instantiateAnnotation(RequiresRoles.class, attr);
 		roleAnnotationHandler.assertAuthorized(requiresRoles);
 	}

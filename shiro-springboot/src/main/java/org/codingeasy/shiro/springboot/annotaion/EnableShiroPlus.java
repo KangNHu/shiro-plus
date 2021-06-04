@@ -1,8 +1,11 @@
 package org.codingeasy.shiro.springboot.annotaion;
 
+import org.codingeasy.shiro.authorize.interceptor.DynamicAuthorizationFilter;
+import org.codingeasy.shiro.authorize.interceptor.aop.AopDynamicAuthorizationInterceptor;
 import org.codingeasy.shiro.springboot.AuthorModel;
 import org.codingeasy.shiro.springboot.config.AuthorizationConfigSelector;
 import org.codingeasy.shiro.springboot.config.ShiroPlusAutoConfiguration;
+import org.codingeasy.shiro.springboot.config.ShiroPlusSupportConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -14,7 +17,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Documented
-@Import({ShiroPlusAutoConfiguration.class , AuthorizationConfigSelector.class})
+@Import({ShiroPlusSupportConfiguration.class ,ShiroPlusAutoConfiguration.class , AuthorizationConfigSelector.class})
 public @interface EnableShiroPlus {
 
 	/**
@@ -26,8 +29,8 @@ public @interface EnableShiroPlus {
 
 	/**
 	 * 授权模型
-	 * @see org.codingeasy.shiro.authorize.interceptor.AopDynamicAuthorizationInterceptor
-	 * @see org.codingeasy.shiro.authorize.interceptor.DynamicAuthorizationFilter
+	 * @see AopDynamicAuthorizationInterceptor
+	 * @see DynamicAuthorizationFilter
 	 * @return
 	 */
 	AuthorModel model() default AuthorModel.WBE;

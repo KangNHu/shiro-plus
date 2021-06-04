@@ -39,8 +39,15 @@ public class WebInvoker implements Invoker {
 	}
 
 	@Override
-	public Object invoke() throws IOException, ServletException {
-		filterChain.doFilter(request , response);
+	public Object invoke() {
+		try {
+			if (response.isCommitted()){
+				return null;
+			}
+			filterChain.doFilter(request, response);
+		}catch (Throwable e){
+			throw new IllegalStateException(e);
+		}
 		return null;
 	}
 

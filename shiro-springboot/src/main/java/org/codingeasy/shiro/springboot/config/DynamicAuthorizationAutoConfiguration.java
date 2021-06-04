@@ -5,6 +5,7 @@ import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 
 import java.util.Arrays;
@@ -13,7 +14,8 @@ import java.util.Arrays;
 * 动态授权动态配置  
 * @author : KangNing Hu
 */
-@ConditionalOnBean(ShiroPlusAutoConfiguration.class)
+@Configuration
+@ConditionalOnBean({AuthMetadataManager.class})
 public  class DynamicAuthorizationAutoConfiguration extends AbstractAuthorizationAutoConfiguration {
 
 

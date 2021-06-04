@@ -7,13 +7,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="shiro-authorize" />
+        <module name="shiro-example" />
         <module name="shiro-springboot" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="shiro-authorize" target="8" />
-      <module name="shiro-plus" target="1.5" />
-      <module name="shiro-springboot" target="1.5" />
+      <module name="shiro-example" target="8" />
+      <module name="shiro-plus" target="8" />
+      <module name="shiro-springboot" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

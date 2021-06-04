@@ -5,16 +5,19 @@ import org.apache.shiro.web.filter.authc.AnonymousFilter;
 import org.apache.shiro.web.filter.mgt.NamedFilterList;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.filter.mgt.SimpleNamedFilterList;
+import org.codingeasy.shiro.authorize.interceptor.WebInvoker;
 import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
 import org.codingeasy.shiro.authorize.metadata.GlobalMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -81,7 +84,7 @@ public class DynamicPathMatchingFilterChainResolver extends PathMatchingFilterCh
 	 * @return 返回租户id
 	 */
 	private String getTenantId(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-		String tenantId = this.tenantIdGenerator.generate(httpServletRequest, httpServletResponse);
+		String tenantId = this.tenantIdGenerator.generate(new WebInvoker(httpServletRequest, httpServletResponse, ((request, response) -> {})));
 		return tenantId == null ? this.tenantIdGenerator.getDefault() : tenantId;
 	}
 }

@@ -1,5 +1,7 @@
 package org.codingeasy.shiro.authorize.mgt;
 
+import org.codingeasy.shiro.authorize.interceptor.Invoker;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +13,7 @@ public class DefaultTenantIdGenerator implements TenantIdGenerator{
 
 
 	@Override
-	public String generate(HttpServletRequest request, HttpServletResponse response) {
+	public String generate(Invoker invoker) {
 		return getDefault();
 	}
 }

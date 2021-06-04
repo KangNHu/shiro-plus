@@ -9,6 +9,18 @@ import java.util.List;
 */
 public class PermissionMetadata {
 
+
+	public PermissionMetadata(String path, RequestMethod method, List<String> permis, Logical logical, PermiModel permiModel) {
+		this.path = path;
+		this.method = method;
+		this.permis = permis;
+		this.logical = logical;
+		this.permiModel = permiModel;
+	}
+
+	public PermissionMetadata() {
+	}
+
 	/**
 	 * controller 方法的映射路径
 	 */
@@ -30,6 +42,11 @@ public class PermissionMetadata {
 
 
 	/**
+	 * 逻辑类型
+	 */
+	private Logical logical;
+
+	/**
 	 * 校验模式
 	 * @see PermiModel
 	 */
@@ -43,12 +60,21 @@ public class PermissionMetadata {
 		permissionMetadata.setPath(this.path);
 		permissionMetadata.setPermiModel(this.permiModel);
 		permissionMetadata.setPermis(new ArrayList<>(this.permis));
+		permissionMetadata.setLogical(this.logical);
 		return permissionMetadata;
 	}
 
 
 	public String getPath() {
 		return path;
+	}
+
+	public Logical getLogical() {
+		return logical;
+	}
+
+	public void setLogical(Logical logical) {
+		this.logical = logical;
 	}
 
 	public void setPath(String path) {

@@ -1,23 +1,25 @@
 package org.codingeasy.shiro.springboot.config;
 
-import org.codingeasy.shiro.authorize.interceptor.AopDynamicAuthorizationAdvisor;
-import org.codingeasy.shiro.authorize.interceptor.AopDynamicAuthorizationInterceptor;
-import org.codingeasy.shiro.authorize.interceptor.DynamicAuthorizationFilter;
+import org.codingeasy.shiro.authorize.interceptor.aop.AopDynamicAuthorizationAdvisor;
+import org.codingeasy.shiro.authorize.interceptor.aop.AopDynamicAuthorizationInterceptor;
 import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
 import org.springframework.aop.PointcutAdvisor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
 * 基于aop的动态授权自动配置  
 * @author : KangNing Hu
 */
-@ConditionalOnBean(ShiroPlusAutoConfiguration.class)
+@Configuration
+@ConditionalOnBean(AuthMetadataManager.class)
 public class AopDynamicAuthorizationAutoConfiguration extends AbstractAuthorizationAutoConfiguration{
 
 
 
-	@Bean
+	@Bean("aopDynamicAuthorizationInterceptor")
 	public AopDynamicAuthorizationInterceptor aopDynamicAuthorizationInterceptor(AuthMetadataManager authMetadataManager){
 		AopDynamicAuthorizationInterceptor aopDynamicAuthorizationInterceptor = null;
 		if (authExceptionHandler == null){
@@ -32,7 +34,7 @@ public class AopDynamicAuthorizationAutoConfiguration extends AbstractAuthorizat
 
 
 	@Bean
-	public PointcutAdvisor aopDynamicAuthorizationAdvisor(AopDynamicAuthorizationInterceptor aopDynamicAuthorizationInterceptor){
+	public PointcutAdvisor aopDynamicAuthorizationAdvisor(@Qualifier("aopDynamicAuthorizationInterceptor") AopDynamicAuthorizationInterceptor aopDynamicAuthorizationInterceptor){
 		return new AopDynamicAuthorizationAdvisor(aopDynamicAuthorizationInterceptor);
 	}
 

@@ -1,0 +1,43 @@
+{
+  "groups": [
+    {
+      "name": "shiro.plus",
+      "type": "org.codingeasy.shiro.springboot.config.ShiroPlusProperties",
+      "sourceType": "org.codingeasy.shiro.springboot.config.ShiroPlusAutoConfiguration",
+      "sourceMethod": "shiroPlusProperties()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "shiro.plus.definitions",
+      "type": "java.lang.String",
+      "description": "过滤链定义配置路径 {@link ShiroFilterFactoryBean#setFilterChainDefinitions(String)}",
+      "sourceType": "org.codingeasy.shiro.springboot.config.ShiroPlusProperties"
+    },
+    {
+      "name": "shiro.plus.filter-chain-definition",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "过滤链定义 如 anon -> \/** {@link ShiroFilterFactoryBean#setFilterChainDefinitionMap(Map)}",
+      "sourceType": "org.codingeasy.shiro.springboot.config.ShiroPlusProperties"
+    },
+    {
+      "name": "shiro.plus.login-url",
+      "type": "java.lang.String",
+      "description": "登录地址 {@link ShiroFilterFactoryBean#setLoginUrl(String)}",
+      "sourceType": "org.codingeasy.shiro.springboot.config.ShiroPlusProperties"
+    },
+    {
+      "name": "shiro.plus.success-url",
+      "type": "java.lang.String",
+      "description": "登录成功url {@link ShiroFilterFactoryBean#setSuccessUrl(String)}",
+      "sourceType": "org.codingeasy.shiro.springboot.config.ShiroPlusProperties"
+    },
+    {
+      "name": "shiro.plus.unauthorized-url",
+      "type": "java.lang.String",
+      "description": "未授权url {@link ShiroFilterFactoryBean#setUnauthorizedUrl(String)}",
+      "sourceType": "org.codingeasy.shiro.springboot.config.ShiroPlusProperties"
+    }
+  ],
+  "hints": []
+}

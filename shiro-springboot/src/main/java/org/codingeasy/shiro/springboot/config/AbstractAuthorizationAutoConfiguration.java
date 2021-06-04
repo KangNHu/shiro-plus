@@ -2,7 +2,7 @@ package org.codingeasy.shiro.springboot.config;
 
 import org.codingeasy.shiro.authorize.handler.AuthExceptionHandler;
 import org.codingeasy.shiro.authorize.handler.AuthorizationHandler;
-import org.codingeasy.shiro.authorize.interceptor.AbstractDynamicAuthorizationInterceptor;
+import org.codingeasy.shiro.authorize.interceptor.AbstractAuthorizationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public abstract class AbstractAuthorizationAutoConfiguration {
 	}
 
 
-	protected void addAuthorizationHandlers(AbstractDynamicAuthorizationInterceptor interceptor){
+	protected void addAuthorizationHandlers(AbstractAuthorizationInterceptor interceptor){
 		for (AuthorizationHandler authorizationHandler : authorizationHandlers){
 			interceptor.addAuthorizationHandler(authorizationHandler);
 		}
