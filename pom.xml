@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.codingeasy.shiro</groupId>
+    <groupId>org.codingeasy.org.codingeasy.shiro</groupId>
     <artifactId>shiro-plus</artifactId>
     <packaging>pom</packaging>
     <version>${reversion}</version>
@@ -30,8 +30,11 @@
         <!--插件依赖-->
         <maven.flatten.version>1.2.5</maven.flatten.version>
         <maven-compiler.version>3.8.1</maven-compiler.version>
+        <!--单元测试-->
+        <junit.version>4.12</junit.version>
         <!--jdk环境-->
-        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
 
@@ -66,6 +69,12 @@
                 <version>${commons.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
 
 
             <dependency>
@@ -78,14 +87,7 @@
     </dependencyManagement>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler.version}</version>
-                <configuration>
-                    <compilerVersion>${java.version}</compilerVersion>
-                </configuration>
-            </plugin>
+
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

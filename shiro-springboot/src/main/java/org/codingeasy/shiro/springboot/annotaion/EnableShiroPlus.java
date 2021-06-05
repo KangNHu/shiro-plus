@@ -28,6 +28,12 @@ public @interface EnableShiroPlus {
 
 
 	/**
+	 * 是否开启shiro原生授权方式
+	 * @return
+	 */
+	boolean originAuthor() default true;
+
+	/**
 	 * 授权模型
 	 * @see AopDynamicAuthorizationInterceptor
 	 * @see DynamicAuthorizationFilter

@@ -1,9 +1,6 @@
 package org.codingeasy.shiro.authorize.interceptor;
 
 
-import javax.servlet.ServletException;
-import java.io.IOException;
-
 /**
  * 调用器
  * @author hukangning

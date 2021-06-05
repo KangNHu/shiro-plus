@@ -4,6 +4,8 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
 * 注解相关工具类  
@@ -11,7 +13,7 @@ import java.util.Map;
 */
 public class AnnotationUtils {
 
-	private static Map<Class , Annotation> map = new HashMap<>();
+	private final static Map<Class , Annotation> map = new HashMap<>();
 
 
 	/**
@@ -23,7 +25,7 @@ public class AnnotationUtils {
 	 * @param <T> 注解类型
 	 * @return 返回一个注解对象
 	 */
-	public static  <T extends Annotation>T instantiateAnnotation(Class<T> annotationClass , Map<String , Object> attr){
+	public static  <T extends Annotation>T instantiateAnnotation(Class annotationClass , Map<String , Object> attr){
 		Annotation annotation = map.get(annotationClass);
 		AnnotationInstanceInvocationHandler.setAttr(attr);
 		if (annotation != null){
@@ -45,5 +47,38 @@ public class AnnotationUtils {
 	}
 
 
+	/**
+	 * 动态注解实例使用的回调
+	 * @param function 回调函数
+	 * @param annotationClass 注解类型
+	 * @param attr 注册属性
+	 * @param <T> 注册类型
+	 * @param <R> 返回值类型
+	 * @return 返回处理的结果
+	 */
+	public static <T ,R> R call(Function<T ,R > function , Class<T> annotationClass , Map<String , Object> attr ){
+		T annotation = instantiateAnnotation(annotationClass, attr);
+		try {
+			return function.apply(annotation);
+		}finally {
+			AnnotationInstanceInvocationHandler.removeAttr();
+		}
+	}
+
+	/**
+	 * 动态注解实例使用的回调
+	 * @param consumer 回调函数
+	 * @param annotationClass 注解类型
+	 * @param attr 注册属性
+	 * @param <T> 注册类型
+	 */
+	public static <T> void call2(Consumer<T> consumer , Class<T> annotationClass , Map<String , Object> attr ){
+		T annotation = instantiateAnnotation(annotationClass, attr);
+		try {
+			consumer.accept(annotation);
+		}finally {
+			AnnotationInstanceInvocationHandler.removeAttr();
+		}
+	}
 
 }

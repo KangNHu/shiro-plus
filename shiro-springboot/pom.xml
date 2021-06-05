@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>shiro-plus</artifactId>
-        <groupId>org.codingeasy.shiro</groupId>
+        <groupId>org.codingeasy.org.codingeasy.shiro</groupId>
         <version>${reversion}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
@@ -14,7 +14,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.codingeasy.shiro</groupId>
+            <groupId>org.codingeasy.org.codingeasy.shiro</groupId>
             <artifactId>shiro-authorize</artifactId>
             <version>${reversion}</version>
         </dependency>

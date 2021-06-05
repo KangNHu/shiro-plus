@@ -13,9 +13,9 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="shiro-authorize" target="8" />
-      <module name="shiro-example" target="8" />
-      <module name="shiro-plus" target="8" />
-      <module name="shiro-springboot" target="8" />
+      <module name="shiro-example" target="1.8" />
+      <module name="shiro-plus" target="1.8" />
+      <module name="shiro-springboot" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -37,6 +37,13 @@ public class AopAuthorizationInterceptor extends AbstractAuthorizationIntercepto
 	}
 
 
+	/**
+	 * 获取权限元信息
+	 * <p>1. 从被标记方法上获取</p>
+	 * <p>2. 从公被标记类上获取</p>
+	 * @param invoker 调用器
+	 * @return 返回权限元信息
+	 */
 	@Override
 	protected PermissionMetadata getPermissionMetadata(Invoker invoker) {
 		AopInvoker aopInvoker = (AopInvoker) invoker;
@@ -50,6 +57,10 @@ public class AopAuthorizationInterceptor extends AbstractAuthorizationIntercepto
 	}
 
 
+	protected PermissionMetadata getSuperPermissionMetadata(Invoker invoker){
+		return super.getPermissionMetadata(invoker);
+	}
+
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
 		return invoke(new AopInvoker(invocation));
@@ -62,7 +73,7 @@ public class AopAuthorizationInterceptor extends AbstractAuthorizationIntercepto
 	 * @param annotatedElement  注解元素
 	 * @return 返回授权模式
 	 */
-	private PermissionMetadata doGetPermissionMetadata(AnnotatedElement annotatedElement){
+	protected PermissionMetadata doGetPermissionMetadata(AnnotatedElement annotatedElement){
 		Annotation[] annotations = annotatedElement.getAnnotations();
 		PermissionMetadata permissionMetadata = new PermissionMetadata();
 		for (Annotation annotation : annotations){
@@ -79,7 +90,7 @@ public class AopAuthorizationInterceptor extends AbstractAuthorizationIntercepto
 				permissionMetadata.setPermiModel(PermiModel.PERMISSION);
 				RequiresPermissions requiresPermissions = (RequiresPermissions) annotation;
 				permissionMetadata.setPermis(Arrays.asList(requiresPermissions.value()));
-				permissionMetadata.setLogical(Logical.form(requiresPermissions.logical()));
+				permissionMetadata.setLogical(org.codingeasy.shiro.authorize.metadata.Logical.form(requiresPermissions.logical()));
 				return permissionMetadata;
 			}
 			if (type == RequiresRoles.class){

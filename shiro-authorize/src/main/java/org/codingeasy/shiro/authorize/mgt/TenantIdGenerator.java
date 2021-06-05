@@ -3,9 +3,6 @@ package org.codingeasy.shiro.authorize.mgt;
 import org.codingeasy.shiro.authorize.interceptor.Invoker;
 import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 /**
 * 租户id生成器  
 * @author : KangNing Hu

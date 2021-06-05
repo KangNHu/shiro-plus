@@ -1,10 +1,7 @@
 package org.codingeasy.shiro.springboot.config;
 
-import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.codingeasy.shiro.authorize.interceptor.aop.AopAuthorizationAdvisor;
 import org.codingeasy.shiro.authorize.interceptor.aop.AopAuthorizationInterceptor;
-import org.codingeasy.shiro.authorize.interceptor.aop.AopDynamicAuthorizationAdvisor;
-import org.codingeasy.shiro.authorize.interceptor.aop.AopDynamicAuthorizationInterceptor;
 import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
 import org.springframework.aop.PointcutAdvisor;
 import org.springframework.beans.factory.annotation.Qualifier;

@@ -1,5 +1,6 @@
 package org.codingeasy.shiro.authorize.metadata;
 
+import org.apache.shiro.event.Subscribe;
 import org.apache.shiro.event.support.EventListener;
 import org.apache.shiro.util.CollectionUtils;
 import org.apache.shiro.util.Initializable;
@@ -10,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
 * 权限元信息管理器  
@@ -21,7 +24,7 @@ public class AuthMetadataManager implements EventListener , Initializable {
 
 	private final Logger logger = LoggerFactory.getLogger(AuthMetadataManager.class);
 
-	private Map<String , PermissionMetadata> permissionMetadataMap = new HashMap<String, PermissionMetadata>();
+	private Map<String , Map< PermiModel, PermissionMetadata>> permissionMetadataMap = new HashMap<>();
 
 	private Map<String , GlobalMetadata> globalMetadataMap = new HashMap<>();
 
@@ -48,7 +51,9 @@ public class AuthMetadataManager implements EventListener , Initializable {
 			if (!CollectionUtils.isEmpty(permissionMetadataList)) {
 				for (PermissionMetadata permissionMetadata : permissionMetadataList) {
 					logger.info("加载权限元信息 {}", permissionMetadata.toString());
-					permissionMetadataMap.put(getCacheKey(permissionMetadata), permissionMetadata);
+					String cacheKey = getCacheKey(permissionMetadata);
+					Map<PermiModel, PermissionMetadata> map = permissionMetadataMap.computeIfAbsent(cacheKey, key -> new HashMap<>());
+					map.put(permissionMetadata.getPermiModel() , permissionMetadata);
 				}
 			}
 			//初始化全局元信息
@@ -67,12 +72,17 @@ public class AuthMetadataManager implements EventListener , Initializable {
 	/**
 	 * 获取权限元数据
 	 * @param key 权限元数据key
+	 * @param permiModel 授权模型
 	 * @return  返回权限元数据，如果没有则返回null ,且返回的是一份克隆数据
 	 */
-	public PermissionMetadata getPermissionMetadata(String key ){
+	public PermissionMetadata getPermissionMetadata(String key  ,PermiModel permiModel){
 		try {
 			permissionMetadataLock.readLock();
-			PermissionMetadata permissionMetadata = permissionMetadataMap.get(key);
+			Map<PermiModel, PermissionMetadata> map = permissionMetadataMap.get(key);
+			if (map == null){
+				return null;
+			}
+			PermissionMetadata permissionMetadata = map.get(permiModel);
 			return permissionMetadata == null ? null : permissionMetadata.clone();
 		}catch (CloneNotSupportedException e) {
 			logger.warn("clone error" ,e);
@@ -81,6 +91,8 @@ public class AuthMetadataManager implements EventListener , Initializable {
 			permissionMetadataLock.unReadLock();
 		}
 	}
+
+
 
 
 	/**
@@ -119,7 +131,7 @@ public class AuthMetadataManager implements EventListener , Initializable {
 	}
 
 
-
+	@Subscribe
 	public void onEvent(Object o) {
 		AuthMetadataEvent authMetadataEvent = (AuthMetadataEvent) o;
 		//处理权限元信息事件
@@ -139,8 +151,13 @@ public class AuthMetadataManager implements EventListener , Initializable {
 		}
 		GlobalMetadata globalMetadata = (GlobalMetadata) metadata;
 		String tenantId = globalMetadata.getTenantId();
-		tenantId = tenantId == null ? DEFAULT_TENANT_ID : tenantId;
-		doHandMetadataEvent(event , tenantId , globalMetadataLock , globalMetadataMap);
+		doHandMetadataEvent(
+				event ,
+				tenantId ,
+				globalMetadataLock ,
+				globalMetadataMap ,
+				() -> globalMetadataMap.put(tenantId == null ? DEFAULT_TENANT_ID : tenantId , globalMetadata)
+		);
 	}
 
 
@@ -155,7 +172,16 @@ public class AuthMetadataManager implements EventListener , Initializable {
 		}
 		PermissionMetadata permissionMetadata = (PermissionMetadata) metadata;
 		String cacheKey = getCacheKey(permissionMetadata);
-		doHandMetadataEvent(event , cacheKey , permissionMetadataLock , permissionMetadataMap);
+		doHandMetadataEvent(
+				event ,
+				cacheKey ,
+				permissionMetadataLock ,
+				permissionMetadataMap,
+				() ->{
+					Map<PermiModel, PermissionMetadata> map = permissionMetadataMap.computeIfAbsent(cacheKey, key -> new HashMap<>());
+					map.put(permissionMetadata.getPermiModel() , permissionMetadata);
+				}
+		);
 	}
 
 
@@ -166,7 +192,10 @@ public class AuthMetadataManager implements EventListener , Initializable {
 	 * @param readWriteLock 元数据缓存所属的读锁
 	 * @param metadataMap 元数据缓存对象
 	 */
-	private void doHandMetadataEvent(AuthMetadataEvent event , String cacheKey ,ReadWriteLock readWriteLock , Map metadataMap){
+	private void doHandMetadataEvent(AuthMetadataEvent event ,
+	                                 String cacheKey ,
+	                                 ReadWriteLock readWriteLock ,
+	                                 Map metadataMap , Callback callback){
 		EventType type = event.getType();
 		if (type == null){
 			logger.info("无效的 metadata event");
@@ -179,11 +208,9 @@ public class AuthMetadataManager implements EventListener , Initializable {
 				case DELETE://删除
 					metadataMap.remove(cacheKey);
 					break;
-				case ADD://新增
-					metadataMap.putIfAbsent(cacheKey , metadata);
-					break;
 				case UPDATE://更新
-					metadataMap.put(cacheKey , metadata);
+				case ADD://新增
+					callback.call();
 					break;
 				case CLEAN://清除
 					metadataMap.clear();
@@ -192,5 +219,14 @@ public class AuthMetadataManager implements EventListener , Initializable {
 		}finally {
 			readWriteLock.unWriteLock();
 		}
+	}
+
+
+	/**
+	 * 回调接口
+	 */
+	@FunctionalInterface
+	interface Callback{
+		void call();
 	}
 }

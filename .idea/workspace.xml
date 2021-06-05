@@ -2,105 +2,95 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="af1df7a8-5c14-4759-af6c-927f09e51b02" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_classmate_1_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_10_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_10_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_10_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_10_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_10_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_module_jackson_module_parameter_names_2_10_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_1_3_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_annotation_jakarta_annotation_api_1_3_5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__jakarta_validation_jakarta_validation_api_2_0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_core_9_0_27.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_el_9_0_27.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_tomcat_embed_tomcat_embed_websocket_9_0_27.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hibernate_validator_hibernate_validator_6_0_17_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_logging_jboss_logging_3_3_2_Final.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_25.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_configuration_processor_2_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_tomcat_2_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_validation_2_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_web_2_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_web_5_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webmvc_5_2_0_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AbstractAuthorizationAdvisor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationAdvisor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/Logical.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-example/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-example/shiro-example.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/Application.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/LoginAuthenticatingFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleAuthorizingRealm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleMetadataLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-example/src/main/resources/application.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroFilterClassPathBeanDefinitionScanner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroPlusSecurityManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusSupportConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/image/shiro-plus.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shiro-authorize/src/test/java/org/codingeasy/shiro/authorize/metadata/AuthMetadataManagerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/shiro-authorize/src/test/java/org/codingeasy/shiro/authorize/utils/AnnotationUtilsTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_11_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_api_2_12_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_11_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_logging_log4j_log4j_to_slf4j_2_12_1.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_25.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_jul_to_slf4j_1_7_28.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_1_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_1_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_autoconfigure_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_1_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_logging_2_1_0_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_starter_json_2_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_beans_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_context_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_core_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_expression_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_jcl_5_1_2_RELEASE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_aop_5_2_0_RELEASE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_23.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_25.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shiro-plus.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shiro-plus.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/shiro-authorize.iml" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/shiro-authorize.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/ReadWriteLock.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/ReadWriteLock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/annotation/DynamicAuthorization.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/annotation/DynamicAuthorization.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/AuthExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/AuthExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/AuthenticatedStateAuthorizationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/AuthenticatedStateAuthorizationHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/AuthorizationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/AuthorizationHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/PermissionAuthorizationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/PermissionAuthorizationHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/PrincipalAuthorizationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/PrincipalAuthorizationHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/ProxyAuthorizationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/ProxyAuthorizationHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/RoleAuthorizationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/RoleAuthorizationHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AbstractDynamicAuthorizationInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AbstractAuthorizationInterceptor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AopDynamicAuthorizationAdvisor.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationAdvisor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AopDynamicAuthorizationInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/UserAuthorizationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/UserAuthorizationHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AbstractAuthorizationInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AbstractAuthorizationInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AopInvoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AopInvoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AuthorizationInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AuthorizationInterceptor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AuthorizationInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/Invoker.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/WebInvoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/WebInvoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AbstractAuthorizationAdvisor.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AbstractAuthorizationAdvisor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationAdvisor.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationAdvisor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationAdvisor.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationAdvisor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationInterceptor.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationInterceptor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/AuthMetadataEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/AuthMetadataEvent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/AuthMetadataManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/AuthMetadataManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/EventType.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/EventType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/GlobalMetadata.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/GlobalMetadata.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/Logical.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/Logical.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/MetadataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/MetadataLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermiModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermiModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermissionMetadata.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermissionMetadata.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/RequestMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/RequestMethod.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/DefaultTenantIdGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/DefaultTenantIdGenerator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/DynamicPathMatchingFilterChainResolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/DynamicPathMatchingFilterChainResolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/TenantIdGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/TenantIdGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationInstanceInvocationHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationInstanceInvocationHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/AuthorizationHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/ProxyAuthorizationHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/RoleAuthorizationHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/filter/PermissionDynamicCheckFilter$PermissionInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/filter/PermissionDynamicCheckFilter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/metadata/EventType.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/metadata/PermiModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/metadata/PermissionMetadata.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/metadata/PermissionMetadataEvent.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/metadata/PermissionMetadataLoader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/metadata/PermissionMetadataManager$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/metadata/PermissionMetadataManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/metadata/RequestMethod.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/realm/AuthorizationInfoLoader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/realm/DynamicAuthorizationRealm.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/inter/permision/utils/HttpUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/HttpUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/HttpUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/handler/PermissionAuthorizationHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/handler/PermissionAuthorizationHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/handler/RoleAuthorizationHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/handler/RoleAuthorizationHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/handler/UserAuthorizationHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/handler/UserAuthorizationHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/AbstractAuthorizationInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/AbstractAuthorizationInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationFilter$DefaultAuthExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationFilter$DefaultAuthExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/WebInvoker.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/WebInvoker.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationInterceptor$DefaultAuthExceptionHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationInterceptor$DefaultAuthExceptionHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationInterceptor.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationInterceptor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/metadata/AuthMetadataManager$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/metadata/AuthMetadataManager$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/metadata/AuthMetadataManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/metadata/AuthMetadataManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/metadata/PermiModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/metadata/PermissionMetadata.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/mgt/DefaultTenantIdGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/mgt/DefaultTenantIdGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/mgt/DynamicPathMatchingFilterChainResolver.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/mgt/DynamicPathMatchingFilterChainResolver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/mgt/TenantIdGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/mgt/TenantIdGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/utils/AnnotationInstanceInvocationHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/utils/AnnotationInstanceInvocationHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/utils/AnnotationUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-authorize/target/classes/org/codingeasy/shiro/authorize/utils/AnnotationUtils.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-example/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-example/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-example/shiro-example.iml" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-example/shiro-example.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/LoginAuthenticatingFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/LoginAuthenticatingFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleAuthorizingRealm.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleAuthorizingRealm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleMetadataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleMetadataLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-example/target/classes/org/codingeasy/shiro/example/shiro/LoginAuthenticatingFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-example/target/classes/org/codingeasy/shiro/example/shiro/LoginAuthenticatingFilter.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-springboot/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-springboot/shiro-springboot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/shiro-springboot.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/AuthMetadataEventPublisher.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/AuthMetadataEventPublisher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroFilterClassPathBeanDefinitionScanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroFilterClassPathBeanDefinitionScanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroPlusSecurityManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroPlusSecurityManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/annotaion/EnableShiroPlus.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/annotaion/EnableShiroPlus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/annotaion/ShiroFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/annotaion/ShiroFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AbstractAuthorizationAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AbstractAuthorizationAutoConfiguration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AopAuthorizationAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AopAuthorizationAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AopDynamicAuthorizationAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AopDynamicAuthorizationAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/DynamicAuthorizationAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/DynamicAuthorizationAutoConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AuthorizationConfigSelector.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AuthorizationConfigSelector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusAutoConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusAutoConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusFilterFactoryBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusFilterFactoryBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-springboot/target/classes/org/codingeasy/shiro/springboot/ShiroFilterClassPathBeanDefinitionScanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/target/classes/org/codingeasy/shiro/springboot/ShiroFilterClassPathBeanDefinitionScanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-springboot/target/classes/org/codingeasy/shiro/springboot/ShiroPlusSecurityManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/target/classes/org/codingeasy/shiro/springboot/ShiroPlusSecurityManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-springboot/target/classes/org/codingeasy/shiro/springboot/config/AopAuthorizationAutoConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/target/classes/org/codingeasy/shiro/springboot/config/AopAuthorizationAutoConfiguration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shiro-springboot/target/classes/org/codingeasy/shiro/springboot/config/ShiroPlusAutoConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/shiro-springboot/target/classes/org/codingeasy/shiro/springboot/config/ShiroPlusAutoConfiguration.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/shiro-interface-permi/target/" />
@@ -121,17 +111,71 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleAuthorizingRealm.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="27" column="93" selection-start-line="27" selection-start-column="88" selection-end-line="27" selection-end-column="93" />
+            <state relative-caret-position="51">
+              <caret line="16" selection-start-line="16" selection-end-line="17" selection-end-column="62" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationUtils.java">
+        <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AbstractAuthorizationInterceptor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="36" column="41" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
+            <state relative-caret-position="128">
+              <caret line="49" column="87" selection-start-line="49" selection-start-column="57" selection-end-line="49" selection-end-column="87" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3626#3627#0" expanded="true" />
+                <element signature="e#3644#3645#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermiModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="83">
+              <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermissionMetadata.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="555">
+              <caret line="54" selection-start-line="54" selection-end-line="54" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="-2761">
+                <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+                <folding>
+                  <element signature="e#107#108#0" expanded="true" />
+                  <element signature="e#161#162#0" expanded="true" />
+                  <element signature="e#734#735#0" expanded="true" />
+                  <element signature="e#765#766#0" expanded="true" />
+                  <element signature="e#988#989#0" expanded="true" />
+                  <element signature="e#1023#1024#0" expanded="true" />
+                  <element signature="e#1067#1068#0" expanded="true" />
+                  <element signature="e#1095#1096#0" expanded="true" />
+                </folding>
+              </first_editor>
+              <second_editor />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -139,8 +183,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleMetadataLoader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="25" column="84" selection-start-line="25" selection-start-column="84" selection-end-line="25" selection-end-column="84" />
+            <state relative-caret-position="406">
+              <caret line="26" column="14" lean-forward="true" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -148,75 +192,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/PermissionAuthorizationHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="26" selection-start-line="26" selection-end-line="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationInstanceInvocationHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="660">
-              <caret line="30" selection-start-line="30" selection-end-line="30" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#478#479#0" expanded="true" />
-                <element signature="e#499#500#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="538">
+              <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/src.zip!/java/lang/ThreadLocal.java">
+        <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusAutoConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="217">
-              <caret line="159" selection-start-line="159" selection-end-line="159" />
-              <folding>
-                <element signature="e#7765#7766#0" expanded="true" />
-                <element signature="e#7802#7803#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="459">
+              <caret line="46" column="17" lean-forward="true" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authz/aop/PermissionAnnotationHandler.class">
+        <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AbstractAuthorizationAutoConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="177">
-              <caret line="27" selection-start-line="27" selection-end-line="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/aop/AnnotationHandler.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-              <folding>
-                <element signature="e#528#529#0" expanded="true" />
-                <element signature="e#577#578#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/ProxyAuthorizationHandler.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/controller/UserController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-22">
-              <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
+            <state relative-caret-position="543">
+              <caret line="36" column="35" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="60" />
             </state>
           </provider>
         </entry>
@@ -227,11 +222,11 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
-        <option value="Interface" />
         <option value="package-info" />
         <option value="AnnotationType" />
         <option value="Enum" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -254,6 +249,7 @@
       <find>onFilterConfigSet</find>
       <find>includeFilters</find>
       <find>getAuthorizationInfo</find>
+      <find>junit.version</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor</dir>
@@ -262,54 +258,30 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusAutoConfiguration.java" root0="SKIP_INSPECTION" />
-  </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroPlusInitializer.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AbstractDynamicAuthorizationInterceptor.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AopAuthorizationInterceptor.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AopDynamicAuthorizationInterceptor.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AbstractAuthorizationAdvisor.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationAdvisor.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/AuthorizationHandler.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/PermissionAuthorizationHandler.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/RoleAuthorizationHandler.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AbstractAuthorizationInterceptor.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationInterceptor.java" />
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AuthorizationInterceptor.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationInterceptor.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationInterceptor.java" />
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/TenantIdGenerator.java" />
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/DefaultTenantIdGenerator.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AbstractAuthorizationInterceptor.java" />
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationAdvisor.java" />
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/Logical.java" />
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/DynamicPathMatchingFilterChainResolver.java" />
         <option value="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/UUIDAuthenticator.java" />
         <option value="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/controller/HelloWordController.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermissionMetadata.java" />
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/GlobalMetadata.java" />
         <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AopDynamicAuthorizationAutoConfiguration.java" />
         <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AopAuthorizationAutoConfiguration.java" />
         <option value="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/Application.java" />
         <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusSupportConfiguration.java" />
-        <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/annotaion/EnableShiroPlus.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/AuthMetadataManager.java" />
-        <option value="$PROJECT_DIR$/shiro-example/src/main/resources/application.yml" />
         <option value="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/config/swagger/EnableSwagger2AutoConfig.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/config/swagger/Swagger2Configuration.java" />
         <option value="$PROJECT_DIR$/shiro-springboot/pom.xml" />
         <option value="$PROJECT_DIR$/shiro-example/pom.xml" />
-        <option value="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/controller/UserController.java" />
         <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/annotaion/ShiroFilter.java" />
         <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroFilterClassPathBeanDefinitionScanner.java" />
         <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/DynamicAuthorizationAutoConfiguration.java" />
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AuthorizationFilter.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationFilter.java" />
         <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusFilterFactoryBean.java" />
         <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusAutoConfiguration.java" />
         <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroPlusSecurityManager.java" />
@@ -317,8 +289,29 @@
         <option value="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/LoginAuthenticatingFilter.java" />
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/WebInvoker.java" />
         <option value="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleMetadataLoader.java" />
-        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationUtils.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/pom.xml" />
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationInstanceInvocationHandler.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/test/java/org/codingeasy/shiro/authorize/utils/AnnotationUtilsTest.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationUtils.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/test/java/org/codingeasy/shiro/authorize/metadata.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopAuthorizationInterceptor.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationInterceptor.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/test/java/org/codingeasy/shiro/authorize/metadata/AuthMetadataManagerTest.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/AuthMetadataManager.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/shiro-example/src/main/resources/application.yml" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AbstractAuthorizationInterceptor.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/PermissionAuthorizationHandler.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/RoleAuthorizationHandler.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationFilter.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/jmx/AuthMetadataManagerMBean.java" />
+        <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/annotaion/EnableShiroPlus.java" />
+        <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AuthorizationConfigSelector.java" />
+        <option value="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/controller/UserController.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermiModel.java" />
+        <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermissionMetadata.java" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -336,6 +329,11 @@
         <path>
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
           <item name="shiro-authorize" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+        </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="shiro-authorize" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
         </path>
         <path>
           <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
@@ -375,426 +373,6 @@
               <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
               <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="authorize" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="handler" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="interceptor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="mgt" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="authorize" type="462c0819:PsiDirectoryNode" />
-              <item name="utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-example" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-example" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-example" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-example" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-example" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-example" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-example" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-example" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-example" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-example" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="example" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-example" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-springboot" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-springboot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-springboot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-springboot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-springboot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-springboot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-springboot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-springboot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="springboot" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-springboot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="springboot" type="462c0819:PsiDirectoryNode" />
-              <item name="annotaion" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="shiro-plus" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro-springboot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="codingeasy" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="springboot" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-all:1.5.1" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-all:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="shiro-all-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-all:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="shiro-all-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-all:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="shiro-all-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="apache" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-all:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="shiro-all-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="apache" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-all:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="shiro-all-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="apache" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="concurrent" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-all:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="shiro-all-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="apache" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-core:1.5.1" type="70bed36:NamedLibraryElementNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-core:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="shiro-core-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-core:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="shiro-core-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-core:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="shiro-core-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="apache" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-core:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="shiro-core-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="apache" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="shiro-plus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="Maven: org.apache.shiro:shiro-core:1.5.1" type="70bed36:NamedLibraryElementNode" />
-              <item name="shiro-core-1.5.1.jar" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="apache" type="462c0819:PsiDirectoryNode" />
-              <item name="shiro" type="462c0819:PsiDirectoryNode" />
-              <item name="cache" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -807,7 +385,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/config" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -819,6 +397,9 @@
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/image" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="org.codingeasy.shiro.authorize.interceptor.aop" />
       <recent name="org.codingeasy.shiro.authorize.handler" />
@@ -826,6 +407,7 @@
       <recent name="org.codingeasy.shiro.authorize.interceptor" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/config" />
     </key>
   </component>
@@ -841,21 +423,72 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.Application">
-    <configuration name="RoleAuthorizationHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.codingeasy.shiro.inter.permision.RoleAuthorizationHandler" />
+  <component name="RunManager" selected="Spring Boot.Application (1)">
+    <configuration name="AnnotationUtilsTest.instantiateAnnotation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="shiro-authorize" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="org.codingeasy.shiro.inter.permision.*" />
+          <option name="PATTERN" value="org.codingeasy.org.codingeasy.shiro.authorize.utils.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="org.codingeasy.org.codingeasy.shiro.authorize.utils" />
+      <option name="MAIN_CLASS_NAME" value="org.codingeasy.org.codingeasy.shiro.authorize.utils.AnnotationUtilsTest" />
+      <option name="METHOD_NAME" value="instantiateAnnotation" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="AuthMetadataManagerTest.getGlobalMetadata" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shiro-authorize" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.codingeasy.shiro.authorize.metadata.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.codingeasy.shiro.authorize.metadata" />
+      <option name="MAIN_CLASS_NAME" value="org.codingeasy.shiro.authorize.metadata.AuthMetadataManagerTest" />
+      <option name="METHOD_NAME" value="getGlobalMetadata" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthMetadataManagerTest.getPermissionMetadata" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shiro-authorize" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.codingeasy.shiro.authorize.metadata.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.codingeasy.shiro.authorize.metadata" />
+      <option name="MAIN_CLASS_NAME" value="org.codingeasy.shiro.authorize.metadata.AuthMetadataManagerTest" />
+      <option name="METHOD_NAME" value="getPermissionMetadata" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthMetadataManagerTest.permissionMetadataEvent" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="shiro-authorize" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.codingeasy.shiro.authorize.metadata.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.codingeasy.shiro.authorize.metadata" />
+      <option name="MAIN_CLASS_NAME" value="org.codingeasy.shiro.authorize.metadata.AuthMetadataManagerTest" />
+      <option name="METHOD_NAME" value="permissionMetadataEvent" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Application (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="shiro-example" />
       <extension name="coverage">
         <pattern>
@@ -880,8 +513,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.Application" />
-        <item itemvalue="Application.RoleAuthorizationHandler" />
+        <item itemvalue="Spring Boot.Application (1)" />
+        <item itemvalue="JUnit.AuthMetadataManagerTest.permissionMetadataEvent" />
+        <item itemvalue="JUnit.AuthMetadataManagerTest.getGlobalMetadata" />
+        <item itemvalue="JUnit.AuthMetadataManagerTest.getPermissionMetadata" />
+        <item itemvalue="JUnit.AnnotationUtilsTest.instantiateAnnotation" />
       </list>
     </recent_temporary>
   </component>
@@ -900,24 +536,58 @@
       <workItem from="1622615107675" duration="110000" />
       <workItem from="1622615224350" duration="23294000" />
       <workItem from="1622697240263" duration="55727000" />
+      <workItem from="1622830404051" duration="457000" />
+      <workItem from="1622864852402" duration="14371000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="AuthMetadataManagerTest_getPermissionMetadata - 2021.06.05 at 14h 44m 03s.xml">
+      <configuration name="AuthMetadataManagerTest.getPermissionMetadata" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthMetadataManagerTest_getPermissionMetadata - 2021.06.05 at 14h 44m 30s.xml">
+      <configuration name="AuthMetadataManagerTest.getPermissionMetadata" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthMetadataManagerTest_getPermissionMetadata - 2021.06.05 at 14h 46m 12s.xml">
+      <configuration name="AuthMetadataManagerTest.getPermissionMetadata" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthMetadataManagerTest_getPermissionMetadata - 2021.06.05 at 14h 46m 28s.xml">
+      <configuration name="AuthMetadataManagerTest.getPermissionMetadata" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthMetadataManagerTest_getGlobalMetadata - 2021.06.05 at 14h 48m 08s.xml">
+      <configuration name="AuthMetadataManagerTest.getGlobalMetadata" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthMetadataManagerTest_permissionMetadataEvent - 2021.06.05 at 15h 02m 13s.xml">
+      <configuration name="AuthMetadataManagerTest.permissionMetadataEvent" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthMetadataManagerTest_permissionMetadataEvent - 2021.06.05 at 15h 03m 17s.xml">
+      <configuration name="AuthMetadataManagerTest.permissionMetadataEvent" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthMetadataManagerTest_permissionMetadataEvent - 2021.06.05 at 15h 04m 14s.xml">
+      <configuration name="AuthMetadataManagerTest.permissionMetadataEvent" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthMetadataManagerTest_permissionMetadataEvent - 2021.06.05 at 15h 05m 02s.xml">
+      <configuration name="AuthMetadataManagerTest.permissionMetadataEvent" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="AuthMetadataManagerTest_permissionMetadataEvent - 2021.06.05 at 15h 05m 45s.xml">
+      <configuration name="AuthMetadataManagerTest.permissionMetadataEvent" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85400000" />
+    <option name="totallyTimeSpent" value="100228000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1947497" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33516484" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
       <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.29183674" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.37653062" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.35918367" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.43469387" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.44693878" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -928,14 +598,14 @@
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Spring" order="12" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32959184" />
-      <window_info anchor="right" id="Bean Validation" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Maven" order="4" visible="true" weight="0.18253969" />
+      <window_info anchor="right" id="Maven" order="4" visible="true" weight="0.055555556" />
       <window_info anchor="right" id="Database" order="5" />
       <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Bean Validation" order="7" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -962,24 +632,6 @@
           <properties />
           <option name="timeStamp" value="52" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleAuthorizingRealm.java</url>
-          <line>25</line>
-          <properties />
-          <option name="timeStamp" value="67" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationInstanceInvocationHandler.java</url>
-          <line>28</line>
-          <properties />
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationInstanceInvocationHandler.java</url>
-          <line>21</line>
-          <properties />
-          <option name="timeStamp" value="90" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
@@ -996,408 +648,419 @@
   <component name="debuggerHistoryManager">
     <expressions id="evaluateCodeFragment">
       <expression>
+        <expression-string>ATTR.get()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>Thread.currentThread()</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
       </expression>
     </expressions>
+    <expressions id="breakpointCondition">
+      <expression>
+        <expression-string>method.getNa</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/src.zip!/java/lang/Class.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/event/support/EventListenerResolver.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="509" column="26" selection-start-line="509" selection-start-column="26" selection-end-line="509" selection-end-column="26" />
+        <state relative-caret-position="154">
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/src.zip!/java/lang/SecurityManager.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/event/support/AnnotationEventListenerResolver.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="226" column="6" selection-start-line="226" selection-start-column="6" selection-end-line="226" selection-end-column="6" />
+        <state relative-caret-position="151">
+          <caret line="17" column="67" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="67" />
+          <folding>
+            <element signature="e#1478#1479#0" expanded="true" />
+            <element signature="e#1521#1522#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/event/support/DefaultEventBus.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="121" selection-start-line="121" selection-end-line="121" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroPlusSecurityManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="101" selection-start-line="101" selection-end-line="101" />
+        <state relative-caret-position="170">
+          <caret line="45" column="91" selection-start-line="45" selection-start-column="91" selection-end-line="45" selection-end-column="91" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/annotaion/ShiroFilter.java">
+    <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusProperties.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="18" column="7" lean-forward="true" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-web/1.5.1/shiro-web-1.5.1-sources.jar!/org/apache/shiro/web/servlet/AbstractShiroFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8">
-          <caret line="349" column="19" selection-start-line="349" selection-start-column="19" selection-end-line="349" selection-end-column="19" />
+        <state relative-caret-position="170">
+          <caret line="69" column="16" selection-start-line="69" selection-start-column="16" selection-end-line="69" selection-end-column="16" />
           <folding>
-            <element signature="e#0#22067#0" expanded="true" />
+            <element signature="e#1401#1402#0" expanded="true" />
+            <element signature="e#1432#1433#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/web/filter/mgt/FilterChainResolver.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/web/filter/mgt/PathMatchingFilterChainResolver.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="77" selection-start-line="77" selection-end-line="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/web/filter/mgt/DefaultFilterChainManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="202" column="29" lean-forward="true" selection-start-line="202" selection-start-column="29" selection-end-line="202" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/web/servlet/AbstractShiroFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="158" selection-start-line="158" selection-end-line="158" />
-          <folding>
-            <element signature="e#1670#1671#0" expanded="true" />
-            <element signature="e#1717#1718#0" expanded="true" />
-            <element signature="e#6062#6377#0" expanded="true" />
-            <element signature="e#6376#6377#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/DynamicPathMatchingFilterChainResolver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="50" selection-start-line="50" selection-end-line="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/subject/Subject.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="65" lean-forward="true" selection-start-line="65" selection-end-line="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/subject/support/DelegatingSubject.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="184" column="48" lean-forward="true" selection-start-line="184" selection-start-column="48" selection-end-line="184" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/mgt/SecurityManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/mgt/DefaultSecurityManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="147" column="32" selection-start-line="147" selection-start-column="32" selection-end-line="147" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/mgt/AuthenticatingSecurityManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="42" column="37" lean-forward="true" selection-start-line="42" selection-start-column="37" selection-end-line="42" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authc/Authenticator.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="8" column="23" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/realm/Realm.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="14" column="12" selection-start-line="14" selection-start-column="12" selection-end-line="14" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authc/UsernamePasswordToken.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authc/BearerToken.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="7" column="24" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authc/AuthenticationToken.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authc/pam/ModularRealmAuthenticator.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="58" selection-start-line="58" selection-end-line="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/subject/PrincipalCollection.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/realm/AuthenticatingRealm.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="205" selection-start-line="205" selection-end-line="205" />
-          <folding>
-            <element signature="e#2863#2864#0" expanded="true" />
-            <element signature="e#2915#2916#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authc/AbstractAuthenticator.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="82" selection-start-line="82" selection-end-line="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authc/SimpleAuthenticationInfo.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="23" column="72" selection-start-line="23" selection-start-column="61" selection-end-line="23" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authc/AuthenticationInfo.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="13" column="11" selection-start-line="13" selection-start-column="11" selection-end-line="13" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authc/credential/SimpleCredentialsMatcher.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="e#686#687#0" expanded="true" />
-            <element signature="e#731#732#0" expanded="true" />
-            <element signature="e#795#796#0" expanded="true" />
-            <element signature="e#839#840#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AbstractAuthorizationInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="96" column="27" selection-start-line="96" selection-start-column="27" selection-end-line="96" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.27/tomcat-embed-core-9.0.27-sources.jar!/org/apache/catalina/connector/ResponseFacade.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="471" selection-start-line="471" selection-end-line="471" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.27/tomcat-embed-core-9.0.27-sources.jar!/javax/servlet/http/HttpServlet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="633" column="16" selection-start-line="633" selection-start-column="16" selection-end-line="633" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.27/tomcat-embed-core-9.0.27-sources.jar!/org/apache/catalina/core/ApplicationFilterChain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="471">
-          <caret line="238" column="19" lean-forward="true" selection-start-line="238" selection-start-column="19" selection-end-line="238" selection-end-column="19" />
+        <state relative-caret-position="150">
+          <caret line="195" selection-start-line="195" selection-end-line="195" />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/web/util/WebUtils.class">
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/RoleAuthorizationHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="335" selection-start-line="335" selection-end-line="335" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/web/filter/authc/AuthenticationFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/web/filter/authc/AuthenticatingFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/LoginAuthenticatingFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/web/filter/AccessControlFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="278">
-          <caret line="44" selection-start-line="44" selection-end-line="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/web/filter/PathMatchingFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="173">
-          <caret line="78" selection-start-line="78" selection-end-line="78" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/web/servlet/AdviceFilter.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/WebInvoker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="44" column="28" selection-start-line="44" selection-start-column="28" selection-end-line="44" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/web/util/RedirectView.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="124" selection-start-line="124" selection-end-line="124" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleAuthorizingRealm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="27" column="93" selection-start-line="27" selection-start-column="88" selection-end-line="27" selection-end-column="93" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/controller/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-22">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleMetadataLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="25" column="84" selection-start-line="25" selection-start-column="84" selection-end-line="25" selection-end-column="84" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/ProxyAuthorizationHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/PermissionAuthorizationHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authz/aop/PermissionAnnotationHandler.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/aop/AnnotationHandler.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="e#528#529#0" expanded="true" />
-            <element signature="e#577#578#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/src.zip!/java/lang/ThreadLocal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="159" selection-start-line="159" selection-end-line="159" />
-          <folding>
-            <element signature="e#7765#7766#0" expanded="true" />
-            <element signature="e#7802#7803#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="119">
+          <caret line="23" column="61" lean-forward="true" selection-start-line="23" selection-start-column="61" selection-end-line="23" selection-end-column="61" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationUtils.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="36" column="41" selection-start-line="36" selection-start-column="41" selection-end-line="36" selection-end-column="41" />
+        <state relative-caret-position="320">
+          <caret line="79" selection-start-line="79" selection-end-line="79" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/utils/AnnotationInstanceInvocationHandler.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authz/Authorizer.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="30" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="187">
+          <caret line="24" column="9" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authz/UnauthenticatedException.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+          <folding>
+            <element signature="e#309#310#0" expanded="true" />
+            <element signature="e#339#340#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/subject/support/DelegatingSubject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="131" column="46" selection-start-line="131" selection-start-column="22" selection-end-line="131" selection-end-column="46" />
+          <folding>
+            <element signature="e#3420#3421#0" expanded="true" />
+            <element signature="e#3473#3474#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_191.jdk/Contents/Home/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="938" column="18" selection-start-line="938" selection-start-column="18" selection-end-line="938" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/authz/aop/PermissionAnnotationHandler.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/shiro/shiro-all/1.5.1/shiro-all-1.5.1.jar!/org/apache/shiro/realm/AuthorizingRealm.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="307" selection-start-line="307" selection-end-line="307" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/apache/tomcat/embed/tomcat-embed-core/9.0.27/tomcat-embed-core-9.0.27-sources.jar!/org/apache/catalina/core/ApplicationHttpResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2288">
+          <caret line="124" column="16" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/javax/servlet/servlet-api/2.5/servlet-api-2.5-sources.jar!/javax/servlet/ServletResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="275" column="7" lean-forward="true" selection-start-line="275" selection-start-column="7" selection-end-line="275" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/google/guava/guava/25.1-android/guava-25.1-android.jar!/com/google/common/net/MediaType.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="406" column="37" selection-start-line="406" selection-start-column="37" selection-end-line="406" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/jmx/AuthMetadataManagerMBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AuthorizationInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="31" selection-start-line="6" selection-start-column="31" selection-end-line="6" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-springboot/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-230">
+          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/Application.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="10" selection-start-line="10" selection-end-line="17" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-example/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-example/src/main/resources/application.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AuthorizationConfigSelector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="44" column="48" selection-start-line="44" selection-start-column="48" selection-end-line="44" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/annotaion/EnableShiroPlus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="559">
+          <caret line="36" column="11" selection-start-line="36" selection-start-column="7" selection-end-line="36" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/annotaion/ShiroFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="10" column="29" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/annotation/DynamicAuthorization.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="38" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationAdvisor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/aop/AopDynamicAuthorizationInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="25" column="100" selection-start-line="25" selection-start-column="96" selection-end-line="25" selection-end-column="100" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/DynamicPathMatchingFilterChainResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="568">
+          <caret line="54" column="30" selection-start-line="54" selection-start-column="24" selection-end-line="54" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/AuthMetadataManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="22" column="69" selection-start-line="22" selection-start-column="52" selection-end-line="22" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/GlobalMetadata.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="26" column="27" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/DynamicAuthorizationFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="245">
+          <caret line="57" column="22" selection-start-line="57" selection-start-column="22" selection-end-line="57" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/AuthMetadataEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="30" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroPlusInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/AuthMetadataEventPublisher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="11" column="39" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/controller/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="648">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/test/java/org/codingeasy/shiro/authorize/metadata/AuthMetadataManagerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="65" column="209" lean-forward="true" selection-start-line="65" selection-start-column="8" selection-end-line="65" selection-end-column="209" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#478#479#0" expanded="true" />
-            <element signature="e#499#500#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/LoginAuthenticatingFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="17" selection-start-line="17" selection-end-line="18" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleAuthorizingRealm.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="16" selection-start-line="16" selection-end-line="17" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-example/src/main/java/org/codingeasy/shiro/example/shiro/SimpleMetadataLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="26" column="14" lean-forward="true" selection-start-line="26" selection-start-column="14" selection-end-line="26" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/handler/PermissionAuthorizationHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/ShiroPlusAutoConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="46" column="17" lean-forward="true" selection-start-line="46" selection-start-column="17" selection-end-line="46" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/config/AbstractAuthorizationAutoConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="543">
+          <caret line="36" column="35" lean-forward="true" selection-start-line="19" selection-start-column="39" selection-end-line="19" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/interceptor/AbstractAuthorizationInterceptor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="49" column="87" selection-start-line="49" selection-start-column="57" selection-end-line="49" selection-end-column="87" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3626#3627#0" expanded="true" />
+            <element signature="e#3644#3645#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermiModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="6" column="22" selection-start-line="6" selection-start-column="22" selection-end-line="6" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermissionMetadata.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="-2761">
+            <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+            <folding>
+              <element signature="e#107#108#0" expanded="true" />
+              <element signature="e#161#162#0" expanded="true" />
+              <element signature="e#734#735#0" expanded="true" />
+              <element signature="e#765#766#0" expanded="true" />
+              <element signature="e#988#989#0" expanded="true" />
+              <element signature="e#1023#1024#0" expanded="true" />
+              <element signature="e#1067#1068#0" expanded="true" />
+              <element signature="e#1095#1096#0" expanded="true" />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="21" column="8" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -1451,7 +1114,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>shiro-springboot</last-edited>
+          <last-edited>shiro-example</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

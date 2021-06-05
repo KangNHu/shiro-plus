@@ -3,6 +3,7 @@ package org.codingeasy.shiro.authorize.interceptor.aop;
 import org.aopalliance.intercept.MethodInvocation;
 import org.apache.shiro.authz.annotation.*;
 import org.codingeasy.shiro.authorize.handler.AuthExceptionHandler;
+import org.codingeasy.shiro.authorize.annotation.DynamicAuthorization;
 import org.codingeasy.shiro.authorize.interceptor.AopInvoker;
 import org.codingeasy.shiro.authorize.interceptor.Invoker;
 import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
@@ -16,7 +17,7 @@ import java.lang.reflect.AnnotatedElement;
 /**
  * 基于aop的动态权限拦截器
  * <p>
- * 如果使用{@link org.codingeasy.shiro.authorize.annotation.DynamicAuthorization}来标记授权目标，则授权模式以权限元信息为主
+ * 如果使用{@link DynamicAuthorization}来标记授权目标，则授权模式以权限元信息为主
  * </p>
  * <p>如果使用{@link org.apache.shiro.authz.annotation.RequiresRoles}来标记授权目标，则授权模式为{@link PermiModel#ROLE}</p>
  * <p>如果使用{@link org.apache.shiro.authz.annotation.RequiresPermissions}来标记授权目标，则授权模式为{@link PermiModel#PERMISSION}</p>
@@ -40,64 +41,29 @@ public class AopDynamicAuthorizationInterceptor extends AopAuthorizationIntercep
 	}
 
 
-
+	/**
+	 * 获取权限元信息
+	 * <p>如果被标记 {@link DynamicAuthorization} 则从{@link AuthMetadataManager}中获取</p>
+	 * <p>如果被标记 为 {@link RequiresPermissions} ,{@link RequiresUser} , {@link RequiresGuest}
+	 * , {@link RequiresRoles},{@link RequiresAuthentication} 则 从被标记方法上获取授权模式，根据授权模式
+	 * 从那个 {@link AuthMetadataManager}中获取 ，如果没有获取到则使用过被标记方法上的权限元信息，否则使用{@link AuthMetadataManager}
+	 * 中的元信息
+	 * </p>
+	 * @param invoker 调用器
+	 * @return
+	 */
 	@Override
 	protected PermissionMetadata getPermissionMetadata(Invoker invoker) {
-		PermissionMetadata permissionMetadata = this.authMetadataManager.getPermissionMetadata(invoker.getPermissionMetadataKey());
-		AopInvoker aopInvoker = (AopInvoker) invoker;
-		MethodInvocation methodInvocation = aopInvoker.getMethodInvocation();
-		PermiModel permiModel = getPermiModel(methodInvocation);
-		//如果如果方法指定了授权类型则使用指定的授权类型进行授权
-		// 否则使用权限元信息数据进行授权处理
-		if (permiModel != null){
-			permissionMetadata.setPermiModel(permiModel);
+		PermissionMetadata permissionMetadata = super.getPermissionMetadata(invoker);
+		if (permissionMetadata == null){
+			return super.getSuperPermissionMetadata(invoker);
 		}
-		return permissionMetadata;
+		String cacheKey = invoker.getPermissionMetadataKey();
+		permissionMetadata = this.authMetadataManager.getPermissionMetadata(cacheKey , permissionMetadata.getPermiModel());
+		return  permissionMetadata == null ? super.getSuperPermissionMetadata(invoker) : permissionMetadata;
 
 	}
 
-	/**
-	 * 根据调用信息返回注解配置的授权模式
-	 * @param invocation aop调用器
-	 * @return 返回授权模式
-	 */
-	private PermiModel getPermiModel(MethodInvocation invocation) {
-		//获取方法上的授权模式
-		PermiModel methodPermiModel = getPermiModel(invocation.getMethod());
-		if (methodPermiModel != null){
-			return methodPermiModel;
-		}
-		//获取类上的授权模式
-		Class<?> targetClass = AopUtils.getTargetClass(invocation.getThis());
-		return getPermiModel(targetClass);
-	}
 
-	/**
-	 * 根据annotatedElement获取注解配置的授权模式
-	 * @param annotatedElement  注解元素
-	 * @return 返回授权模式
-	 */
-	private PermiModel getPermiModel(AnnotatedElement annotatedElement){
-		Annotation[] annotations = annotatedElement.getAnnotations();
-		for (Annotation annotation : annotations){
-			Class<? extends Annotation> type = annotation.annotationType();
-			if (type == RequiresAuthentication.class){
-				return PermiModel.AUTHENTICATION;
-			}
-			if (type == RequiresGuest.class){
-				return PermiModel.PRINCIPAL;
-			}
-			if (type == RequiresPermissions.class){
-				return PermiModel.PERMISSION;
-			}
-			if (type == RequiresRoles.class){
-				return PermiModel.ROLE;
-			}
-			if (type == RequiresUser.class){
-				return PermiModel.USER;
-			}
-		}
-		return null;
-	}
 
 }

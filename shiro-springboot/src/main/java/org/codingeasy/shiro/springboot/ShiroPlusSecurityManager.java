@@ -1,6 +1,5 @@
 package org.codingeasy.shiro.springboot;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authz.Authorizer;
@@ -16,10 +15,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ApplicationContextEvent;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -29,11 +25,15 @@ import java.util.stream.Collectors;
 */
 public class ShiroPlusSecurityManager extends DefaultWebSecurityManager implements ApplicationListener<ApplicationContextEvent> {
 
-
+	private boolean init = false;
 
 	public void onApplicationEvent(ApplicationContextEvent event) {
+		if (init){
+			return;
+		}
 		//初始化组件
 		initComponent(event.getApplicationContext());
+		init = true;
 	}
 
 	/**

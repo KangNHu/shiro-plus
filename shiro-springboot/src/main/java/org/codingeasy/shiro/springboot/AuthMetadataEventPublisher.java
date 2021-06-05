@@ -5,8 +5,8 @@ import org.codingeasy.shiro.authorize.metadata.AuthMetadataEvent;
 
 /**
 * 权限元信息事件的发布器
- * <p>可发布 {@link org.codingeasy.shiro.authorize.metadata.PermissionMetadata}变更事件 </p>
- * <p>可发布 {@link org.codingeasy.shiro.authorize.metadata.GlobalMetadata}变更事件</p>
+ * <p>可发布 {@link org.codingeasy.org.codingeasy.shiro.authorize.metadata.PermissionMetadata}变更事件 </p>
+ * <p>可发布 {@link org.codingeasy.org.codingeasy.shiro.authorize.metadata.GlobalMetadata}变更事件</p>
 * @author : KangNing Hu
 */
 public class AuthMetadataEventPublisher {

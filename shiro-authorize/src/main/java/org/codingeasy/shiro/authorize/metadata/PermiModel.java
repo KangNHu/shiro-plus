@@ -4,7 +4,7 @@ package org.codingeasy.shiro.authorize.metadata;
  * 权限模式
  * @author hukangning
  */
-public enum PermiModel {
+public enum PermiModel{
 
 
 	//角色授权模式

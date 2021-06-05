@@ -1,9 +1,7 @@
 package org.codingeasy.shiro.authorize.handler;
 
-import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.authz.aop.RoleAnnotationHandler;
-import org.codingeasy.shiro.authorize.handler.AuthorizationHandler;
 import org.codingeasy.shiro.authorize.metadata.PermiModel;
 import org.codingeasy.shiro.authorize.metadata.PermissionMetadata;
 import org.codingeasy.shiro.authorize.utils.AnnotationUtils;
@@ -23,10 +21,13 @@ public class RoleAuthorizationHandler implements AuthorizationHandler {
 	@Override
 	public void authorize(PermissionMetadata permissionMetadata) {
 		Map<String , Object> attr = new HashMap<>();
-		attr.put("value" , permissionMetadata.getPermis());
+		attr.put("value" , permissionMetadata.getPermis().toArray(new String[]{}));
 		attr.put("logical" , getLogical(permissionMetadata));
-		RequiresRoles requiresRoles = AnnotationUtils.instantiateAnnotation(RequiresRoles.class, attr);
-		roleAnnotationHandler.assertAuthorized(requiresRoles);
+		AnnotationUtils.call2(
+				an -> roleAnnotationHandler.assertAuthorized(an),
+				RequiresRoles.class,
+				attr
+		);
 	}
 
 	@Override

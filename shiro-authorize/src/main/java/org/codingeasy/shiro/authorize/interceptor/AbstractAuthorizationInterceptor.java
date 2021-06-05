@@ -4,6 +4,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.AuthorizationException;
 import org.codingeasy.shiro.authorize.handler.*;
 import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
+import org.codingeasy.shiro.authorize.metadata.PermiModel;
 import org.codingeasy.shiro.authorize.metadata.PermissionMetadata;
 import org.codingeasy.shiro.authorize.mgt.DefaultTenantIdGenerator;
 import org.codingeasy.shiro.authorize.mgt.TenantIdGenerator;
@@ -111,10 +112,33 @@ public class AbstractAuthorizationInterceptor implements AuthorizationIntercepto
 
 	/**
 	 * 获取权限元信息
+	 * <p>从 {@link AuthMetadataManager}中获取</p>
 	 * @param invoker 调用器
 	 * @return 返回权限元信息
 	 */
 	protected PermissionMetadata getPermissionMetadata(Invoker invoker){
-		return this.authMetadataManager.getPermissionMetadata(invoker.getPermissionMetadataKey());
+		String cacheKey = invoker.getPermissionMetadataKey();
+		//获取 permission 授权模式
+		PermissionMetadata permissionMetadata = this.authMetadataManager.getPermissionMetadata(cacheKey, PermiModel.PERMISSION);
+		if (permissionMetadata != null){
+			return permissionMetadata;
+		}
+		//获取 role 授权模式
+		permissionMetadata = this.authMetadataManager.getPermissionMetadata(cacheKey, PermiModel.ROLE);
+		if (permissionMetadata != null){
+			return permissionMetadata;
+		}
+		//获取 user 授权模式
+		permissionMetadata = this.authMetadataManager.getPermissionMetadata(cacheKey, PermiModel.USER);
+		if (permissionMetadata != null){
+			return permissionMetadata;
+		}
+		//获取 authentication 授权模式
+		permissionMetadata = this.authMetadataManager.getPermissionMetadata(cacheKey , PermiModel.AUTHENTICATION);
+		if (permissionMetadata != null){
+			return permissionMetadata;
+		}
+		//获取 principal 授权模式
+		return this.authMetadataManager.getPermissionMetadata(cacheKey , PermiModel.PRINCIPAL);
 	}
 }

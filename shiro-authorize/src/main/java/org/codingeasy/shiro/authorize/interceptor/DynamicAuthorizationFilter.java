@@ -1,7 +1,9 @@
 package org.codingeasy.shiro.authorize.interceptor;
 
 import com.google.common.base.Charsets;
+import com.google.common.net.MediaType;
 import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.UnauthenticatedException;
 import org.codingeasy.shiro.authorize.handler.AuthExceptionHandler;
 import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
 import org.codingeasy.shiro.authorize.metadata.GlobalMetadata;
@@ -71,11 +73,16 @@ public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor
 		public void authorizationFailure(Invoker invoker , AuthorizationException e) {
 			WebInvoker webInvoker = (WebInvoker) invoker;
 			HttpServletResponse response = webInvoker.getResponse();
-			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			response.setContentType(MediaType.ANY_TEXT_TYPE.toString());
+			if (e instanceof UnauthenticatedException){
+				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			}else {
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			}
 			try {
 				response.setCharacterEncoding(Charsets.UTF_8.name());
 				PrintWriter writer = response.getWriter();
-				writer.write("拒绝请求，授权失败");
+				writer.write(e.getMessage());
 				writer.flush();
 			} catch (Exception e1) {
 				logger.warn("授权失败处理失败 ", e1);
