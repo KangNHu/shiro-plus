@@ -49,6 +49,11 @@ public class DynamicPathMatchingFilterChainResolver extends PathMatchingFilterCh
 			GlobalMetadata globalMetadata = authMetadataManager.getGlobalMetadata(getTenantId(httpServletRequest, httpServletResponse));
 			String requestURI = getPathWithinApplication(request);
 			if (globalMetadata != null) {
+				//如果不开启鉴权
+				if (!isEnableAuthentication(globalMetadata)){
+					return anonymousNamedFilterList.proxy(originalChain);
+				}
+				//对匿名访问的请求进行处理
 				List<String> anons = globalMetadata.getAnons();
 				for (String anon : anons){
 					if (pathMatches(anon , requestURI)){
@@ -59,6 +64,16 @@ public class DynamicPathMatchingFilterChainResolver extends PathMatchingFilterCh
 			}
 		}
 		return super.getChain(request, response, originalChain);
+	}
+
+	/**
+	 * 是否开启前期
+	 * @param globalMetadata 全局元数据
+	 * @return 如果开启返回true 否则为false
+	 */
+	private boolean isEnableAuthentication(GlobalMetadata globalMetadata) {
+		Boolean enableAuthentication = globalMetadata.getEnableAuthentication();
+		return enableAuthentication == null ||enableAuthentication;
 	}
 
 

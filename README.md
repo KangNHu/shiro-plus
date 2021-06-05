@@ -257,7 +257,8 @@ public class SimpleMetadataLoader implements MetadataLoader {
   
   }
   ```
-
+##### 多租户
+只需要在全局元数据中设置TenantId的值即可
   
 
 
