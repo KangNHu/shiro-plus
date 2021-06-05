@@ -1,8 +1,0 @@
-server:
-  port: 8867
-shiro:
-  plus:
-    filter-chain-definition:
-      login : /login
-    login-url: /login
-    success-url: /user
