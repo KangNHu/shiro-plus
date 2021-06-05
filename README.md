@@ -6,10 +6,10 @@
 - 对shiro 原生授权方式进行了完美的适配
 - 支持 web 和 aop动态授权的场景同事也提供了shiro原生的授权方式
 - 可以对授权类型进行高度的扩展
-- 提供了shiro filter和spring容器中的filter隔离，同时也支持spring bean 方式的注册
+- 提供了shiro filter容器和spring filter容器的隔离，同时也支持类似 spring bean 的注册注册方式
 - 和spring boot完美的集成，真正实现"零配置"
 - 提供了多租户的支持
-- 当动态授权都不开启时，可以单纯当成一个shiro框架，并且对shiro本事并没有任何侵入
+- 当动态授权都不开启时，可以单纯当成一个shiro框架，并且对shiro本身并没有任何侵入
 
 
 
