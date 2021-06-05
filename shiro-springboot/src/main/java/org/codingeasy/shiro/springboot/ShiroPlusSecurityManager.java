@@ -14,6 +14,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ApplicationContextEvent;
+import org.springframework.context.event.ContextRefreshedEvent;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -23,11 +24,11 @@ import java.util.stream.Collectors;
 *   
 * @author : KangNing Hu
 */
-public class ShiroPlusSecurityManager extends DefaultWebSecurityManager implements ApplicationListener<ApplicationContextEvent> {
+public class ShiroPlusSecurityManager extends DefaultWebSecurityManager implements ApplicationListener<ContextRefreshedEvent> {
 
 	private boolean init = false;
 
-	public void onApplicationEvent(ApplicationContextEvent event) {
+	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (init){
 			return;
 		}

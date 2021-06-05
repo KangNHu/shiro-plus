@@ -6,12 +6,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ApplicationContextEvent;
+import org.springframework.context.event.ContextRefreshedEvent;
 
 /**
 * shiro plus上下文初始化器  
 * @author : KangNing Hu
 */
-public class ShiroPlusInitializer implements ApplicationListener<ApplicationContextEvent> {
+public class ShiroPlusInitializer implements ApplicationListener<ContextRefreshedEvent> {
 
 	private static  final Logger  logger = LoggerFactory.getLogger(ShiroPlusInitializer.class);
 
@@ -25,7 +26,7 @@ public class ShiroPlusInitializer implements ApplicationListener<ApplicationCont
 	}
 
 
-	public void onApplicationEvent(ApplicationContextEvent applicationContextEvent) {
+	public void onApplicationEvent(ContextRefreshedEvent applicationContextEvent) {
 		//订阅权限元信息变更事件
 		cachingSecurityManager.getEventBus().register(authMetadataManager);
 		logger.info("订阅权限元信息变更事件成功");
