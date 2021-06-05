@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="af1df7a8-5c14-4759-af6c-927f09e51b02" name="Default Changelist" comment="" />
+    <list default="true" id="af1df7a8-5c14-4759-af6c-927f09e51b02" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/shiro-interface-permi/target/" />
     <ignored path="$PROJECT_DIR$/shiro-springboot/target/" />
@@ -32,12 +34,12 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="406">
-                <caret line="261" column="13" selection-start-line="261" selection-start-column="13" selection-end-line="261" selection-end-column="13" />
+              <first_editor relative-caret-position="242">
+                <caret line="11" column="39" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
                 <folding>
                   <element signature="e#107#108#0" expanded="true" />
                   <element signature="e#161#162#0" expanded="true" />
@@ -54,7 +56,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/DynamicPathMatchingFilterChainResolver.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="422">
@@ -223,8 +225,8 @@
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/PermissionMetadata.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/shiro-springboot/src/main/java/org/codingeasy/shiro/springboot/ShiroPlusSecurityManager.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/mgt/DynamicPathMatchingFilterChainResolver.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -626,7 +628,7 @@
       <workItem from="1622697240263" duration="55727000" />
       <workItem from="1622830404051" duration="457000" />
       <workItem from="1622864852402" duration="14718000" />
-      <workItem from="1622884921260" duration="902000" />
+      <workItem from="1622884921260" duration="1027000" />
     </task>
     <servers />
   </component>
@@ -663,13 +665,12 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101477000" />
+    <option name="totallyTimeSpent" value="101602000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.33516484" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15079366" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -1102,26 +1103,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="406">
-            <caret line="261" column="13" selection-start-line="261" selection-start-column="13" selection-end-line="261" selection-end-column="13" />
-            <folding>
-              <element signature="e#107#108#0" expanded="true" />
-              <element signature="e#161#162#0" expanded="true" />
-              <element signature="e#734#735#0" expanded="true" />
-              <element signature="e#765#766#0" expanded="true" />
-              <element signature="e#988#989#0" expanded="true" />
-              <element signature="e#1023#1024#0" expanded="true" />
-              <element signature="e#1067#1068#0" expanded="true" />
-              <element signature="e#1095#1096#0" expanded="true" />
-            </folding>
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/shiro-authorize/src/main/java/org/codingeasy/shiro/authorize/metadata/GlobalMetadata.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -1145,6 +1126,26 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="422">
           <caret line="79" column="7" lean-forward="true" selection-start-line="79" selection-start-column="7" selection-end-line="79" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="242">
+            <caret line="11" column="39" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
+            <folding>
+              <element signature="e#107#108#0" expanded="true" />
+              <element signature="e#161#162#0" expanded="true" />
+              <element signature="e#734#735#0" expanded="true" />
+              <element signature="e#765#766#0" expanded="true" />
+              <element signature="e#988#989#0" expanded="true" />
+              <element signature="e#1023#1024#0" expanded="true" />
+              <element signature="e#1067#1068#0" expanded="true" />
+              <element signature="e#1095#1096#0" expanded="true" />
+            </folding>
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

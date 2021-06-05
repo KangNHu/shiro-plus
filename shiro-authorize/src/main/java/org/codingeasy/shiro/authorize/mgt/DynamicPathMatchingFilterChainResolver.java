@@ -1,5 +1,6 @@
 package org.codingeasy.shiro.authorize.mgt;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
 import org.apache.shiro.web.filter.mgt.NamedFilterList;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
@@ -55,9 +56,11 @@ public class DynamicPathMatchingFilterChainResolver extends PathMatchingFilterCh
 				}
 				//对匿名访问的请求进行处理
 				List<String> anons = globalMetadata.getAnons();
-				for (String anon : anons){
-					if (pathMatches(anon , requestURI)){
-						return anonymousNamedFilterList.proxy(originalChain);
+				if (!CollectionUtils.isEmpty(anons)) {
+					for (String anon : anons) {
+						if (pathMatches(anon, requestURI)) {
+							return anonymousNamedFilterList.proxy(originalChain);
+						}
 					}
 				}
 
