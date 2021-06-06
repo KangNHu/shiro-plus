@@ -287,38 +287,96 @@ public class SimpleMetadataLoader implements MetadataLoader {
 }
 ```
 
-##### Handler
+##### 扩展
 
-- 授权处理器
+###### 处理器
+
+- ###### AuthorizationHandler
 
 - 使用方式
 
   ```java
+  @Component
   public class PermissionAuthorizationHandler implements AuthorizationHandler{
   
-  	private PermissionAnnotationHandler permissionAnnotationHandler = new PermissionAnnotationHandler();
   
   	@Override
   	public void authorize(PermissionMetadata permissionMetadata) {
-  		Map<String , Object> attr = new HashMap<>();
-  		attr.put("value" , permissionMetadata.getPermis().toArray(new String[]{}));
-  		attr.put("logical" , getLogical(permissionMetadata));
-  		AnnotationUtils.call2(
-  				an -> permissionAnnotationHandler.assertAuthorized(an),
-  				RequiresPermissions.class,
-  				attr
-  		);
+      // 授权处理
+  		...
   	}
   
   	@Override
   	public boolean support(PermissionMetadata permissionMetadata) {
-  		return permissionMetadata.getPermiModel() == PermiModel.PERMISSION;
+      //是否支持当前处理器
+  		...
   	}
   
   }
   ```
+
+
+###### 元数据加载器
+
+- MetadataLoader
+
+- 使用方式
+
+  ```
+  @Component
+  public class SimpleMetadataLoader implements MetadataLoader {
+  
+  
+  
+  	public List<PermissionMetadata> load() {
+  		//加载权限元信息
+  		...
+  	}
+  
+  	public List<GlobalMetadata> loadGlobal() {
+  		//加载全局元信息
+  		...
+  	}
+  }
+  
+  ```
+
+###### 授权异常处理器
+
+- AuthExceptionHandler
+
+- 使用方式
+
+  ```java
+  @Component
+  public class DefaultAuthExceptionHandler implements AuthExceptionHandler {
+  
+  
+  		@Override
+  		public void authorizationFailure(Invoker invoker , AuthorizationException e) {
+  			//异常处理
+        ...
+  		}
+  	}
+  ```
+
 ##### 多租户
-只需要在全局元数据中设置TenantId的值即可
+
+- 自定义实现TenantIdGenerator
+
+  ```
+  public class DefaultTenantIdGenerator implements TenantIdGenerator{
+  
+  
+  	@Override
+  	public String generate(Invoker invoker) {
+  		//创建租户id
+  		...
+  	}
+  }
+  ```
+
+- 在全局元数据中设置TenantId的值即可
 
 
 
