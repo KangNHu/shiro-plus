@@ -291,7 +291,7 @@ public class SimpleMetadataLoader implements MetadataLoader {
 
 ###### 处理器
 
-- ###### AuthorizationHandler
+- AuthorizationHandler
 
 - 使用方式
 
