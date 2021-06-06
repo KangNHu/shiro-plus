@@ -1,7 +1,8 @@
 package org.codingeasy.shiro.springboot.config;
 
-import org.codingeasy.shiro.authorize.interceptor.DynamicAuthorizationFilter;
-import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
+import org.codingeasy.shiro.core.event.EventManager;
+import org.codingeasy.shiro.core.interceptor.DynamicAuthorizationFilter;
+import org.codingeasy.shiro.core.metadata.AuthMetadataManager;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -15,16 +16,17 @@ import java.util.Arrays;
 * @author : KangNing Hu
 */
 @Configuration
-@ConditionalOnBean({AuthMetadataManager.class})
+@ConditionalOnBean({AuthMetadataManager.class , EventManager.class})
 public  class DynamicAuthorizationAutoConfiguration extends AbstractAuthorizationAutoConfiguration {
 
 
 
 	@Bean
-	public FilterRegistrationBean<DynamicAuthorizationFilter> dynamicAuthorizationFilter(AuthMetadataManager authMetadataManager){
+	public FilterRegistrationBean<DynamicAuthorizationFilter> dynamicAuthorizationFilter(AuthMetadataManager authMetadataManager,
+	                                                                                     EventManager eventManager){
 		FilterRegistrationBean<DynamicAuthorizationFilter> filterRegistrationBean = new FilterRegistrationBean<DynamicAuthorizationFilter>();
 		filterRegistrationBean.setOrder(Ordered.LOWEST_PRECEDENCE);
-		filterRegistrationBean.setFilter(createDynamicAuthorizationFilter(authMetadataManager));
+		filterRegistrationBean.setFilter(createDynamicAuthorizationFilter(authMetadataManager , eventManager));
 		filterRegistrationBean.setUrlPatterns(Arrays.asList("/*"));
 		return filterRegistrationBean;
 	}
@@ -33,12 +35,13 @@ public  class DynamicAuthorizationAutoConfiguration extends AbstractAuthorizatio
 	 * 创建动态授权过滤器
 	 * @return 返回动态授权过滤器
 	 */
-	private DynamicAuthorizationFilter createDynamicAuthorizationFilter(AuthMetadataManager authMetadataManager) {
+	private DynamicAuthorizationFilter createDynamicAuthorizationFilter(AuthMetadataManager authMetadataManager,
+	                                                                    EventManager eventManager) {
 		DynamicAuthorizationFilter dynamicAuthorizationFilter = null;
 		if (authExceptionHandler == null){
-			dynamicAuthorizationFilter = new DynamicAuthorizationFilter(authMetadataManager);
+			dynamicAuthorizationFilter = new DynamicAuthorizationFilter(authMetadataManager ,eventManager);
 		}else {
-			dynamicAuthorizationFilter = new DynamicAuthorizationFilter(authMetadataManager , this.authExceptionHandler);
+			dynamicAuthorizationFilter = new DynamicAuthorizationFilter(authMetadataManager , this.authExceptionHandler , eventManager);
 		}
 		//设置授权处理器
 		addAuthorizationHandlers(dynamicAuthorizationFilter);

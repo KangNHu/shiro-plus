@@ -1,8 +1,9 @@
 package org.codingeasy.shiro.springboot.config;
 
-import org.codingeasy.shiro.authorize.interceptor.aop.AopDynamicAuthorizationAdvisor;
-import org.codingeasy.shiro.authorize.interceptor.aop.AopDynamicAuthorizationInterceptor;
-import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
+import org.codingeasy.shiro.core.event.EventManager;
+import org.codingeasy.shiro.core.interceptor.aop.AopDynamicAuthorizationAdvisor;
+import org.codingeasy.shiro.core.interceptor.aop.AopDynamicAuthorizationInterceptor;
+import org.codingeasy.shiro.core.metadata.AuthMetadataManager;
 import org.springframework.aop.PointcutAdvisor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -14,18 +15,19 @@ import org.springframework.context.annotation.Configuration;
 * @author : KangNing Hu
 */
 @Configuration
-@ConditionalOnBean(AuthMetadataManager.class)
+@ConditionalOnBean({AuthMetadataManager.class , EventManager.class})
 public class AopDynamicAuthorizationAutoConfiguration extends AbstractAuthorizationAutoConfiguration{
 
 
 
 	@Bean("aopDynamicAuthorizationInterceptor")
-	public AopDynamicAuthorizationInterceptor aopDynamicAuthorizationInterceptor(AuthMetadataManager authMetadataManager){
+	public AopDynamicAuthorizationInterceptor aopDynamicAuthorizationInterceptor(AuthMetadataManager authMetadataManager ,
+	                                                                             EventManager eventManager){
 		AopDynamicAuthorizationInterceptor aopDynamicAuthorizationInterceptor = null;
 		if (authExceptionHandler == null){
-			aopDynamicAuthorizationInterceptor = new AopDynamicAuthorizationInterceptor(authMetadataManager);
+			aopDynamicAuthorizationInterceptor = new AopDynamicAuthorizationInterceptor(authMetadataManager , eventManager);
 		}else {
-			aopDynamicAuthorizationInterceptor = new AopDynamicAuthorizationInterceptor(authMetadataManager , this.authExceptionHandler);
+			aopDynamicAuthorizationInterceptor = new AopDynamicAuthorizationInterceptor(authMetadataManager , this.authExceptionHandler , eventManager);
 		}
 		//设置授权处理器
 		addAuthorizationHandlers(aopDynamicAuthorizationInterceptor);

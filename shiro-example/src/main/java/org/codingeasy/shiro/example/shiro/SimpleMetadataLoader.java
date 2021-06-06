@@ -1,6 +1,6 @@
 package org.codingeasy.shiro.example.shiro;
 
-import org.codingeasy.shiro.authorize.metadata.*;
+import org.codingeasy.shiro.core.metadata.*;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class SimpleMetadataLoader implements MetadataLoader {
 		ermissionMetadataList.add(new PermissionMetadata("/user" , RequestMethod.POST , Arrays.asList("permi:add"), null , PermiModel.PERMISSION));
 		ermissionMetadataList.add(new PermissionMetadata("/user" , RequestMethod.DELETE , Arrays.asList("permi:delete"), null , PermiModel.PERMISSION));
 		ermissionMetadataList.add(new PermissionMetadata("/user" , RequestMethod.PUT , Arrays.asList("permi:put"), null , PermiModel.PERMISSION));
-		ermissionMetadataList.add(new PermissionMetadata("/user" , RequestMethod.GET , Arrays.asList("permi:get"), null , PermiModel.PERMISSION));
+		ermissionMetadataList.add(new PermissionMetadata("/user" , RequestMethod.GET , Arrays.asList("permi:get"), null , PermiModel.AUTHENTICATION));
 		//全局配置
 		globalMetadata.add(new GlobalMetadata(null , Arrays.asList("") , true , true));
 	}

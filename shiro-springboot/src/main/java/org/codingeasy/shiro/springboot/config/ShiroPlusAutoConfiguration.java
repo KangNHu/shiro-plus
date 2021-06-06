@@ -3,12 +3,13 @@ package org.codingeasy.shiro.springboot.config;
 import org.apache.commons.collections.MapUtils;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
-import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
-import org.codingeasy.shiro.authorize.metadata.MetadataLoader;
-import org.codingeasy.shiro.authorize.mgt.DynamicPathMatchingFilterChainResolver;
-import org.codingeasy.shiro.authorize.mgt.TenantIdGenerator;
+import org.codingeasy.shiro.core.metadata.AuthMetadataManager;
+import org.codingeasy.shiro.core.metadata.MetadataLoader;
+import org.codingeasy.shiro.core.mgt.DynamicPathMatchingFilterChainResolver;
+import org.codingeasy.shiro.core.mgt.TenantIdGenerator;
 import org.codingeasy.shiro.springboot.ShiroFilterClassPathBeanDefinitionScanner;
 import org.codingeasy.shiro.springboot.ShiroPlusSecurityManager;
+import org.codingeasy.shiro.springboot.SpringAuthMetadataManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
 import org.springframework.boot.autoconfigure.AutoConfigurationPackages;
@@ -50,14 +51,6 @@ public class ShiroPlusAutoConfiguration {
 		return new ShiroPlusProperties();
 	}
 
-	/**
-	 * 注册一个权限元信息管理器
-	 * @return
-	 */
-	@Bean
-	public AuthMetadataManager authMetadataManager(@Autowired(required = false) MetadataLoader metadataLoader){
-		return new AuthMetadataManager(metadataLoader);
-	}
 
 
 	@Bean

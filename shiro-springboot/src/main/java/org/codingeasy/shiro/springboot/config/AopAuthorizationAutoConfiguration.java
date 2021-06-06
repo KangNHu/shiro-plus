@@ -1,8 +1,9 @@
 package org.codingeasy.shiro.springboot.config;
 
-import org.codingeasy.shiro.authorize.interceptor.aop.AopAuthorizationAdvisor;
-import org.codingeasy.shiro.authorize.interceptor.aop.AopAuthorizationInterceptor;
-import org.codingeasy.shiro.authorize.metadata.AuthMetadataManager;
+import org.codingeasy.shiro.core.event.EventManager;
+import org.codingeasy.shiro.core.interceptor.aop.AopAuthorizationAdvisor;
+import org.codingeasy.shiro.core.interceptor.aop.AopAuthorizationInterceptor;
+import org.codingeasy.shiro.core.metadata.AuthMetadataManager;
 import org.springframework.aop.PointcutAdvisor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
@@ -15,18 +16,19 @@ import org.springframework.context.annotation.Configuration;
 * @author : KangNing Hu
 */
 @Configuration
-@ConditionalOnBean(AuthMetadataManager.class)
+@ConditionalOnBean({AuthMetadataManager.class , EventManager.class})
 public class AopAuthorizationAutoConfiguration extends AbstractAuthorizationAutoConfiguration {
 
 
 
 	@Bean(name = "aopAuthorizationInterceptor")
-	public AopAuthorizationInterceptor aopAuthorizationInterceptor(AuthMetadataManager authMetadataManager){
+	public AopAuthorizationInterceptor aopAuthorizationInterceptor(AuthMetadataManager authMetadataManager ,
+	                                                               EventManager eventManager){
 		AopAuthorizationInterceptor aopAuthorizationInterceptor = null;
 		if (authExceptionHandler == null){
-			aopAuthorizationInterceptor = new AopAuthorizationInterceptor(authMetadataManager);
+			aopAuthorizationInterceptor = new AopAuthorizationInterceptor(authMetadataManager ,eventManager);
 		}else {
-			aopAuthorizationInterceptor = new AopAuthorizationInterceptor(authMetadataManager , this.authExceptionHandler);
+			aopAuthorizationInterceptor = new AopAuthorizationInterceptor(authMetadataManager , this.authExceptionHandler , eventManager);
 		}
 		//设置授权处理器
 		addAuthorizationHandlers(aopAuthorizationInterceptor);

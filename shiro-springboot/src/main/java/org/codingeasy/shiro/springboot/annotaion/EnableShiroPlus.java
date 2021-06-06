@@ -1,7 +1,7 @@
 package org.codingeasy.shiro.springboot.annotaion;
 
-import org.codingeasy.shiro.authorize.interceptor.DynamicAuthorizationFilter;
-import org.codingeasy.shiro.authorize.interceptor.aop.AopDynamicAuthorizationInterceptor;
+import org.codingeasy.shiro.core.interceptor.DynamicAuthorizationFilter;
+import org.codingeasy.shiro.core.interceptor.aop.AopDynamicAuthorizationInterceptor;
 import org.codingeasy.shiro.springboot.AuthorModel;
 import org.codingeasy.shiro.springboot.config.AuthorizationConfigSelector;
 import org.codingeasy.shiro.springboot.config.ShiroPlusAutoConfiguration;

@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>org.codingeasy.org.codingeasy.shiro</groupId>
-            <artifactId>shiro-authorize</artifactId>
+            <artifactId>shiro-core</artifactId>
             <version>${reversion}</version>
         </dependency>
 

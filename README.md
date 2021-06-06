@@ -10,6 +10,7 @@
 - 和spring boot完美的集成，真正实现"零配置"
 - 提供了多租户的支持
 - 当动态授权都不开启时，可以单纯当成一个shiro框架，并且对shiro本身并没有任何侵入
+- 事件处理
 
 
 
@@ -31,7 +32,7 @@ mvn clean package
 
 #### 项目结构
 
-- shiro-authorize：动态授权
+- shiro-core：核心工程 包括 事件处理 ，元信息加载，授权处理（静态和动态）
 - shiro-example：示例工程
 - shiro-springboot： spring boot的集成，模块化开发
 

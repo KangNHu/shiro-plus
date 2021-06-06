@@ -12,7 +12,7 @@
         一个shiro的加强框架
     </description>
     <modules>
-        <module>shiro-authorize</module>
+        <module>shiro-core</module>
         <module>shiro-springboot</module>
         <module>shiro-example</module>
     </modules>

@@ -1,8 +1,8 @@
 package org.codingeasy.shiro.springboot.config;
 
-import org.codingeasy.shiro.authorize.handler.AuthExceptionHandler;
-import org.codingeasy.shiro.authorize.handler.AuthorizationHandler;
-import org.codingeasy.shiro.authorize.interceptor.AbstractAuthorizationInterceptor;
+import org.codingeasy.shiro.core.handler.AuthExceptionHandler;
+import org.codingeasy.shiro.core.handler.AuthorizationHandler;
+import org.codingeasy.shiro.core.interceptor.AbstractAuthorizationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;

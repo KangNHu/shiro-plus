@@ -1,9 +1,8 @@
 package org.codingeasy.shiro.example.controller;
 
-import org.codingeasy.shiro.authorize.metadata.AuthMetadataEvent;
-import org.codingeasy.shiro.authorize.metadata.EventType;
-import org.codingeasy.shiro.authorize.metadata.PermissionMetadata;
-import org.codingeasy.shiro.springboot.AuthMetadataEventPublisher;
+import org.codingeasy.shiro.core.event.AuthMetadataEvent;
+import org.codingeasy.shiro.core.event.EventManager;
+import org.codingeasy.shiro.core.metadata.PermissionMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +16,7 @@ public class UserController {
 
 
 	@Autowired
-	private AuthMetadataEventPublisher authMetadataEventPublisher;
+	private EventManager eventManager;
 
 
 	@PostMapping()
@@ -40,7 +39,7 @@ public class UserController {
 
 	@GetMapping
 	public String get(){
-		return "查看";
+		return "get";
 	}
 
 
@@ -50,6 +49,6 @@ public class UserController {
 	 */
 	@PutMapping("/publishEvent")
 	public void publishEvent(@RequestBody PermissionMetadata permissionMetadata){
-		authMetadataEventPublisher.publish(new AuthMetadataEvent(EventType.UPDATE, permissionMetadata));
+		eventManager.publish(new AuthMetadataEvent(AuthMetadataEvent.EventType.UPDATE, permissionMetadata));
 	}
 }
