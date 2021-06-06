@@ -124,7 +124,7 @@ public class SimpleAuthorizingRealm extends AuthorizingRealm {
 
 ##### 元信息
 
-###### 元数据
+###### Metadata
 
 1. PermissionMetadata 权限元信息，用于动态授权
 
@@ -189,23 +189,81 @@ public class SimpleAuthorizingRealm extends AuthorizingRealm {
   }
   ```
 
-  
 
-###### AuthMetadataEvent
+##### 事件
 
-- 元数据变更事件
+###### 事件管理器(EventManager)
 
-- 触发事件的方式
+- EventManager#createDefaultEventBus() : 创建一个默认的事件总线
+- EventManager#publish(EventObject):发布一个事件
+- EventManager#register(EventListener)：注册一个事件监听器
+- EventManager#register(Object)：注册一个或多个事件监听器，可以是 EventListener也可以是 @org.apache.shiro.event.Subscribe
+- EventManager#unRegister(EventListener) : 移除一个事件监听器
+
+###### 内置事件
+
+- AuthMetadataEvent ：权限元信息变更事件
+- AuthorizeEvent：授权操作事件
+
+###### 自定义事件
+
+```java
+public class MyEvent implements java.util.EventObject{
+  public MyEvent(Object source) {
+		super(source);
+	}
+
+}
+```
+
+###### 发布事件
+
+```java
+private EventManager em
+
+public static void main(String[] p){
+  em.publish(new MyEvent("自定义的事件"))
+}
+
+```
+
+###### 注册事件监听器
+
+- 实现接口方式
 
   ```java
-  @Autowired
-  private AuthMetadataEventPublisher publisher
-    
+  @Component
+  public class AuthEventListener implements EventListener {
   
-  public static void main(String[] args) {
-      publisher.publish(new AuthMetadataEvent<PermissionMetadata>( EventType.UPDATE , new PermissionMetadata("/user" , RequestMethod.POST , Arrays.asList("user:add") , Logical.AND , PermiModel.ROLE)));
-  }  
+  	//判断是否是当前事件监听器监听的事件
+  	@Override
+  	public boolean accepts(Object event) {
+  		return false;
+  	}
+  	//事件处理
+  	@Override
+  	public void onEvent(Object o) {
+  
+  	}
+  }
   ```
+
+- 注解实现
+
+  ```java
+  @Component
+  public class AuthEventListener {
+  
+  	//事件处理 入参为监听的事件类型 ，注解为shiro 包下的
+  	@Subscribe
+  	public void onAuthorSucceed(AuthorizeEvent authorizeEvent){
+  		...
+  	}
+  
+  }
+  ```
+
+  
 
 ##### 组件的注册方式
 
@@ -261,7 +319,7 @@ public class SimpleMetadataLoader implements MetadataLoader {
   ```
 ##### 多租户
 只需要在全局元数据中设置TenantId的值即可
-  
+
 
 
 

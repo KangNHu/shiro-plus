@@ -1,10 +1,12 @@
 package org.codingeasy.shiro.example.event;
 
 import org.apache.shiro.event.Subscribe;
+import org.apache.shiro.event.support.EventListener;
 import org.codingeasy.shiro.core.event.AuthorizeEvent;
 import org.codingeasy.shiro.core.event.CommonEventType;
 import org.codingeasy.shiro.core.interceptor.WebInvoker;
 import org.springframework.stereotype.Component;
+
 
 /**
 *   
