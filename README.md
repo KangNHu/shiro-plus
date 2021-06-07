@@ -196,6 +196,8 @@ public class SimpleAuthorizingRealm extends AuthorizingRealm {
 
 - EventManager#createDefaultEventBus() : 创建一个默认的事件总线
 - EventManager#publish(EventObject):发布一个事件
+- EventManager#asyncPublish(EventObject):发布一个异步事件
+- EventManager#asyncPublish(EventObject event , Executor executor)：发布一个异步事件 ，需要指定一个线程池
 - EventManager#register(EventListener)：注册一个事件监听器
 - EventManager#register(Object)：注册一个或多个事件监听器，可以是 EventListener也可以是 @org.apache.shiro.event.Subscribe
 - EventManager#unRegister(EventListener) : 移除一个事件监听器
