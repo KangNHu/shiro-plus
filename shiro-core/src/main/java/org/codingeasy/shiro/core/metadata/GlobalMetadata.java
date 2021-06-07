@@ -7,7 +7,7 @@ import java.util.List;
 * 全局元信息  
 * @author : KangNing Hu
 */
-public class GlobalMetadata implements Metadata{
+public class GlobalMetadata extends AbstractMetadata{
 
 
 	public GlobalMetadata(String tenantId, List<String> anons, Boolean enableAuthentication, Boolean enableAuthorization) {
@@ -49,12 +49,9 @@ public class GlobalMetadata implements Metadata{
 
 	@Override
 	protected GlobalMetadata clone() throws CloneNotSupportedException {
-		GlobalMetadata globalMetadata = new GlobalMetadata();
-		globalMetadata.setAnons(new ArrayList<>(this.anons));
-		globalMetadata.setEnableAuthentication(this.enableAuthentication);
-		globalMetadata.setEnableAuthorization(this.enableAuthorization);
-		globalMetadata.setTenantId(this.tenantId);
-		return globalMetadata;
+		GlobalMetadata clone = (GlobalMetadata)super.clone();
+		clone.setAnons(new ArrayList<>(this.anons));
+		return clone;
 	}
 
 	public String getTenantId() {

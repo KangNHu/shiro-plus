@@ -7,7 +7,7 @@ import java.util.List;
 * 权限元信息  
 * @author : KangNing Hu
 */
-public class PermissionMetadata implements Metadata {
+public class PermissionMetadata extends AbstractMetadata {
 
 
 	public PermissionMetadata(String path, RequestMethod method, List<String> permis, Logical logical, PermiModel permiModel) {
@@ -55,13 +55,9 @@ public class PermissionMetadata implements Metadata {
 
 	@Override
 	protected PermissionMetadata clone() throws CloneNotSupportedException {
-		PermissionMetadata permissionMetadata = new PermissionMetadata();
-		permissionMetadata.setMethod(this.method);
-		permissionMetadata.setPath(this.path);
-		permissionMetadata.setPermiModel(this.permiModel);
-		permissionMetadata.setPermis(new ArrayList<>(this.permis));
-		permissionMetadata.setLogical(this.logical);
-		return permissionMetadata;
+		PermissionMetadata clone = (PermissionMetadata)super.clone();
+		clone.setPermis(new ArrayList<>(this.permis));
+		return clone;
 	}
 
 
