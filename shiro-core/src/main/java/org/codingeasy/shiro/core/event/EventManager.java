@@ -87,6 +87,16 @@ public class EventManager {
 		executor.execute(() -> this.eventBus.publish(event));
 	}
 
+
+	/**
+	 * 异步发布事件
+	 * @param event 事件对象
+	 * @param executor 异步处理的线程池
+	 */
+	public void asyncPublish(EventObject event , Executor executor){
+		executor.execute(() -> this.eventBus.publish(event));
+	}
+
 	/**
 	 * 注册一个事件监听器
 	 * @param eventListener 监听器对象
