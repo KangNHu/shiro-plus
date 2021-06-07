@@ -38,7 +38,7 @@ public class EventManager {
 	 */
 	public  Executor createDefaultExecutor(){
 		return new ThreadPoolExecutor(4,
-				Runtime.getRuntime().availableProcessors(),
+				Runtime.getRuntime().availableProcessors() +1,
 				50000,
 				TimeUnit.MILLISECONDS,
 				new LinkedBlockingDeque<>(),
