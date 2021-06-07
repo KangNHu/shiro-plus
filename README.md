@@ -32,9 +32,9 @@ mvn clean package
 
 #### 项目结构
 
-- shiro-core：核心工程 包括 事件处理 ，元信息加载，授权处理（静态和动态）
-- shiro-example：示例工程
-- shiro-springboot： spring boot的集成，模块化开发
+- shiro-plus-core：核心工程 包括 事件处理 ，元信息加载，授权处理（静态和动态）
+- shiro-plus-example：示例工程
+- shiro-plus-springboot： spring boot的集成，模块化开发
 
 #### 依赖说明
 

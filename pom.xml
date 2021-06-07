@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.codingeasy.org.codingeasy.shiro</groupId>
+    <groupId>org.codingeasy</groupId>
     <artifactId>shiro-plus</artifactId>
     <packaging>pom</packaging>
     <version>${reversion}</version>
@@ -12,9 +12,9 @@
         一个shiro的加强框架
     </description>
     <modules>
-        <module>shiro-core</module>
-        <module>shiro-springboot</module>
-        <module>shiro-example</module>
+        <module>shiro-plus-core</module>
+        <module>shiro-plus-springboot</module>
+        <module>shiro-plus-example</module>
     </modules>
 
     <properties>
@@ -39,7 +39,7 @@
 
 
     <dependencyManagement>
-        <!--shiro 依赖-->
+        <!--shiroplus 依赖-->
         <dependencies>
             <dependency>
                 <groupId>org.apache.shiro</groupId>
