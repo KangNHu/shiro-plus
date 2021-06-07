@@ -1,6 +1,7 @@
 package org.codingeasy.shiro.core.mgt;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.shiro.util.Assert;
 import org.apache.shiro.web.filter.authc.AnonymousFilter;
 import org.apache.shiro.web.filter.mgt.NamedFilterList;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
@@ -34,6 +35,7 @@ public class DynamicPathMatchingFilterChainResolver extends PathMatchingFilterCh
 
 
 	public DynamicPathMatchingFilterChainResolver(AuthMetadataManager authMetadataManager){
+		Assert.notNull(authMetadataManager , "权限元数据管理器不能为空");
 		this.authMetadataManager = authMetadataManager;
 		this.anonymousNamedFilterList = getAnonNamedFilterList();
 	}

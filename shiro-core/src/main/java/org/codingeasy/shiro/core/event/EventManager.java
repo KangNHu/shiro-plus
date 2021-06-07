@@ -6,6 +6,8 @@ import org.apache.shiro.event.support.EventListener;
 import org.apache.shiro.util.Assert;
 
 import java.util.EventObject;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
 * 事件管理器
@@ -17,9 +19,12 @@ public class EventManager {
 	private EventBus eventBus;
 
 
+	private Executor executor;
+
 	public EventManager(EventBus eventBus ){
 		Assert.notNull(eventBus , "事件总线不能为空");
 		this.eventBus = eventBus;
+		this.executor = createDefaultExecutor();
 	}
 
 
@@ -27,6 +32,31 @@ public class EventManager {
 		this(createDefaultEventBus());
 	}
 
+	/**
+	 * 创建默认线程迟
+	 * @return 返回一个线程池
+	 */
+	public  Executor createDefaultExecutor(){
+		return new ThreadPoolExecutor(4,
+				Runtime.getRuntime().availableProcessors(),
+				50000,
+				TimeUnit.MILLISECONDS,
+				new LinkedBlockingDeque<>(),
+				new ThreadFactory() {
+					private AtomicInteger count = new AtomicInteger(0);
+
+					@Override
+					public Thread newThread(Runnable r) {
+						return new Thread(r ,"Event-Thread-" + count.incrementAndGet());
+					}
+				});
+	}
+
+
+	public void setExecutor(Executor executor) {
+		Assert.notNull(executor , "设置的 executor 不能为空");
+		this.executor = executor;
+	}
 
 	/**
 	 * 创建默认的事件总线
@@ -43,12 +73,19 @@ public class EventManager {
 	/**
 	 * 发布事件
 	 * @param event 事件对象
-	 * @param <T> 事件源类型
 	 */
-	public <T>void publish(EventObject event){
+	public void publish(EventObject event){
 		eventBus.publish(event);
 	}
 
+
+	/**
+	 * 异步发布事件
+	 * @param event 事件对象
+	 */
+	public void asyncPublish(EventObject event){
+		executor.execute(() -> this.eventBus.publish(event));
+	}
 
 	/**
 	 * 注册一个事件监听器

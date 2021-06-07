@@ -63,7 +63,7 @@ public class AuthMetadataManagerTest {
 
 		eventManager.publish(new AuthMetadataEvent( AuthMetadataEvent.EventType.UPDATE , new PermissionMetadata("/user" , RequestMethod.POST , Arrays.asList("user:add") , Logical.AND , PermiModel.ROLE)));
 		eventManager.publish(new AuthMetadataEvent( AuthMetadataEvent.EventType.UPDATE , new PermissionMetadata("/user" , RequestMethod.POST , Arrays.asList("user:add:event") , Logical.AND , PermiModel.PRINCIPAL)));
-		eventManager.publish(new AuthMetadataEvent(AuthMetadataEvent.EventType.UPDATE , new GlobalMetadata(null , Arrays.asList("/swagger") , false , true) ));
+		eventManager.asyncPublish(new AuthMetadataEvent(AuthMetadataEvent.EventType.UPDATE , new GlobalMetadata(null , Arrays.asList("/swagger") , false , true) ));
 
 		Thread.sleep(1000L);
 
