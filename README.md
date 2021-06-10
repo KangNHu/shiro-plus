@@ -11,6 +11,7 @@
 - 提供了多租户的支持
 - 当动态授权都不开启时，可以单纯当成一个shiro框架，并且对shiro本身并没有任何侵入
 - 事件处理
+- 支持基于nacos的权限元信息配置
 
 
 
@@ -33,6 +34,9 @@ mvn clean package
 #### 项目结构
 
 - shiro-plus-core：核心工程 包括 事件处理 ，元信息加载，授权处理（静态和动态）
+- shiro-plus-pom: shirt plus的依赖版本管理
+- shiro-plus-loader shiro plus的元数据加载器实现
+  - shiro-plus-loader-nacos 基于ali nacos的实现
 - shiro-plus-example：示例工程
 - shiro-plus-springboot： spring boot的集成，模块化开发
 
@@ -126,7 +130,7 @@ public class SimpleAuthorizingRealm extends AuthorizingRealm {
 
 ###### Metadata
 
-1. PermissionMetadata 权限元信息，用于动态授权
+1. PermissionMetadata 权限元信息，用于动态授权 
 
    | 属性       | 说明                                                         | 默认值 |
    | ---------- | ------------------------------------------------------------ | ------ |
@@ -136,7 +140,7 @@ public class SimpleAuthorizingRealm extends AuthorizingRealm {
    | logical    | 权限校验逻辑，如果权限列表有多个值，是使用and还是or进行判断  | And    |
    | permiModel | 授权类型                                                     |        |
 
-2. PermiModel 授权类型
+2. PermiModel 授权类型<a id = "permi_model"></a>
 
    | 枚举           | 说明                                       | Shiro 注解             |
    | -------------- | ------------------------------------------ | ---------------------- |
@@ -289,6 +293,21 @@ public class SimpleMetadataLoader implements MetadataLoader {
 }
 ```
 
+##### 配置说明
+
+```yaml
+shiroplus: 
+  plus:
+    filter-chain-definition: #filter 链定义。{filterName}(@ShiroFilter#value) ->  path
+      login : /login
+    login-url: /login # 登录url
+    success-url: /user # 登录成功回调的url
+    unauthorized-url: /xxx #授权不成功回调url 该参数赞无使用 授权处理 可以使用授权异常处理器进行处理
+    definitions: #定义配置文件路径 ，不推荐使用 具体可参考shiro官网
+```
+
+
+
 ##### 扩展
 
 ###### 处理器
@@ -381,6 +400,100 @@ public class SimpleMetadataLoader implements MetadataLoader {
 - 在全局元数据中设置TenantId的值即可
 
 
+
+#### ali nacos对shiro plus的支持
+
+##### 快速开始
+
+- 激活shirt plus nacos
+
+  ```
+  @EnableShiroPlus
+  //激活nacos的支持
+  @EnableShiroPlusNacos(@NacosProperties(serverAddr = "localhost:8848"))
+  public class Application {
+  
+  	public static void main(String[] args) {
+  		SpringApplication.run(Application.class , args);
+  	}
+  }
+  ```
+
+- 配置
+
+  1. 通过`@EnableShiroPlusNacos#value`的方式进行指定nacos的配置
+
+  2. 通过yaml文件的方式指定nacos的配置
+
+     `application.yml`
+
+     ```yaml
+     nacos:
+     	serverAddr: localhost:8848
+     ```
+
+- 和nacos配置的通用之处
+
+  - 如果你的项目已经使用了nacos那么shiro plus nacos会共享你的全局配置
+  - 如果你想单独指定nacos那么执行使用nacos的原生注解`@NacosProperties`指定给`@EnableShiroPlusNacos#value`即可
+
+##### 配置说明
+
+- 本地配置
+
+```yaml
+shiroplus:
+  nacos:
+    config-type: yaml # nacos的配置格式
+    timeout: 1000 # nacos的超时时长
+    group: SHIR_PLUS_METADATA #元数据所属nacos分组
+```
+
+- 远程配置（nacos server）
+
+  - permi-model 可以参考 [点击前往](#permi_model)
+
+  - 如果远程想使用`json`,`xml`,`properties`则只需要保证如下配置规则即可
+
+  - 权限元数据配置
+
+    - dataId: org.codingeasy.shiroplus.permission.metadata
+    - group: SHIR_PLUS_METADATA
+
+    ```yaml
+    /user: # 请求path
+        get: # 如果是web请求 则为请求方法 
+            permis: permi:get1 # 该请求所需要的权限，多个用逗号隔开
+            logical: and # 权限的校验逻辑  可选 and 和 or
+            permi-model: permission # 校验模式 可选 permission ,user ,
+        post:
+            permis: permi:add
+            logical: and
+            permi-model: permission
+        delete:   
+            permis: permi:delete
+            logical: and
+            permi-model: permission 
+        put:   
+            permis: permi:put
+            logical: and
+            permi-model: permission   
+    #如果 有多个path配置则在下面追加上面格式配置即可 
+    ```
+
+  - 全局元数据配置
+
+    - dataId:org.codingeasy.shiroplus.global.metadata
+    - group:SHIR_PLUS_METADATA
+
+    ```yaml
+    default_tenant_Id: #租户id
+        anons: /u** # 需要忽略的请求 多个逗号隔开 
+        enable-authentication: true # 鉴权总开关
+        enable-authorization: true #授权总开关
+    ```
+
+    
 
 
 

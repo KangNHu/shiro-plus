@@ -10,3 +10,4 @@ shiroplus:
     success-url: /user
   nacos:
     config-type: yaml
+    timeout:
