@@ -1,13 +1,22 @@
 package org.codingeasy.shiroplus.core.interceptor.aop;
 
 import org.apache.shiro.authz.annotation.*;
+import org.apache.shiro.web.util.WebUtils;
 import org.codingeasy.shiroplus.core.event.EventManager;
 import org.codingeasy.shiroplus.core.handler.AuthExceptionHandler;
 import org.codingeasy.shiroplus.core.annotation.DynamicAuthorization;
+import org.codingeasy.shiroplus.core.interceptor.AopInvoker;
 import org.codingeasy.shiroplus.core.interceptor.Invoker;
+import org.codingeasy.shiroplus.core.interceptor.WebInvoker;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
+import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.core.metadata.PermiModel;
 import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
+import org.codingeasy.shiroplus.core.utils.PathUtils;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * 基于aop的动态权限拦截器
@@ -62,5 +71,26 @@ public class AopDynamicAuthorizationInterceptor extends AopAuthorizationIntercep
 	}
 
 
+	@Override
+	protected boolean isEnableAuthorization(Invoker invoker) {
+		AopInvoker aopInvoker = (AopInvoker) invoker;
+		Method method = aopInvoker.getMethodInvocation().getMethod();
+		//获取全局配置
+		String tenantId = this.tenantIdGenerator.generate(invoker);
+		GlobalMetadata globalMetadata = this.authMetadataManager.getGlobalMetadata(tenantId);
+		if (globalMetadata == null){
+			return true;
+		}
+		//处理anon 列表（白名单列表）
+		if (PathUtils.matches(globalMetadata.getAnons() , method.getName())){
+			return false;
+		}
+		//处理总开关
+		return globalMetadata.getEnableAuthorization() == null || globalMetadata.getEnableAuthorization();
+	}
 
+
+	public static void main(String[] args) {
+		System.out.println(PathUtils.matches(Arrays.asList("com.test.*.getUser") , "com.test.UserService.getUser"));
+	}
 }

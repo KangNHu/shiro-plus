@@ -1,5 +1,7 @@
 server:
   port: 8867
+  servlet:
+    context-path: /shiroplus
 shiroplus:
   plus:
     filter-chain-definition:

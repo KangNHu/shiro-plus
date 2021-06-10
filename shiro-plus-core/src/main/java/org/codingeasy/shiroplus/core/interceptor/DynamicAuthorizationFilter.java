@@ -4,10 +4,12 @@ import com.google.common.base.Charsets;
 import com.google.common.net.MediaType;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.shiro.web.util.WebUtils;
 import org.codingeasy.shiroplus.core.event.EventManager;
 import org.codingeasy.shiroplus.core.handler.AuthExceptionHandler;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
+import org.codingeasy.shiroplus.core.utils.PathUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,9 +59,19 @@ public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor
 
 	@Override
 	protected boolean isEnableAuthorization(Invoker invoker) {
+		WebInvoker webInvoker = (WebInvoker) invoker;
+		//获取全局配置
 		String tenantId = this.tenantIdGenerator.generate(invoker);
 		GlobalMetadata globalMetadata = this.authMetadataManager.getGlobalMetadata(tenantId);
-		return globalMetadata == null || globalMetadata.getEnableAuthorization() == null || globalMetadata.getEnableAuthorization();
+		if (globalMetadata == null){
+			return true;
+		}
+		//处理anon 列表（白名单列表）
+		if (PathUtils.matches(globalMetadata.getAnons() , WebUtils.getPathWithinApplication(webInvoker.getRequest()))){
+			return false;
+		}
+		//处理总开关
+		return globalMetadata.getEnableAuthorization() == null || globalMetadata.getEnableAuthorization();
 	}
 
 	/**

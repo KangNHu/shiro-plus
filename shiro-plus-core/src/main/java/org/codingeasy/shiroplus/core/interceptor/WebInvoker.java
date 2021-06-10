@@ -1,7 +1,7 @@
 package org.codingeasy.shiroplus.core.interceptor;
 
+import org.apache.shiro.web.util.WebUtils;
 import org.codingeasy.shiroplus.core.metadata.RequestMethod;
-import org.codingeasy.shiroplus.core.utils.HttpUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -52,6 +52,6 @@ public class WebInvoker implements Invoker {
 
 	@Override
 	public String getPermissionMetadataKey() {
-		return HttpUtils.getControlPath(this.request) + ":" + RequestMethod.form(request.getMethod());
+		return WebUtils.getPathWithinApplication(this.request) + ":" + RequestMethod.form(request.getMethod());
 	}
 }
