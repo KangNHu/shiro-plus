@@ -1,8 +1,10 @@
 server:
   port: 8867
-shiro:
+shiroplus:
   plus:
     filter-chain-definition:
       login : /login
     login-url: /login
     success-url: /user
+  nacos:
+    config-type: yaml

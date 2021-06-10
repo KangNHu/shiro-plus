@@ -8,9 +8,13 @@ import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
 * 权限元信息管理器  
@@ -142,18 +146,13 @@ public class AuthMetadataManager implements EventListener , Initializable {
 	 * @param event 事件对象
 	 */
 	private void handGlobalMetadataEvent(AuthMetadataEvent event) {
-		Object metadata = event.getSource();
-		if (!(metadata instanceof GlobalMetadata)){
-			return;
-		}
-		GlobalMetadata globalMetadata = (GlobalMetadata) metadata;
-		String tenantId = globalMetadata.getTenantId();
 		doHandMetadataEvent(
-				event ,
-				tenantId ,
+				event,
+				gm -> gm.getTenantId() == null ? DEFAULT_TENANT_ID : gm.getTenantId()  ,
 				globalMetadataLock ,
 				globalMetadataMap ,
-				() -> globalMetadataMap.put(tenantId == null ? DEFAULT_TENANT_ID : tenantId , globalMetadata)
+				(gm, cacheKey) -> globalMetadataMap.put(cacheKey , gm),
+				GlobalMetadata.class
 		);
 	}
 
@@ -163,21 +162,16 @@ public class AuthMetadataManager implements EventListener , Initializable {
 	 * @param event 事件对象
 	 */
 	private void handPermissionMetadataEvent(AuthMetadataEvent event){
-		Object metadata = event.getSource();
-		if (!(metadata instanceof PermissionMetadata)){
-			return;
-		}
-		PermissionMetadata permissionMetadata = (PermissionMetadata) metadata;
-		String cacheKey = getCacheKey(permissionMetadata);
 		doHandMetadataEvent(
 				event ,
-				cacheKey ,
+				this::getCacheKey ,
 				permissionMetadataLock ,
 				permissionMetadataMap,
-				() ->{
+				(pm , cacheKey) ->{
 					Map<PermiModel, PermissionMetadata> map = permissionMetadataMap.computeIfAbsent(cacheKey, key -> new HashMap<>());
-					map.put(permissionMetadata.getPermiModel() , permissionMetadata);
-				}
+					map.put(pm.getPermiModel() , pm);
+				},
+				PermissionMetadata.class
 		);
 	}
 
@@ -185,34 +179,52 @@ public class AuthMetadataManager implements EventListener , Initializable {
 	/**
 	 *
 	 * @param event 事件对象
-	 * @param cacheKey 元数据缓存key
+	 * @param cacheKey 元数据缓存key回调
 	 * @param readWriteLock 元数据缓存所属的读锁
 	 * @param metadataMap 元数据缓存对象
+	 * @param clazz 事件源元素类型
 	 */
-	private void doHandMetadataEvent(AuthMetadataEvent event ,
-	                                 String cacheKey ,
+	private <T>void doHandMetadataEvent(AuthMetadataEvent event ,
+	                                 Function<T , String> cacheKey,
 	                                 ReadWriteLock readWriteLock ,
-	                                 Map metadataMap , Callback callback){
+	                                 Map metadataMap ,
+                                     BiConsumer<T ,String> callback,
+	                                 Class<T> clazz){
 		AuthMetadataEvent.EventType type = event.getType();
 		if (type == null){
 			logger.info("无效的 metadata event");
 			return;
 		}
+		//处理list 或 单个元素
 		Object metadata = event.getSource();
+		List<Object> list = new ArrayList<>();
+		if (metadata instanceof List){
+			list = (List<Object>) metadata;
+		}else {
+			list.add(metadata);
+		}
+		//进行变更处理
 		try {
 			readWriteLock.writeLock();
-			switch (type){
-				case DELETE://删除
-					metadataMap.remove(cacheKey);
-					break;
-				case UPDATE://更新
-				case ADD://新增
-					callback.call();
-					break;
-				case CLEAN://清除
-					metadataMap.clear();
+			for (Object o : list) {
+				if (!clazz.isAssignableFrom(o.getClass())){
+					continue;
+				}
+				String key = cacheKey.apply((T) o);
+				switch (type) {
+					case DELETE://删除
+						metadataMap.remove(key);
+						break;
+					case UPDATE://更新
+					case ADD://新增
+						callback.accept((T) o , key);
+						break;
+					case CLEAN://清除
+						metadataMap.clear();
+				}
+				logger.info("处理 metadata event {} 事件类型 {} " ,
+						metadata.toString() , type.name());
 			}
-			logger.info("处理 metadata event {}" , metadata.toString());
 		}finally {
 			readWriteLock.unWriteLock();
 		}

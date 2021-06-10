@@ -27,7 +27,6 @@ public class LoginAuthenticatingFilter extends AuthenticatingFilter {
 
 	protected AuthenticationToken createToken(ServletRequest servletRequest, ServletResponse servletResponse) throws Exception {
 		//为了方便 这里登陆信息从query中获取 实际生成中 请放form表单提交 或 post application/json提交
-
 		HttpServletRequest httpServletRequest = WebUtils.toHttp(servletRequest);
 		final String username = httpServletRequest.getParameter("username");
 		final String password = httpServletRequest.getParameter("password");

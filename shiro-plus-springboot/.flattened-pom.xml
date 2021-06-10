@@ -4,12 +4,13 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.codingeasy</groupId>
-    <artifactId>shiro-plus</artifactId>
+    <artifactId>shiro-plus-pom</artifactId>
     <version>1.0.0.SNAPSHOT</version>
   </parent>
   <groupId>org.codingeasy</groupId>
   <artifactId>shiro-plus-springboot</artifactId>
   <version>1.0.0.SNAPSHOT</version>
+  <description>shiro plus 与spring boot集成</description>
   <dependencies>
     <dependency>
       <groupId>org.codingeasy</groupId>

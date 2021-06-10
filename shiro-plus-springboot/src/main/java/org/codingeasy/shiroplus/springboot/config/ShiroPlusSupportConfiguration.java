@@ -24,7 +24,7 @@ public class ShiroPlusSupportConfiguration {
 	 * @return
 	 */
 	@Bean
-	public EventManager eventBus(SecurityManager cachingSecurityManager){
+	public EventManager eventManager(SecurityManager cachingSecurityManager){
 		return new EventManager(((CachingSecurityManager) cachingSecurityManager).getEventBus());
 	}
 

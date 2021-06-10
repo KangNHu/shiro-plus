@@ -16,6 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class EventManager {
 
 
+	private static CommonEventListenerResolver commonEventListenerResolver =  new CommonEventListenerResolver();
+
 	private EventBus eventBus;
 
 
@@ -24,12 +26,20 @@ public class EventManager {
 	public EventManager(EventBus eventBus ){
 		Assert.notNull(eventBus , "事件总线不能为空");
 		this.eventBus = eventBus;
+		if (this.eventBus instanceof DefaultEventBus){
+			((DefaultEventBus) this.eventBus).setEventListenerResolver(commonEventListenerResolver);
+		}
 		this.executor = createDefaultExecutor();
 	}
 
 
 	public EventManager(){
 		this(createDefaultEventBus());
+	}
+
+
+	public Executor getExecutor() {
+		return executor;
 	}
 
 	/**
@@ -64,7 +74,7 @@ public class EventManager {
 	 */
 	public static EventBus createDefaultEventBus(){
 		DefaultEventBus defaultEventBus = new DefaultEventBus();
-		defaultEventBus.setEventListenerResolver(new CommonEventListenerResolver());
+		defaultEventBus.setEventListenerResolver(commonEventListenerResolver);
 		return defaultEventBus;
 	}
 

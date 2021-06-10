@@ -43,8 +43,8 @@ public class ShiroPlusAutoConfiguration {
 	 * 注册一个shiro plus的属性对象
 	 * @return
 	 */
-	@ConfigurationProperties("shiroplus.plus")
 	@Bean
+	@ConfigurationProperties("shiroplus.plus")
 	public ShiroPlusProperties shiroPlusProperties(){
 		return new ShiroPlusProperties();
 	}

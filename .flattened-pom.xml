@@ -11,61 +11,17 @@
     <module>shiro-plus-core</module>
     <module>shiro-plus-springboot</module>
     <module>shiro-plus-example</module>
+    <module>shiro-plus-loader</module>
+    <module>shiro-plus-pom</module>
   </modules>
   <properties>
-    <junit.version>4.12</junit.version>
-    <commons.version>3.11</commons.version>
-    <maven-compiler.version>3.8.1</maven-compiler.version>
-    <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
-    <servlet.version>2.5</servlet.version>
-    <maven.compiler.target>1.8</maven.compiler.target>
-    <shiro.versio>1.5.1</shiro.versio>
-    <spring-aop.version>5.2.0.RELEASE</spring-aop.version>
+    <maven.flatten.version>1.2.5</maven.flatten.version>
     <reversion>1.0.0.SNAPSHOT</reversion>
     <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.flatten.version>1.2.5</maven.flatten.version>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven-compiler.version>3.8.1</maven-compiler.version>
+    <junit.version>4.12</junit.version>
   </properties>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.apache.shiro</groupId>
-        <artifactId>shiro-all</artifactId>
-        <version>${shiro.versio}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-configuration-processor</artifactId>
-        <version>${spring-boot.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter</artifactId>
-        <version>${spring-boot.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
-        <version>${servlet.version}</version>
-        <optional>false</optional>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>${commons.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${junit.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-aop</artifactId>
-        <version>${spring-aop.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
   <build>
     <plugins>
       <plugin>
