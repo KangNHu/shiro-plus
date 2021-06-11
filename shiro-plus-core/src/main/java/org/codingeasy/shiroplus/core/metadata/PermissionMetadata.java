@@ -1,5 +1,7 @@
 package org.codingeasy.shiroplus.core.metadata;
 
+import org.codingeasy.shiroplus.core.utils.CopyUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +58,7 @@ public class PermissionMetadata extends AbstractMetadata {
 	@Override
 	protected PermissionMetadata clone() throws CloneNotSupportedException {
 		PermissionMetadata clone = (PermissionMetadata)super.clone();
-		clone.setPermis(new ArrayList<>(this.permis));
+		clone.setPermis(CopyUtils.copyList(this.permis));
 		return clone;
 	}
 

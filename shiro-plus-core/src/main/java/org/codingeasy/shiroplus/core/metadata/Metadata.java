@@ -1,6 +1,7 @@
 package org.codingeasy.shiroplus.core.metadata;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
 * 元信息  
@@ -16,7 +17,11 @@ public interface Metadata extends Serializable , Cloneable {
 	 */
 	void setAttr(String key , Object value);
 
-
+	/**
+	 * 设置属性
+	 * @param map 待设置的map
+	 */
+	void setAttr(Map<String , Object> map);
 	/**
 	 * 获取属性
 	 * @param key 属性key

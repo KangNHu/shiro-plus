@@ -1,7 +1,10 @@
 package org.codingeasy.shiroplus.core.metadata;
 
 
+import org.codingeasy.shiroplus.core.utils.CopyUtils;
+
 import java.util.HashMap;
+import java.util.Map;
 
 /**
 * 抽象的元信息  
@@ -18,6 +21,14 @@ public class AbstractMetadata implements Metadata {
 	 */
 	public void setAttr(String key , Object value){
 		this.attr.put(key  ,value);
+	}
+
+	/**
+	 * 设置属性
+	 * @param map 待设置的map
+	 */
+	public void setAttr(Map<String , Object> map){
+		this.attr.putAll(map);
 	}
 
 
@@ -47,7 +58,7 @@ public class AbstractMetadata implements Metadata {
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		AbstractMetadata clone = (AbstractMetadata) super.clone();
-		clone.attr = (HashMap<String, Object>) this.attr.clone();
+		clone.setAttr((HashMap<String, Object>)CopyUtils.copyMap(this.attr));
 		return clone;
 	}
 }

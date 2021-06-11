@@ -1,5 +1,7 @@
 package org.codingeasy.shiroplus.core.metadata;
 
+import org.codingeasy.shiroplus.core.utils.CopyUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +52,7 @@ public class GlobalMetadata extends AbstractMetadata{
 	@Override
 	protected GlobalMetadata clone() throws CloneNotSupportedException {
 		GlobalMetadata clone = (GlobalMetadata)super.clone();
-		clone.setAnons(new ArrayList<>(this.anons));
+		clone.setAnons(CopyUtils.copyList(this.anons));
 		return clone;
 	}
 

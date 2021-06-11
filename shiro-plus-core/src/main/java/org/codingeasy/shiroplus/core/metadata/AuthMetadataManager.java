@@ -1,5 +1,6 @@
 package org.codingeasy.shiroplus.core.metadata;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.event.support.EventListener;
 import org.apache.shiro.util.CollectionUtils;
 import org.apache.shiro.util.Initializable;
@@ -52,6 +53,12 @@ public class AuthMetadataManager implements EventListener , Initializable {
 			List<PermissionMetadata> permissionMetadataList = metadataLoader.load();
 			if (!CollectionUtils.isEmpty(permissionMetadataList)) {
 				for (PermissionMetadata permissionMetadata : permissionMetadataList) {
+					//如果key存在空则忽略
+					if (permissionMetadata.getMethod() == null ||
+							StringUtils.isEmpty(permissionMetadata.getPath() )){
+						logger.info("配置的主要信息为空，忽略配置 {}" , permissionMetadata.toString());
+						continue;
+					}
 					logger.info("加载权限元信息 {}", permissionMetadata.toString());
 					String cacheKey = getCacheKey(permissionMetadata);
 					Map<PermiModel, PermissionMetadata> map = permissionMetadataMap.computeIfAbsent(cacheKey, key -> new HashMap<>());
@@ -231,11 +238,7 @@ public class AuthMetadataManager implements EventListener , Initializable {
 	}
 
 
-	/**
-	 * 回调接口
-	 */
-	@FunctionalInterface
-	interface Callback{
-		void call();
+	public static void main(String[] args) {
+		System.out.println("sss" + null);
 	}
 }
