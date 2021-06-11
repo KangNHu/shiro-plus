@@ -98,7 +98,7 @@ public class AbstractAuthorizationInterceptor implements AuthInterceptor {
 					try {
 						authorizationHandler.authorize(permissionMetadata);
 						//发送授权成功事件
-						eventManager.publish(new AuthorizeEvent(invoker , CommonEventType.SUCCEED));
+						eventManager.asyncPublish(new AuthorizeEvent(invoker , CommonEventType.SUCCEED));
 					} catch (AuthorizationException a) {
 						logger.warn("请求 [{},{},{}] 权限校验失败 {}",
 								permissionMetadata.getPath(),
@@ -106,7 +106,7 @@ public class AbstractAuthorizationInterceptor implements AuthInterceptor {
 								permissionMetadata.getPermiModel(),
 								permissionMetadata.toString());
 						//发送授权失败事件
-						eventManager.publish(new AuthorizeEvent(invoker , CommonEventType.FAIL));
+						eventManager.asyncPublish(new AuthorizeEvent(invoker , CommonEventType.FAIL));
 						//异常处理
 						this.authExceptionHandler.authorizationFailure(invoker, a);
 					}
