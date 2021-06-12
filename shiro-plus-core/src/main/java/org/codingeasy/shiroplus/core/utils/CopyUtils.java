@@ -8,7 +8,7 @@ import java.util.Map;
 /**
 *
  *   copy 工具类
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class CopyUtils {
 

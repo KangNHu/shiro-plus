@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 /**
 *   
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class ShiroPlusSecurityManager extends DefaultWebSecurityManager implements ApplicationListener<ContextRefreshedEvent> {
 

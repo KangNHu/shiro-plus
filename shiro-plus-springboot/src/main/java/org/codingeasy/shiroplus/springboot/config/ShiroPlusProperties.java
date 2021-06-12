@@ -6,8 +6,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
-* shiroplus plus的配置文件
-* @author : KangNing Hu
+* shiro  plus的配置文件
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class ShiroPlusProperties {
 

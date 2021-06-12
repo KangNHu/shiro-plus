@@ -9,7 +9,7 @@ import java.util.function.Function;
 
 /**
 * 注解相关工具类  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class AnnotationUtils {
 

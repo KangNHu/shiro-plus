@@ -5,7 +5,7 @@ import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 
 /**
 * 基于nacos的权限元信息  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class NacosPermissionMetadata extends PermissionMetadata implements NacosMetadata{
 

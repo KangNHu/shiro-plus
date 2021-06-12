@@ -11,7 +11,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 
 /**
 * 基于spring的权限元信息管理器  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class SpringAuthMetadataManager extends AuthMetadataManager  implements ApplicationListener<ContextRefreshedEvent> {
 

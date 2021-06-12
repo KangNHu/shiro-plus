@@ -26,7 +26,7 @@ import java.util.Set;
  * 即{@link org.springframework.beans.factory.support.DefaultListableBeanFactory#registerSingleton(String, Object)}
  * 因此这里不能在{@link ConditionalOnBean#value()}加{@link ConfigServiceBeanBuilder}条件
  * </p>
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 @Configuration
 @ConditionalOnBean(value = EventManager.class)

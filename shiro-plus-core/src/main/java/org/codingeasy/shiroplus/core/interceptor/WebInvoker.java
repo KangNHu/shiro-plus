@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
 * 基于web的调用  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class WebInvoker implements Invoker {
 

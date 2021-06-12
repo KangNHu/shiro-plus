@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
 * 事件管理器
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class EventManager {
 

@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 /**
 * 认证状态授权模式处理器  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class AuthenticatedStateAuthorizationHandler implements AuthorizationHandler {
 

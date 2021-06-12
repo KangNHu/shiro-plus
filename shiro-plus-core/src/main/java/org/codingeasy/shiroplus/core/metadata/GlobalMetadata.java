@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
 * 全局元信息  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class GlobalMetadata extends AbstractMetadata{
 

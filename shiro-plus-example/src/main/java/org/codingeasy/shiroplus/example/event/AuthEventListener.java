@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 /**
 *   
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 @Component
 public class AuthEventListener {

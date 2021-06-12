@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 /**
 *   
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 @RequestMapping("user")
 @RestController

@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
 *   基于角色的授权处理器
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class RoleAuthorizationHandler implements AuthorizationHandler {
 

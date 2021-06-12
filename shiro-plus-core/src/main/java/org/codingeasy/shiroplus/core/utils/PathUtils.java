@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
 *   http 相关工具类
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class PathUtils {
 

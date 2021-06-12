@@ -5,7 +5,7 @@ import org.aopalliance.intercept.MethodInvocation;
 
 /**
 * 基于aop的调用器  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public  class  AopInvoker implements Invoker {
 

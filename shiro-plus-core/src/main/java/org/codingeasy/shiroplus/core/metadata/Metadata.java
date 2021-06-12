@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
-* 元信息  
-* @author : KangNing Hu
+* 元信息标识
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public interface Metadata extends Serializable , Cloneable {
 

@@ -29,7 +29,7 @@ import java.util.Arrays;
  * <p>如果使用{@link org.apache.shiro.authz.annotation.RequiresGuest}来标记授权目标，则授权模式为{@link PermiModel#PRINCIPAL}</p>
  * <p>如果使用{@link org.apache.shiro.authz.annotation.RequiresUser}来标记授权目标，则授权模式为{@link PermiModel#USER}</p>
  *
- * @author : KangNing Hu
+ * @author : kangning <a>2035711178@qq.com</a>
  */
 public class AopDynamicAuthorizationInterceptor extends AopAuthorizationInterceptor {
 

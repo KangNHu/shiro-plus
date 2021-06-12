@@ -21,7 +21,7 @@ import java.util.Arrays;
 
 /**
 * 基于aop的授权管理  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class AopAuthorizationInterceptor extends AbstractAuthorizationInterceptor implements MethodInterceptor {
 

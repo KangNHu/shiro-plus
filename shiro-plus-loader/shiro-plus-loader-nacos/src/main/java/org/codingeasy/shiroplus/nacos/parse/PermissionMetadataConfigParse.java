@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 /**
 * 权限元信息配置解析器  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class PermissionMetadataConfigParse implements ConfigParse<NacosPermissionMetadata> {
 

@@ -11,7 +11,7 @@ import java.util.*;
 /**
 * 配置解析的委托器
  * @see ConfigParse
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class ConfigParseDelegate {
 

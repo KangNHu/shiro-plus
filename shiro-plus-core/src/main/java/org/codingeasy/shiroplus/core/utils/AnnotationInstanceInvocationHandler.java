@@ -7,7 +7,7 @@ import java.util.Objects;
 
 /**
 * 注解实例调用处理器  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class AnnotationInstanceInvocationHandler implements InvocationHandler {
 

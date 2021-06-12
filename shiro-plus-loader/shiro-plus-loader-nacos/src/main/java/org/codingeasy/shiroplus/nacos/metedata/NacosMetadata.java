@@ -4,7 +4,7 @@ import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
 
 /**
  * nacos 元信息标示
- * @author hukangning
+ * @author kangning <a>2035711178@qq.com</a>
  */
 public interface NacosMetadata {
 

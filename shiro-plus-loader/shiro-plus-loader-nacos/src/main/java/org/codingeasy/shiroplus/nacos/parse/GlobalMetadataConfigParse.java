@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 /**
 * 全局元数据配置解析器  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class GlobalMetadataConfigParse  implements ConfigParse<NacosGlobalMetadata>{
 

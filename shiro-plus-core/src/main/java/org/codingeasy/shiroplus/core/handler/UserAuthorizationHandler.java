@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 /**
 *   基于用户信息是否存在状态的授权处理器
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class UserAuthorizationHandler implements AuthorizationHandler {
 

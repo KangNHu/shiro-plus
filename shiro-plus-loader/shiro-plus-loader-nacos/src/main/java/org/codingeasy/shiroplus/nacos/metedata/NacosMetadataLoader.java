@@ -1,8 +1,10 @@
 package org.codingeasy.shiroplus.nacos.metedata;
 
+import com.alibaba.nacos.api.config.ConfigChangeEvent;
 import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.api.config.listener.Listener;
 import com.alibaba.nacos.api.exception.NacosException;
+import com.alibaba.nacos.client.config.listener.impl.AbstractConfigChangeListener;
 import com.alibaba.nacos.spring.context.event.config.EventPublishingConfigService;
 import com.alibaba.nacos.spring.util.ConfigParseUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * 基于nacos的元数据加载器
  *
- * @author : KangNing Hu
+ * @author : kangning <a>2035711178@qq.com</a>
  */
 public class NacosMetadataLoader implements MetadataLoader, ApplicationListener<ContextRefreshedEvent> {
 
@@ -177,4 +179,15 @@ public class NacosMetadataLoader implements MetadataLoader, ApplicationListener<
 		}
 	}
 
+
+
+	private static class MetadataListener extends AbstractConfigChangeListener{
+
+		@Override
+		public void receiveConfigChange(ConfigChangeEvent event) {
+
+		}
+
+
+	}
 }

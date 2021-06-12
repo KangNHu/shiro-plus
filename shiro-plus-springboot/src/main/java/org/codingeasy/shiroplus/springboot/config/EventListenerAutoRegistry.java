@@ -11,7 +11,7 @@ import org.springframework.core.Ordered;
 * 事件监听器自动注册器
  * @see org.apache.shiro.event.Subscribe
  * @see org.apache.shiro.event.support.EventListener
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class EventListenerAutoRegistry implements SmartInstantiationAwareBeanPostProcessor, Ordered {
 

@@ -5,7 +5,7 @@ import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 
 /**
 * 基于nacos的全局元信息  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class NacosGlobalMetadata extends GlobalMetadata implements NacosMetadata {
 	/**

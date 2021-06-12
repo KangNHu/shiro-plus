@@ -14,7 +14,7 @@ import java.util.*;
  * shiroplus filter扫描器
  * <p>只扫描添加{@link ShiroFilter}注解的{@link Filter}</p>
  *
- * @author : KangNing Hu
+ * @author : kangning <a>2035711178@qq.com</a>
  */
 public class ShiroFilterClassPathBeanDefinitionScanner extends ClassPathScanningCandidateComponentProvider {
 

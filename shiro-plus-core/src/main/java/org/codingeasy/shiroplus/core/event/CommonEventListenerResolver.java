@@ -11,7 +11,7 @@ import java.util.List;
 * 通用的事件解析器
  * @see EventListener
  * @see Subscribe
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class CommonEventListenerResolver extends AnnotationEventListenerResolver {
 

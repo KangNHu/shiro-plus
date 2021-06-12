@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
 * 抽象的授权处理通知  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class AbstractAuthorizationAdvisor extends StaticMethodMatcherPointcutAdvisor {
 

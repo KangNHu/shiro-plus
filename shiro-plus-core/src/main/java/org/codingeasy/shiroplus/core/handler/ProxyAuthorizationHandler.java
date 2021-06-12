@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
 * 所有授权处理器的代理处理器
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class ProxyAuthorizationHandler implements AuthorizationHandler{
 

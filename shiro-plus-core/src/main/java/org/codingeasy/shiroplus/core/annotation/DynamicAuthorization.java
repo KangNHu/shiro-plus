@@ -4,7 +4,7 @@ import java.lang.annotation.*;
 
 /**
  * 动态授权
- * @author hukangning
+ * @author kangning <a>2035711178@qq.com</a>
  */
 @Target({ElementType.TYPE , ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

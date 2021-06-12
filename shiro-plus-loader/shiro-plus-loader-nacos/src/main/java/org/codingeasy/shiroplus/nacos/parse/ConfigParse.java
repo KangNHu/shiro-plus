@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 /**
  * 配置解析器
- * @author hukangning
+ * @author kangning <a>2035711178@qq.com</a>
  */
 public interface ConfigParse<T extends NacosMetadata> {
 

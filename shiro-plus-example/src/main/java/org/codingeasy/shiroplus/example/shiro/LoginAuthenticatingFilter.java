@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
 *   
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 @ShiroFilter("login")
 public class LoginAuthenticatingFilter extends AuthenticatingFilter {

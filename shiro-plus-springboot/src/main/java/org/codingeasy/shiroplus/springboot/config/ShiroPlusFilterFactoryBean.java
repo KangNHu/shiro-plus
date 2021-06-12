@@ -16,7 +16,7 @@ import org.springframework.core.Ordered;
 /**
 * shiroplus plus的filter bean工厂
  * @see org.apache.shiro.spring.web.ShiroFilterFactoryBean
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class ShiroPlusFilterFactoryBean extends ShiroFilterFactoryBean   {
 

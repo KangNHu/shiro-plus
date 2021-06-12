@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 
 /**
 * 激活shiro plus  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
 * 抽象的权限配置  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public abstract class AbstractAuthorizationAutoConfiguration {
 

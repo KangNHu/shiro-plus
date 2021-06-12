@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
 * 授权配置选择器  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class AuthorizationConfigSelector implements ImportSelector {
 

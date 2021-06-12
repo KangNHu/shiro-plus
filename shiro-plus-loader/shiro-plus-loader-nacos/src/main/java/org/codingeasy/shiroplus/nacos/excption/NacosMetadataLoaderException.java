@@ -2,7 +2,7 @@ package org.codingeasy.shiroplus.nacos.excption;
 
 /**
 * 基于nacos元数据加载异常  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class NacosMetadataLoaderException extends IllegalStateException{
 

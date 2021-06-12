@@ -3,8 +3,8 @@ package org.codingeasy.shiroplus.core.event;
 import java.util.EventObject;
 
 /**
-* 权限元信息事件  
-* @author : KangNing Hu
+* 权限元数据事件
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class AuthMetadataEvent extends EventObject {
 
@@ -28,7 +28,7 @@ public class AuthMetadataEvent extends EventObject {
 
 	/**
 	 * 事件类型
-	 * @author : KangNing Hu
+	 * @author : kangning <a>2035711178@qq.com</a>
 	 */
 	public  enum  EventType {
 		/**

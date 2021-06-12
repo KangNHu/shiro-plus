@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
 * 基于aop的授权自动配置 shiro原生的实现加载  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 @Configuration
 @ConditionalOnBean({AuthMetadataManager.class , EventManager.class})

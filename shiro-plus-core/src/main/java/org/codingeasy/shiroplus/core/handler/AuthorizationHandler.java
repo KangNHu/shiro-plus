@@ -6,7 +6,7 @@ import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 
 /**
 * 授权处理器  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public interface AuthorizationHandler {
 	/**

@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
 * 基于aop的动态授权自动配置  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 @Configuration
 @ConditionalOnBean({AuthMetadataManager.class , EventManager.class})

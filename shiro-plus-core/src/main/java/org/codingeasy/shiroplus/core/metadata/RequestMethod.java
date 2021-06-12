@@ -2,7 +2,7 @@ package org.codingeasy.shiroplus.core.metadata;
 
 /**
  * 请求方法枚举
- * @author hukangning
+ * @author kangning <a>2035711178@qq.com</a>
  */
 public enum RequestMethod {
 

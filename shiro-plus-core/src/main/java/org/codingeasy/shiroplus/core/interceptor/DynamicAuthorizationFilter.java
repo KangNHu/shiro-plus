@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 /**
  * 动态授权过滤器
  *
- * @author : KangNing Hu
+ * @author : kangning <a>2035711178@qq.com</a>
  */
 public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor implements Filter {
 
@@ -77,7 +77,7 @@ public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor
 	/**
 	 * 默认异常处理器
 	 *
-	 * @author hukangning
+	 * @author kangning <a>2035711178@qq.com</a>
 	 */
 	static class DefaultAuthExceptionHandler implements AuthExceptionHandler {
 

@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 /**
 * 一个简化的读写锁
  *@see  ReentrantReadWriteLock
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class ReadWriteLock {
 

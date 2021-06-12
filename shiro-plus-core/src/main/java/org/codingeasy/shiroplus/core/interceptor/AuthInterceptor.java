@@ -2,7 +2,7 @@ package org.codingeasy.shiroplus.core.interceptor;
 
 /**
 * 权限校验拦截器
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public  interface AuthInterceptor {
 

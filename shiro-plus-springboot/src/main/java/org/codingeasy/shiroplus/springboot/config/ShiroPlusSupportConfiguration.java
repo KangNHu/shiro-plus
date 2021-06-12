@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 
 /**
 * shiroplus plus的辅助配置类
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 public class ShiroPlusSupportConfiguration {
 

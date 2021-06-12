@@ -19,7 +19,7 @@ import java.util.function.Function;
 
 /**
 * 权限元信息管理器  
-* @author : KangNing Hu
+* @author :kangning <a>2035711178@qq.com</a>
 */
 public class AuthMetadataManager implements EventListener , Initializable {
 

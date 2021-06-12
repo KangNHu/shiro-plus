@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 
 /**
 * shiro plus nacos 激活注解  
-* @author : KangNing Hu
+* @author : kangning <a>2035711178@qq.com</a>
 */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)

@@ -5,7 +5,7 @@ import org.codingeasy.shiroplus.core.interceptor.Invoker;
 
 /**
  * 异常
- * @author hukangning
+ * @author kangning <a>2035711178@qq.com</a>
  */
 public interface AuthExceptionHandler {
 

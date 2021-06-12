@@ -3,7 +3,7 @@ package org.codingeasy.shiroplus.core.interceptor;
 
 /**
  * 调用器
- * @author hukangning
+ * @author kangning <a>2035711178@qq.com</a>
  */
 public interface Invoker {
 

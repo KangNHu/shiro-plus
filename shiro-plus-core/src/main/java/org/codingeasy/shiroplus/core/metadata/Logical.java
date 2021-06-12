@@ -3,7 +3,7 @@ package org.codingeasy.shiroplus.core.metadata;
 /**
  *
  * 授权逻辑 如有多个权限进行校验时 是 and 还是 or
- * @author hukangning
+ * @author kangning <a>2035711178@qq.com</a>
  */
 public enum Logical {
 
