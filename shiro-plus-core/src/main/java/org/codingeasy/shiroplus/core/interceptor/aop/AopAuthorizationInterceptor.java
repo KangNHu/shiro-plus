@@ -2,6 +2,7 @@ package org.codingeasy.shiroplus.core.interceptor.aop;
 
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.annotation.*;
 import org.codingeasy.shiroplus.core.event.EventManager;
@@ -119,6 +120,11 @@ public class AopAuthorizationInterceptor extends AbstractAuthorizationIntercepto
 		@Override
 		public void authorizationFailure(Invoker invoker , AuthorizationException e) {
 			throw e;
+		}
+
+		@Override
+		public void authenticationFailure(Invoker invoker, AuthenticationException e) {
+			
 		}
 	}
 }

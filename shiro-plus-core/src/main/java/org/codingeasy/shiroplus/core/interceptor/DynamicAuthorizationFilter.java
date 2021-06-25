@@ -2,6 +2,7 @@ package org.codingeasy.shiroplus.core.interceptor;
 
 import com.google.common.base.Charsets;
 import com.google.common.net.MediaType;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.web.util.WebUtils;
@@ -100,6 +101,11 @@ public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor
 			} catch (Exception e1) {
 				logger.warn("授权失败处理失败 ", e1);
 			}
+		}
+
+		@Override
+		public void authenticationFailure(Invoker invoker, AuthenticationException e) {
+
 		}
 	}
 

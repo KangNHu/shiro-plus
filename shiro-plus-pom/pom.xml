@@ -28,6 +28,8 @@
         <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
         <!--nacos-->
         <nacos.context.version>1.1.0</nacos.context.version>
+        <!--gateway-->
+        <spring-cloud-gateway.version>2.2.0.RELEASE</spring-cloud-gateway.version>
         <!--单元测试-->
         <junit.version>4.12</junit.version>
     </properties>
@@ -82,6 +84,13 @@
                 <groupId>com.alibaba.nacos</groupId>
                 <artifactId>nacos-spring-context</artifactId>
                 <version>${nacos.context.version}</version>
+            </dependency>
+
+            <!--gateway-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-gateway</artifactId>
+                <version>${spring-cloud-gateway.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

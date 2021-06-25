@@ -17,6 +17,7 @@
         <module>shiro-plus-example</module>
         <module>shiro-plus-loader</module>
         <module>shiro-plus-pom</module>
+        <module>shiro-plus-gateway</module>
     </modules>
 
     <properties>
