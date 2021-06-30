@@ -13,17 +13,26 @@
     <module>shiro-plus-example</module>
     <module>shiro-plus-loader</module>
     <module>shiro-plus-pom</module>
+    <module>shiro-plus-gateway</module>
   </modules>
   <properties>
     <maven.flatten.version>1.2.5</maven.flatten.version>
     <reversion>1.0.0.SNAPSHOT</reversion>
     <maven.compiler.source>1.8</maven.compiler.source>
+    <maven-deploy.version>2.8.2</maven-deploy.version>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven-compiler.version>3.8.1</maven-compiler.version>
     <junit.version>4.12</junit.version>
   </properties>
   <build>
     <plugins>
+      <plugin>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>${maven-deploy.version}</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>flatten-maven-plugin</artifactId>

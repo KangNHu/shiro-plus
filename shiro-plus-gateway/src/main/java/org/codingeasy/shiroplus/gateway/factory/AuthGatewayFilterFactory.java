@@ -129,14 +129,10 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 			String tenantId = null;
 			switch (config.tenantStrategy){
 				case HEAD:
-					tenantId = request
-							.getHeaders()
-							.getFirst(config.tenantName);
+					tenantId = request.getHeaders().getFirst(config.tenantName);
 					break;
 				case QUERY:
-					tenantId = request
-							.getQueryParams()
-							.getFirst(config.tenantName);
+					tenantId = request.getQueryParams().getFirst(config.tenantName);
 					break;
 				case COOKIE:
 					HttpCookie tenantHttpCookie = request.getCookies().getFirst(config.tenantName);
@@ -175,9 +171,7 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 				case QUERY:
 				case PATH:
 				default:
-					token = request
-							.getQueryParams()
-							.getFirst(config.tokenName);
+					token = request.getQueryParams().getFirst(config.tokenName);
 			}
 			return !StringUtils.isEmpty(token)? new BearerToken(token, WebUtils.getHost(request)) : null;
 		}

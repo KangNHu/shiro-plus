@@ -6,6 +6,7 @@
     <groupId>org.codingeasy</groupId>
     <artifactId>shiro-plus-pom</artifactId>
     <version>1.0.0.SNAPSHOT</version>
+    <relativePath>../shiro-plus-pom/pom.xml</relativePath>
   </parent>
   <groupId>org.codingeasy</groupId>
   <artifactId>shiro-plus-core</artifactId>
@@ -18,7 +19,7 @@
     </dependency>
     <dependency>
       <groupId>javax.servlet</groupId>
-      <artifactId>servlet-api</artifactId>
+      <artifactId>javax.servlet-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

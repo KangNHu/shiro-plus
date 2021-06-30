@@ -13,11 +13,12 @@
   <packaging>pom</packaging>
   <description>shiro plus的依赖管理</description>
   <properties>
-    <spring-boot.version>2.2.0.RELEASE</spring-boot.version>
+    <spring-cloud.version>Hoxton.SR11</spring-cloud.version>
+    <spring-boot.version>2.2.13.RELEASE</spring-boot.version>
     <nacos.context.version>1.1.0</nacos.context.version>
-    <spring-aop.version>5.2.0.RELEASE</spring-aop.version>
+    <spring.version>5.2.14.RELEASE</spring.version>
     <commons.version>3.11</commons.version>
-    <servlet.version>2.5</servlet.version>
+    <servlet.version>3.1.0</servlet.version>
     <junit.version>4.12</junit.version>
     <shiro.versio>1.5.1</shiro.versio>
   </properties>
@@ -29,20 +30,9 @@
         <version>${shiro.versio}</version>
       </dependency>
       <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-configuration-processor</artifactId>
-        <version>${spring-boot.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter</artifactId>
-        <version>${spring-boot.version}</version>
-      </dependency>
-      <dependency>
         <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
+        <artifactId>javax.servlet-api</artifactId>
         <version>${servlet.version}</version>
-        <optional>false</optional>
       </dependency>
       <dependency>
         <groupId>org.apache.commons</groupId>
@@ -58,12 +48,31 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-aop</artifactId>
-        <version>${spring-aop.version}</version>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-web</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>com.alibaba.nacos</groupId>
         <artifactId>nacos-spring-context</artifactId>
         <version>${nacos.context.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>

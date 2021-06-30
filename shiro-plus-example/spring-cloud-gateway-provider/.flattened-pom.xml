@@ -4,27 +4,29 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.codingeasy</groupId>
-    <artifactId>shiro-plus-pom</artifactId>
+    <artifactId>shiro-plus-example</artifactId>
     <version>1.0.0.SNAPSHOT</version>
-    <relativePath>../shiro-plus-pom/pom.xml</relativePath>
   </parent>
   <groupId>org.codingeasy</groupId>
-  <artifactId>shiro-plus-springboot</artifactId>
+  <artifactId>spring-cloud-gateway-provider</artifactId>
   <version>1.0.0.SNAPSHOT</version>
-  <description>shiro plus 与spring boot集成</description>
   <dependencies>
     <dependency>
-      <groupId>org.codingeasy</groupId>
-      <artifactId>shiro-plus-core</artifactId>
-      <version>${reversion}</version>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba.cloud</groupId>
+      <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.3.4</version>
     </dependency>
   </dependencies>
 </project>

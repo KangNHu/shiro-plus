@@ -4,39 +4,39 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.codingeasy</groupId>
-    <artifactId>shiro-plus-loader</artifactId>
+    <artifactId>shiro-plus-example</artifactId>
     <version>1.0.0.SNAPSHOT</version>
   </parent>
   <groupId>org.codingeasy</groupId>
-  <artifactId>shiro-plus-loader-nacos</artifactId>
+  <artifactId>spring-cloud-gateway</artifactId>
   <version>1.0.0.SNAPSHOT</version>
   <dependencies>
     <dependency>
-      <groupId>com.alibaba.nacos</groupId>
-      <artifactId>nacos-spring-context</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>spring-context</artifactId>
-          <groupId>org.springframework</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>snakeyaml</artifactId>
-          <groupId>org.yaml</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
-    <dependency>
       <groupId>org.codingeasy</groupId>
-      <artifactId>shiro-plus-core</artifactId>
+      <artifactId>shiro-plus-gateway</artifactId>
       <version>${reversion}</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
+      <groupId>org.codingeasy</groupId>
+      <artifactId>shiro-plus-loader-nacos</artifactId>
+      <version>${reversion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-gateway</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.alibaba.cloud</groupId>
+      <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.3.4</version>
     </dependency>
   </dependencies>
 </project>

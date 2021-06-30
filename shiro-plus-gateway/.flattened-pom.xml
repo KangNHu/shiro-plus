@@ -9,10 +9,21 @@
     <relativePath>../shiro-plus-pom/pom.xml</relativePath>
   </parent>
   <groupId>org.codingeasy</groupId>
-  <artifactId>shiro-plus-loader</artifactId>
+  <artifactId>shiro-plus-gateway</artifactId>
   <version>1.0.0.SNAPSHOT</version>
-  <packaging>pom</packaging>
-  <modules>
-    <module>shiro-plus-loader-nacos</module>
-  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>org.codingeasy</groupId>
+      <artifactId>shiro-plus-springboot</artifactId>
+      <version>${reversion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-gateway-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+  </dependencies>
 </project>

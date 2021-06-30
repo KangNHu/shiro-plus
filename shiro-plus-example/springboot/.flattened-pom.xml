@@ -4,27 +4,34 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.codingeasy</groupId>
-    <artifactId>shiro-plus-pom</artifactId>
+    <artifactId>shiro-plus-example</artifactId>
     <version>1.0.0.SNAPSHOT</version>
-    <relativePath>../shiro-plus-pom/pom.xml</relativePath>
   </parent>
   <groupId>org.codingeasy</groupId>
-  <artifactId>shiro-plus-springboot</artifactId>
+  <artifactId>springboot</artifactId>
   <version>1.0.0.SNAPSHOT</version>
-  <description>shiro plus 与spring boot集成</description>
+  <properties>
+    <swagger2.version>2.0.1</swagger2.version>
+    <swagger.doc.version>1.9.2</swagger.doc.version>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.codingeasy</groupId>
-      <artifactId>shiro-plus-core</artifactId>
+      <artifactId>shiro-plus-springboot</artifactId>
       <version>${reversion}</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
+      <groupId>org.codingeasy</groupId>
+      <artifactId>shiro-plus-loader-nacos</artifactId>
+      <version>${reversion}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-io</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
   </dependencies>
 </project>
