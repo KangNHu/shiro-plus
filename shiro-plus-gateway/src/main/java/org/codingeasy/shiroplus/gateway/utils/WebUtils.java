@@ -45,7 +45,7 @@ public class WebUtils {
 			headers.setLocation(new URI(url));
 			return serverHttpResponse.setComplete();
 		}catch (Exception e){
-			return write(String.format("重定向错误[%s]", url) , serverHttpResponse ,INTERNAL_SERVER_ERROR );
+			return write(String.format("重定向错误[%s] error:[%s]", url , e.getMessage()) , serverHttpResponse ,INTERNAL_SERVER_ERROR );
 		}
 	}
 
@@ -64,7 +64,11 @@ public class WebUtils {
 		return serverHttpResponse
 				.writeAndFlushWith(Mono.just(Mono.just(dataBufferFactory.wrap(body.getBytes(Charsets.UTF_8)))))
 				.doOnError(e -> log.warn("写响应失败 {}" ,body , e ))
-				.doOnSuccess(item -> log.info("写响应成功 {}" , body));
+				.doOnSuccess(item -> {
+					if (log.isDebugEnabled()) {
+						log.debug("写响应成功 {}", body);
+					}
+				});
 	}
 
 

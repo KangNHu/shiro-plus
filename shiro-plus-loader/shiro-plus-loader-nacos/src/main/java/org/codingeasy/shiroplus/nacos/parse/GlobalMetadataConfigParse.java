@@ -53,7 +53,7 @@ public class GlobalMetadataConfigParse  implements ConfigParse<NacosGlobalMetada
 			globalMetadata.setTenantId(entry.getKey());
 			List<Map.Entry<String, Object>> value = entry.getValue();
 			for (Map.Entry<String, Object> e : value){
-				String attrName = StringUtils.substringAfterLast(e.getKey(), SEPARATOR);
+				String attrName = StringUtils.substringAfter(e.getKey(), SEPARATOR);
 				String valueStr = e.getValue() == null ? "" : e.getValue().toString();
 				switch (attrName){
 					case ATTR_ANONS:
@@ -67,13 +67,14 @@ public class GlobalMetadataConfigParse  implements ConfigParse<NacosGlobalMetada
 						break;
 					default:
 						if (attrName.startsWith(ATTR_EXTEND)){
-							String[] split = attrName.split(ARRAY_SEPARATOR);
+							String[] split = attrName.split(REG_SEPARATOR);
 							if (split.length == 2){
 								globalMetadata.setAttr(split[1] , valueStr);
 								break;
 							}
+						}else {
+							logger.warn("无效的属性 {}", attrName);
 						}
-						logger.warn("无效的属性 {}", attrName);
 				}
 			}
 			globalMetadataList.add(globalMetadata);

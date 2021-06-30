@@ -26,7 +26,7 @@ public class SimpleAuthorizingRealm extends AuthorizingRealm {
 		if (userId.equals(principalCollection.getPrimaryPrincipal())){
 			SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
 			simpleAuthorizationInfo.setRoles(new HashSet<String>(Arrays.asList("test" ,"admin")));
-			simpleAuthorizationInfo.setStringPermissions(new HashSet<String>(Arrays.asList("add" ,"update" , "delete")));
+			simpleAuthorizationInfo.setStringPermissions(new HashSet<String>(Arrays.asList("add" ,"update" , "delete","get")));
 			return simpleAuthorizationInfo;
 		}
 		return new SimpleAuthorizationInfo();

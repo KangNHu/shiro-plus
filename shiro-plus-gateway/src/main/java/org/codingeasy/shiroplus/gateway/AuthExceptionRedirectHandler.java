@@ -1,5 +1,6 @@
 package org.codingeasy.shiroplus.gateway;
 
+import com.google.common.base.Utf8;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
@@ -9,17 +10,24 @@ import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.core.mgt.TenantIdGenerator;
 import org.codingeasy.shiroplus.gateway.utils.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import reactor.core.publisher.Mono;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
 * 权限异常重定义处理  
 * @author : KangNing Hu
 */
 public class AuthExceptionRedirectHandler implements AuthExceptionHandler , Ordered {
+
+	private static final Logger log = LoggerFactory.getLogger(AuthExceptionRedirectHandler.class);
 
 	private TenantIdGenerator tenantIdGenerator;
 
@@ -95,6 +103,12 @@ public class AuthExceptionRedirectHandler implements AuthExceptionHandler , Orde
 		if (StringUtils.isEmpty(url)){
 			return WebUtils.write(msg, getResponse(invoker), httpStatus);
 		}else {
+			try {
+				msg = URLEncoder.encode(msg , "utf-8");
+			}catch (UnsupportedEncodingException e) {
+				msg = "redirect param encoder error";
+				log.warn(msg , e);
+			}
 			// 添加错误信息
 			if (url.contains("?")){
 				url += "&errorMsg=" + msg;

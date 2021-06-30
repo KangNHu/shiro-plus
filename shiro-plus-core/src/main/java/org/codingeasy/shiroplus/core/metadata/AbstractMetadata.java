@@ -61,4 +61,11 @@ public class AbstractMetadata implements Metadata {
 		clone.setAttr((HashMap<String, Object>)CopyUtils.copyMap(this.extend));
 		return clone;
 	}
+
+	@Override
+	public String toString() {
+		return "AbstractMetadata{" +
+				"extend=" + extend +
+				'}';
+	}
 }

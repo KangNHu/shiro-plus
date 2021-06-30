@@ -95,6 +95,6 @@ public class GlobalMetadata extends AbstractMetadata{
 				", anons=" + anons +
 				", enableAuthentication=" + enableAuthentication +
 				", enableAuthorization=" + enableAuthorization +
-				'}';
+				"} " + super.toString();
 	}
 }
