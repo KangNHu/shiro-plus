@@ -41,6 +41,7 @@ mvn clean package
   - spring-cloud-gateway 集成 spring cloud gateway 例子
   - spring-cloud-gateway-provider spring-cloud-gateway项目的辅助工程
   - springboot  集成spring boot 列子工程
+- shiro-plus-gateway: spring cloud gateway的集成
 - shiro-plus-springboot： spring boot的集成，模块化开发
 
 #### 依赖说明
