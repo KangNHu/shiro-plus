@@ -104,7 +104,11 @@ public class GatewayAuthExceptionHandler implements AuthExceptionHandler , Order
 			try {
 				msg = URLEncoder.encode(msg , "utf-8");
 			}catch (UnsupportedEncodingException e) {
-				msg = "redirect param encoder error";
+				try {
+					msg = URLEncoder.encode("redirect param encoder error" ,"utf-8");
+				} catch (UnsupportedEncodingException ex) {
+					///
+				}
 				log.warn(msg , e);
 			}
 			// 添加错误信息
