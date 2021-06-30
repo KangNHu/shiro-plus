@@ -8,7 +8,7 @@ import org.codingeasy.shiroplus.core.handler.AuthExceptionHandler;
 import org.codingeasy.shiroplus.core.interceptor.Invoker;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.mgt.TenantIdGenerator;
-import org.codingeasy.shiroplus.gateway.AuthExceptionRedirectHandler;
+import org.codingeasy.shiroplus.gateway.GatewayAuthExceptionHandler;
 import org.codingeasy.shiroplus.gateway.GatewayInvoker;
 import org.codingeasy.shiroplus.gateway.TokenGenerator;
 import org.codingeasy.shiroplus.gateway.filter.AuthGatewayFilter;
@@ -19,8 +19,6 @@ import org.springframework.http.HttpCookie;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.util.Assert;
 import org.springframework.web.server.ServerWebExchange;
-
-import java.util.regex.Pattern;
 
 import static org.codingeasy.shiroplus.gateway.factory.AuthGatewayFilterFactory.CarryStrategy.*;
 
@@ -81,7 +79,7 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 	public GatewayFilter apply(Config config) {
 		checkConfig(config);
 		if (authExceptionHandler == null){
-			authExceptionHandler = new AuthExceptionRedirectHandler(tenantIdGenerator , authMetadataManager);
+			authExceptionHandler = new GatewayAuthExceptionHandler(tenantIdGenerator , authMetadataManager);
 		}
 		AuthGatewayFilter authGatewayFilter = new AuthGatewayFilter(authMetadataManager, authExceptionHandler, eventManager);
 		if (tenantIdGenerator != null){

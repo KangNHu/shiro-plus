@@ -1,6 +1,5 @@
 package org.codingeasy.shiroplus.gateway;
 
-import com.google.common.base.Utf8;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
@@ -25,9 +24,9 @@ import java.net.URLEncoder;
 * 权限异常重定义处理  
 * @author : KangNing Hu
 */
-public class AuthExceptionRedirectHandler implements AuthExceptionHandler , Ordered {
+public class GatewayAuthExceptionHandler implements AuthExceptionHandler , Ordered {
 
-	private static final Logger log = LoggerFactory.getLogger(AuthExceptionRedirectHandler.class);
+	private static final Logger log = LoggerFactory.getLogger(GatewayAuthExceptionHandler.class);
 
 	private TenantIdGenerator tenantIdGenerator;
 
@@ -38,21 +37,21 @@ public class AuthExceptionRedirectHandler implements AuthExceptionHandler , Orde
 	private static final String UNAUTHORIZED_URL = "unauthorized-url";
 	private static final String UNAUTHENTICATED_URL = "unauthenticated-url";
 
-	public AuthExceptionRedirectHandler(TenantIdGenerator tenantIdGenerator ,
-	                                    AuthMetadataManager authMetadataManager){
+	public GatewayAuthExceptionHandler(TenantIdGenerator tenantIdGenerator ,
+	                                   AuthMetadataManager authMetadataManager){
 		this.authMetadataManager = authMetadataManager;
 		this.tenantIdGenerator = tenantIdGenerator;
 	}
 
 	@Override
 	public void authorizationFailure(Invoker invoker, AuthorizationException e) {
-		redirectMono.set(doRedirect(invoker  , UNAUTHORIZED_URL ,
+		redirectMono.set(doProcessor(invoker  , UNAUTHORIZED_URL ,
 				HttpStatus.UNAUTHORIZED , e.getMessage()));
 	}
 
 	@Override
 	public void authenticationFailure(Invoker invoker, AuthenticationException e) {
-		redirectMono.set(doRedirect(invoker  , UNAUTHENTICATED_URL ,
+		redirectMono.set(doProcessor(invoker  , UNAUTHENTICATED_URL ,
 				HttpStatus.FORBIDDEN , e.getMessage()));
 	}
 
@@ -75,8 +74,7 @@ public class AuthExceptionRedirectHandler implements AuthExceptionHandler , Orde
 	 */
 	private GlobalMetadata getGlobalMetadata(Invoker invoker){
 		String tenantId = tenantIdGenerator.generate(invoker);
-		GatewayInvoker gatewayInvoker = (GatewayInvoker) invoker;
-		ServerHttpRequest request = gatewayInvoker.getServerWebExchange().getRequest();
+		ServerHttpRequest request = getRequest(invoker);
 		GlobalMetadata globalMetadata = authMetadataManager.getGlobalMetadata(tenantId);
 		if (globalMetadata == null){
 			throw new IllegalStateException(String.format(
@@ -97,7 +95,7 @@ public class AuthExceptionRedirectHandler implements AuthExceptionHandler , Orde
 	 * @param httpStatus 当重定向url为空时,响应的状态码
 	 * @return 返回一个 mono
 	 */
-	private Mono<Void> doRedirect(Invoker invoker , String redirectAttrName , HttpStatus httpStatus , String msg){
+	private Mono<Void> doProcessor(Invoker invoker , String redirectAttrName , HttpStatus httpStatus , String msg){
 		GlobalMetadata globalMetadata = getGlobalMetadata(invoker);
 		String url = globalMetadata.get(redirectAttrName);
 		if (StringUtils.isEmpty(url)){
@@ -129,6 +127,16 @@ public class AuthExceptionRedirectHandler implements AuthExceptionHandler , Orde
 	private ServerHttpResponse getResponse(Invoker invoker){
 		GatewayInvoker gatewayInvoker = (GatewayInvoker) invoker;
 		return gatewayInvoker.getServerWebExchange().getResponse();
+	}
+
+	/**
+	 * 获取请求对象
+	 * @param invoker 调用器
+	 * @return 返回网关的请求对象
+	 */
+	private ServerHttpRequest getRequest(Invoker invoker){
+		GatewayInvoker gatewayInvoker = (GatewayInvoker) invoker;
+		return gatewayInvoker.getServerWebExchange().getRequest();
 	}
 
 

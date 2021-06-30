@@ -11,7 +11,7 @@ import org.codingeasy.shiroplus.core.interceptor.Invoker;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.core.utils.PathUtils;
-import org.codingeasy.shiroplus.gateway.AuthExceptionRedirectHandler;
+import org.codingeasy.shiroplus.gateway.GatewayAuthExceptionHandler;
 import org.codingeasy.shiroplus.gateway.GatewayInvoker;
 import org.codingeasy.shiroplus.gateway.TokenGenerator;
 import org.codingeasy.shiroplus.gateway.utils.WebUtils;
@@ -106,8 +106,8 @@ public class AuthGatewayFilter extends AbstractAuthorizationInterceptor implemen
 	 * @return 返回处理结果，如果没有则返回null
 	 */
 	private Mono<Void> getExceptionHandlerResult(){
-		if (authExceptionHandler instanceof AuthExceptionRedirectHandler){
-			Mono<Void> result = ((AuthExceptionRedirectHandler) authExceptionHandler).getResult();
+		if (authExceptionHandler instanceof GatewayAuthExceptionHandler){
+			Mono<Void> result = ((GatewayAuthExceptionHandler) authExceptionHandler).getResult();
 			if (result != null){
 				return result;
 			}

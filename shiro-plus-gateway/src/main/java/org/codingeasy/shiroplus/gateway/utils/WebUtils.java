@@ -1,6 +1,7 @@
 package org.codingeasy.shiroplus.gateway.utils;
 
 import com.google.common.base.Charsets;
+import org.apache.commons.lang3.StringUtils;
 import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 import org.slf4j.Logger;
@@ -32,6 +33,9 @@ import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 public class WebUtils {
 
 	private static final Logger log = LoggerFactory.getLogger(WebUtils.class);
+
+	private static final String AJAX_HEAD_NAME = "X-Requested-With";
+	private static final String AJAX_HEAD_VALUE = "XMLHttpRequest";
 
 	/**
 	 * 重定向
@@ -73,8 +77,19 @@ public class WebUtils {
 
 
 	/**
+	 * 是否为ajax请求
+	 * @param request 网关请求对象
+	 * @return 如果是返回true 否则false
+	 */
+	public static boolean isAjax(@NotNull ServerHttpRequest request){
+		HttpHeaders headers = request.getHeaders();
+		String value = headers.getFirst(AJAX_HEAD_NAME);
+		return !StringUtils.isEmpty(value)&&!value.equals(AJAX_HEAD_VALUE);
+	}
+
+	/**
 	 * 获取请求的host
-	 * @param request 网关请你去对象
+	 * @param request 网关请求对象
 	 * @return 返回host 如果没有返回 null
 	 */
 	public static String getHost(@NotNull ServerHttpRequest request){
