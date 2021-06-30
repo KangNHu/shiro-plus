@@ -1,4 +1,4 @@
-package org.codingeasy.shiroplus.example.controller;
+package org.codingeasy.shiroplus.springboot.controller;
 
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
 import org.codingeasy.shiroplus.core.event.EventManager;

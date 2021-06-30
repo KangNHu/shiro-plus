@@ -1,4 +1,4 @@
-package org.codingeasy.shiroplus.example.shiro;
+package org.codingeasy.gateway;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

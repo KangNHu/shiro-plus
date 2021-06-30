@@ -26,11 +26,11 @@ public class EventListenerAutoRegistry implements SmartInstantiationAwareBeanPos
 	@Override
 	public boolean postProcessAfterInstantiation(Object bean, String beanName) throws BeansException {
 		if (AopUtils.isAopProxy(bean) || AopUtils.isCglibProxy(bean) || isSkip(bean)){
-			return false;
+			return true;
 		}
 		//注册事件
 		eventManager.register(bean);
-		return false;
+		return true;
 	}
 
 

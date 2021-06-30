@@ -9,23 +9,26 @@ import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.core.mgt.TenantIdGenerator;
 import org.codingeasy.shiroplus.gateway.utils.WebUtils;
+import org.springframework.core.Ordered;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import reactor.core.publisher.Mono;
 
 /**
 * 权限异常重定义处理  
 * @author : KangNing Hu
 */
-public class AuthExceptionRedirectHandler implements AuthExceptionHandler {
+public class AuthExceptionRedirectHandler implements AuthExceptionHandler , Ordered {
 
 	private TenantIdGenerator tenantIdGenerator;
 
 	private AuthMetadataManager authMetadataManager;
 
+	private ThreadLocal<Mono<Void>> redirectMono = new ThreadLocal<>();
 
-	public static final String UNAUTHORIZED_URL = "unauthorized-url";
-	public static final String UNAUTHENTICATED_URL = "unauthenticated-url";
+	private static final String UNAUTHORIZED_URL = "unauthorized-url";
+	private static final String UNAUTHENTICATED_URL = "unauthenticated-url";
 
 	public AuthExceptionRedirectHandler(TenantIdGenerator tenantIdGenerator ,
 	                                    AuthMetadataManager authMetadataManager){
@@ -35,16 +38,28 @@ public class AuthExceptionRedirectHandler implements AuthExceptionHandler {
 
 	@Override
 	public void authorizationFailure(Invoker invoker, AuthorizationException e) {
-		doRedirect(invoker  , UNAUTHORIZED_URL ,
-				HttpStatus.UNAUTHORIZED , e.getMessage());
+		redirectMono.set(doRedirect(invoker  , UNAUTHORIZED_URL ,
+				HttpStatus.UNAUTHORIZED , e.getMessage()));
 	}
 
 	@Override
 	public void authenticationFailure(Invoker invoker, AuthenticationException e) {
-		doRedirect(invoker  , UNAUTHENTICATED_URL ,
-				HttpStatus.FORBIDDEN , e.getMessage());
+		redirectMono.set(doRedirect(invoker  , UNAUTHENTICATED_URL ,
+				HttpStatus.FORBIDDEN , e.getMessage()));
 	}
 
+
+	/**
+	 * 获取重定向结果
+	 * @return 返回 redirect mono
+	 */
+	public Mono<Void> getResult(){
+		try {
+			return redirectMono.get();
+		}finally {
+			redirectMono.remove();
+		}
+	}
 	/**
 	 * 获取全局元信息
 	 * @param invoker 调用器
@@ -72,12 +87,13 @@ public class AuthExceptionRedirectHandler implements AuthExceptionHandler {
 	 * @param redirectAttrName 在{@link GlobalMetadata}中重定向属性名称
 	 * @param msg 当重定向url为空时 响应的消息
 	 * @param httpStatus 当重定向url为空时,响应的状态码
+	 * @return 返回一个 mono
 	 */
-	private void doRedirect(Invoker invoker , String redirectAttrName ,HttpStatus httpStatus , String msg){
+	private Mono<Void> doRedirect(Invoker invoker , String redirectAttrName , HttpStatus httpStatus , String msg){
 		GlobalMetadata globalMetadata = getGlobalMetadata(invoker);
 		String url = globalMetadata.get(redirectAttrName);
 		if (StringUtils.isEmpty(url)){
-			WebUtils.write(msg, getResponse(invoker), httpStatus);
+			return WebUtils.write(msg, getResponse(invoker), httpStatus);
 		}else {
 			// 添加错误信息
 			if (url.contains("?")){
@@ -87,7 +103,7 @@ public class AuthExceptionRedirectHandler implements AuthExceptionHandler {
 			}
 			//添加网络状态码
 			url += "&httpStatus=" + httpStatus.value();
-			WebUtils.sendRedirect(url , getResponse(invoker));
+			return WebUtils.sendRedirect(url , getResponse(invoker));
 		}
 	}
 
@@ -102,5 +118,8 @@ public class AuthExceptionRedirectHandler implements AuthExceptionHandler {
 	}
 
 
-
+	@Override
+	public int getOrder() {
+		return Ordered.LOWEST_PRECEDENCE;
+	}
 }

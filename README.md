@@ -38,15 +38,22 @@ mvn clean package
 - shiro-plus-loader shiro plus的元数据加载器实现
   - shiro-plus-loader-nacos 基于ali nacos的实现
 - shiro-plus-example：示例工程
+  - spring-cloud-gateway 集成 spring cloud gateway 例子
+  - spring-cloud-gateway-provider spring-cloud-gateway项目的辅助工程
+  - springboot  集成spring boot 列子工程
 - shiro-plus-springboot： spring boot的集成，模块化开发
 
 #### 依赖说明
 
-| 项目             | 依赖版本      |
-| ---------------- | ------------- |
-| spring framework | 5.2.0.RELEASE |
-| spring boot      | 2.2.0.RELEASE |
-| shiro            | 1.5.1         |
+| 项目                 | 依赖版本       |
+| -------------------- | -------------- |
+| spring framework     | 5.2.14.RELEASE |
+| spring boot          | 2.2.13.RELEASE |
+| shiro                | 1.5.1          |
+| servlet-api          | 3.1.0          |
+| spring cloud         | Hoxton.SR11    |
+| nacos-spring-context | 1.1.0          |
+| junit                | 4.12           |
 
 使用说明
 

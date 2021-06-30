@@ -1,4 +1,4 @@
-package org.codingeasy.shiroplus.example.event;
+package org.codingeasy.shiroplus.springboot.event;
 
 import org.apache.shiro.event.Subscribe;
 import org.codingeasy.shiroplus.core.event.AuthorizeEvent;

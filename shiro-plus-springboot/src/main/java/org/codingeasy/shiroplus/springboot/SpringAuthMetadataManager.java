@@ -19,6 +19,8 @@ public class SpringAuthMetadataManager extends AuthMetadataManager  implements A
 
 	private EventManager eventManager;
 
+	private volatile boolean register = false;
+
 	public SpringAuthMetadataManager(MetadataLoader metadataLoader , EventManager eventManager) {
 		super(metadataLoader);
 		Assert.notNull(eventManager , "事件管理器不能为空");
@@ -27,8 +29,12 @@ public class SpringAuthMetadataManager extends AuthMetadataManager  implements A
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
+		if (this.register){
+			return;
+		}
 		//订阅权限元信息变更事件
 		eventManager.register(this);
+		this.register = true;
 		logger.info("订阅权限元信息变更事件成功");
 	}
 }

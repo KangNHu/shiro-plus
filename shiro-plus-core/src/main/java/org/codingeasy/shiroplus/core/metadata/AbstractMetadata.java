@@ -12,7 +12,7 @@ import java.util.Map;
 */
 public class AbstractMetadata implements Metadata {
 
-	private HashMap<String , Object> attr = new HashMap<>();
+	private HashMap<String , Object> extend = new HashMap<>();
 
 	/**
 	 * 设置属性
@@ -20,7 +20,7 @@ public class AbstractMetadata implements Metadata {
 	 * @param value 属性value
 	 */
 	public void setAttr(String key , Object value){
-		this.attr.put(key  ,value);
+		this.extend.put(key  ,value);
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class AbstractMetadata implements Metadata {
 	 * @param map 待设置的map
 	 */
 	public void setAttr(Map<String , Object> map){
-		this.attr.putAll(map);
+		this.extend.putAll(map);
 	}
 
 
@@ -50,7 +50,7 @@ public class AbstractMetadata implements Metadata {
 	 * @return 如果有对应的属性则返回对应的属性值 ，否则返回默认值
 	 */
 	public <T>T get(String key  , T defaultValue){
-		Object value = this.attr.get(key);
+		Object value = this.extend.get(key);
 		return value == null ? defaultValue : (T) value;
 	}
 
@@ -58,7 +58,7 @@ public class AbstractMetadata implements Metadata {
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		AbstractMetadata clone = (AbstractMetadata) super.clone();
-		clone.setAttr((HashMap<String, Object>)CopyUtils.copyMap(this.attr));
+		clone.setAttr((HashMap<String, Object>)CopyUtils.copyMap(this.extend));
 		return clone;
 	}
 }

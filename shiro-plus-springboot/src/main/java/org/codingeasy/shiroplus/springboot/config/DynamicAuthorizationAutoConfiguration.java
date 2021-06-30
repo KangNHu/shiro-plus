@@ -15,7 +15,6 @@ import java.util.Arrays;
 * 动态授权动态配置  
 * @author : kangning <a>2035711178@qq.com</a>
 */
-@Configuration
 @ConditionalOnBean({AuthMetadataManager.class , EventManager.class})
 public  class DynamicAuthorizationAutoConfiguration extends AbstractAuthorizationAutoConfiguration {
 

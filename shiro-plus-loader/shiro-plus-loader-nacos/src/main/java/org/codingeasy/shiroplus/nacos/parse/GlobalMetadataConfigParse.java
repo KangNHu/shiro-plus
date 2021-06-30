@@ -2,6 +2,7 @@ package org.codingeasy.shiroplus.nacos.parse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
+import org.codingeasy.shiroplus.core.metadata.AbstractMetadata;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.nacos.metedata.NacosGlobalMetadata;
 import org.slf4j.Logger;
@@ -24,7 +25,7 @@ public class GlobalMetadataConfigParse  implements ConfigParse<NacosGlobalMetada
 	private static final String ATTR_ANONS = "anons";
 	private static final String ATTR_ENABLE_AUTHENTICATION = "enable-authentication";
 	private static final String ATTR_ENABLE_AUTHORIZATION = "enable-authorization";
-
+	private static final String ATTR_EXTEND = "extend";
 	@Override
 	public List<NacosGlobalMetadata> parse(Map<String, Object> config, Class<NacosGlobalMetadata> globalMetadataClass) {
 		//分组
@@ -35,7 +36,7 @@ public class GlobalMetadataConfigParse  implements ConfigParse<NacosGlobalMetada
 						Collectors.groupingBy(item -> {
 							String key = item.getKey();
 							String[] split = key.split(REG_SEPARATOR);
-							if (split.length != 2) {
+							if (split.length < 2) {
 								logger.warn("无效的配置属性 {}", key);
 								return INVALID_KEY;
 							}
@@ -64,7 +65,15 @@ public class GlobalMetadataConfigParse  implements ConfigParse<NacosGlobalMetada
 					case ATTR_ENABLE_AUTHORIZATION:
 						globalMetadata.setEnableAuthorization(Boolean.valueOf(valueStr));
 						break;
-						default:logger.warn("无效的属性 {}" , attrName);
+					default:
+						if (attrName.startsWith(ATTR_EXTEND)){
+							String[] split = attrName.split(ARRAY_SEPARATOR);
+							if (split.length == 2){
+								globalMetadata.setAttr(split[1] , valueStr);
+								break;
+							}
+						}
+						logger.warn("无效的属性 {}", attrName);
 				}
 			}
 			globalMetadataList.add(globalMetadata);

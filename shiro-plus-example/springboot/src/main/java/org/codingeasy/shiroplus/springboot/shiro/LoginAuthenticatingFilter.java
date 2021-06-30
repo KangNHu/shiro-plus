@@ -1,4 +1,4 @@
-package org.codingeasy.shiroplus.example.shiro;
+package org.codingeasy.shiroplus.springboot.shiro;
 
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.BearerToken;

@@ -109,6 +109,11 @@ public class AbstractAuthorizationInterceptor implements AuthInterceptor {
 						eventManager.asyncPublish(new AuthorizeEvent(invoker , CommonEventType.FAIL));
 						//异常处理
 						this.authExceptionHandler.authorizationFailure(invoker, a);
+						//异常后置处理
+						Object result = authExceptionAfterProcessor(this.authExceptionHandler);
+						if (result != null){
+							return result;
+						}
 					}
 				}
 			}
@@ -118,6 +123,14 @@ public class AbstractAuthorizationInterceptor implements AuthInterceptor {
 		}catch (Exception e){
 			throw new IllegalArgumentException(e);
 		}
+	}
+
+	/**
+	 * 权限异常处理后置处理
+	 * @param authExceptionHandler 权限处理器
+	 */
+	protected Object authExceptionAfterProcessor(AuthExceptionHandler authExceptionHandler) {
+		return null;
 	}
 
 	/**

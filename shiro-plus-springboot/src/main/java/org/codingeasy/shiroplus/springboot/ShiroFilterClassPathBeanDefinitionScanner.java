@@ -4,10 +4,13 @@ import org.codingeasy.shiroplus.springboot.annotaion.ShiroFilter;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
+import org.springframework.core.type.classreading.MetadataReader;
+import org.springframework.core.type.classreading.MetadataReaderFactory;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
 import org.springframework.core.type.filter.AssignableTypeFilter;
 
 import javax.servlet.Filter;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -20,15 +23,28 @@ public class ShiroFilterClassPathBeanDefinitionScanner extends ClassPathScanning
 
 	private AbstractAutowireCapableBeanFactory beanFactory;
 
+	private AnnotationTypeFilter annotationTypeFilter = new AnnotationTypeFilter(ShiroFilter.class);
+	private AssignableTypeFilter assignableTypeFilter = new AssignableTypeFilter(Filter.class);
+
 	public ShiroFilterClassPathBeanDefinitionScanner(AbstractAutowireCapableBeanFactory beanFactory) {
 		this.beanFactory = beanFactory;
 		//重置spring 扫描注解
 		resetFilters(false);
 		//添加shiroFilter
-		addIncludeFilter(new AnnotationTypeFilter(ShiroFilter.class));
-		addIncludeFilter(new AssignableTypeFilter(Filter.class));
+		addIncludeFilter(this::matchType);
 	}
 
+
+	/**
+	 * 匹配类型
+	 * @param var1  元数据读取器
+	 * @param var2 元数据读取器工厂
+	 * @return 如果匹配返回true 否则flase
+	 * @throws IOException
+	 */
+	private boolean matchType(MetadataReader var1, MetadataReaderFactory var2) throws IOException {
+		return annotationTypeFilter.match(var1, var2) && assignableTypeFilter.match(var1, var2);
+	}
 	/**
 	 * 根据基础包名获取符合条件的 shiroplus filter
 	 * <p>并对filter进行自动注入</p>
@@ -47,6 +63,7 @@ public class ShiroFilterClassPathBeanDefinitionScanner extends ClassPathScanning
 			String beanClassName = beanDefinition.getBeanClassName();
 			try {
 				Class<?> beanClass = getClassLoader().loadClass(beanClassName);
+
 				Filter filter = (Filter) beanFactory.createBean(beanClass);
 				beanFactory.autowireBean(filter);
 				filters.put(getFilterName(beanClass), filter);

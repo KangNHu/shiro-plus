@@ -24,7 +24,6 @@ import java.util.*;
 * shiroplus plus的自动配置
 * @author : kangning <a>2035711178@qq.com</a>
 */
-@Configuration
 public class ShiroPlusAutoConfiguration {
 
 

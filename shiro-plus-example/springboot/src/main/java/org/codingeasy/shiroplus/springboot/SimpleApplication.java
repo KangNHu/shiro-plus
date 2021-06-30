@@ -1,4 +1,4 @@
-package org.codingeasy.shiroplus.example;
+package org.codingeasy.shiroplus.springboot;
 
 import com.alibaba.nacos.api.annotation.NacosProperties;
 import org.codingeasy.shiroplus.nacos.annotation.EnableShiroPlusNacos;
@@ -13,9 +13,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableShiroPlus
 @SpringBootApplication
 @EnableShiroPlusNacos(@NacosProperties(serverAddr = "localhost:8848"))
-public class Application {
+public class SimpleApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class , args);
+		SpringApplication.run(SimpleApplication.class , args);
 	}
 }

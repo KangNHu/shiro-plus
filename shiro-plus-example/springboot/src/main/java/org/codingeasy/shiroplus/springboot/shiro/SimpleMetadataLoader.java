@@ -1,4 +1,4 @@
-package org.codingeasy.shiroplus.example.shiro;
+package org.codingeasy.shiroplus.springboot.shiro;
 
 import org.codingeasy.shiroplus.core.metadata.*;
 import org.springframework.stereotype.Component;

@@ -1,5 +1,6 @@
 package org.codingeasy.shiroplus.gateway;
 
+import org.apache.commons.lang3.StringUtils;
 import org.codingeasy.shiroplus.core.interceptor.Invoker;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.http.server.RequestPath;
@@ -16,10 +17,13 @@ public class GatewayInvoker implements Invoker {
 
 	private GatewayFilterChain gatewayFilterChain;
 
+	private String pathPrefix;
 
-	public GatewayInvoker(ServerWebExchange serverWebExchange , GatewayFilterChain gatewayFilterChain){
+	public GatewayInvoker(ServerWebExchange serverWebExchange ,
+	                      GatewayFilterChain gatewayFilterChain , String pathPrefix){
 		this.serverWebExchange =serverWebExchange;
 		this.gatewayFilterChain = gatewayFilterChain;
+		this.pathPrefix = pathPrefix;
 	}
 
 	@Override
@@ -36,6 +40,6 @@ public class GatewayInvoker implements Invoker {
 	public String getPermissionMetadataKey() {
 		ServerHttpRequest request = serverWebExchange.getRequest();
 		RequestPath path = request.getPath();
-		return path.pathWithinApplication().value() + ":" + request.getMethod();
+		return StringUtils.substringAfter(path.pathWithinApplication().value() , this.pathPrefix) + ":" + request.getMethod();
 	}
 }

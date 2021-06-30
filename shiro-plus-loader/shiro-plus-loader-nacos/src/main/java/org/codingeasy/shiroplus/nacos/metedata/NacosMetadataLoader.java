@@ -17,6 +17,8 @@ import org.codingeasy.shiroplus.nacos.configuration.ShiroPlusNacosProperties;
 import org.codingeasy.shiroplus.nacos.excption.NacosMetadataLoaderException;
 import org.codingeasy.shiroplus.nacos.parse.ConfigParse;
 import org.codingeasy.shiroplus.nacos.parse.ConfigParseDelegate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 
@@ -31,6 +33,8 @@ import java.util.stream.Collectors;
  * @author : kangning <a>2035711178@qq.com</a>
  */
 public class NacosMetadataLoader implements MetadataLoader, ApplicationListener<ContextRefreshedEvent> {
+
+	private static final Logger logger = LoggerFactory.getLogger(NacosMetadataLoader.class);
 
 	private static final String PERMISSION_DATA_ID = "org.codingeasy.shiroplus.permission.metadata";
 
@@ -135,7 +139,7 @@ public class NacosMetadataLoader implements MetadataLoader, ApplicationListener<
 					sendMetadataUpdateEvent(configInfo , NacosPermissionMetadata.class);
 				}
 			});
-
+			logger.info("permission metadata update event listener");
 			//注册 global metadata变更事件
 			configService.addListener(GLOBAL_DATA_ID, GROUP, new Listener() {
 				@Override
@@ -148,7 +152,7 @@ public class NacosMetadataLoader implements MetadataLoader, ApplicationListener<
 					sendMetadataUpdateEvent(configInfo , NacosGlobalMetadata.class);
 				}
 			});
-
+			logger.info("global metadata update event listener");
 		} catch (NacosException e) {
 			throw new NacosMetadataLoaderException(e);
 		}
