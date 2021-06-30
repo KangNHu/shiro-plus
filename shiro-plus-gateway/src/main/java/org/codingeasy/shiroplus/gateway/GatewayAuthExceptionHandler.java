@@ -74,17 +74,7 @@ public class GatewayAuthExceptionHandler implements AuthExceptionHandler , Order
 	 */
 	private GlobalMetadata getGlobalMetadata(Invoker invoker){
 		String tenantId = tenantIdGenerator.generate(invoker);
-		ServerHttpRequest request = getRequest(invoker);
-		GlobalMetadata globalMetadata = authMetadataManager.getGlobalMetadata(tenantId);
-		if (globalMetadata == null){
-			throw new IllegalStateException(String.format(
-					"当前请求 url[%s] headers [%s] 没有申请租户" ,
-					request.getPath().pathWithinApplication().value(),
-					request.getHeaders()
-			)
-			);
-		}
-		return globalMetadata;
+		return authMetadataManager.getGlobalMetadata(tenantId);
 	}
 
 	/**
@@ -97,9 +87,19 @@ public class GatewayAuthExceptionHandler implements AuthExceptionHandler , Order
 	 */
 	private Mono<Void> doProcessor(Invoker invoker , String redirectAttrName , HttpStatus httpStatus , String msg){
 		GlobalMetadata globalMetadata = getGlobalMetadata(invoker);
+		ServerHttpRequest request = getRequest(invoker);
+		ServerHttpResponse response = getResponse(invoker);
+		if (globalMetadata == null){
+			return WebUtils.write(String.format(
+					"当前请求 url[%s] headers [%s] 没有申请租户" ,
+					request.getPath().pathWithinApplication().value(),
+					request.getHeaders()
+			) ,response , HttpStatus.FORBIDDEN );
+
+		}
 		String url = globalMetadata.get(redirectAttrName);
 		if (StringUtils.isEmpty(url)){
-			return WebUtils.write(msg, getResponse(invoker), httpStatus);
+			return WebUtils.write(msg, response, httpStatus);
 		}else {
 			try {
 				msg = URLEncoder.encode(msg , "utf-8");
