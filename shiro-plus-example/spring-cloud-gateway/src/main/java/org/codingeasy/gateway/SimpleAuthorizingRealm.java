@@ -3,8 +3,8 @@ package org.codingeasy.gateway;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
-import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.codingeasy.shiroplus.gateway.realm.GatewayAuthorizingRealm;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -15,7 +15,7 @@ import java.util.HashSet;
 * @author : kangning <a>2035711178@qq.com</a>
 */
 @Component
-public class SimpleAuthorizingRealm extends AuthorizingRealm {
+public class SimpleAuthorizingRealm extends GatewayAuthorizingRealm {
 
 	private String userId = "123456";
 
@@ -30,12 +30,6 @@ public class SimpleAuthorizingRealm extends AuthorizingRealm {
 			return simpleAuthorizationInfo;
 		}
 		return new SimpleAuthorizationInfo();
-	}
-
-
-	@Override
-	public Class getAuthenticationTokenClass() {
-		return BearerToken.class;
 	}
 
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {

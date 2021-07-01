@@ -7,11 +7,14 @@ import org.codingeasy.shiroplus.core.event.EventManager;
 import org.codingeasy.shiroplus.core.handler.AuthExceptionHandler;
 import org.codingeasy.shiroplus.core.interceptor.Invoker;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
+import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.core.mgt.TenantIdGenerator;
 import org.codingeasy.shiroplus.gateway.GatewayAuthExceptionHandler;
 import org.codingeasy.shiroplus.gateway.GatewayInvoker;
 import org.codingeasy.shiroplus.gateway.TokenGenerator;
 import org.codingeasy.shiroplus.gateway.filter.AuthGatewayFilter;
+import org.codingeasy.shiroplus.gateway.token.GatewayAuthenticationToken;
+import org.codingeasy.shiroplus.gateway.token.SimpleGatewayAuthenticationToken;
 import org.codingeasy.shiroplus.gateway.utils.WebUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -155,8 +158,9 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 	 */
 	static class DynamicStrategyTokenGenerator implements TokenGenerator{
 
+
 		@Override
-		public AuthenticationToken generate(ServerHttpRequest request) {
+		public GatewayAuthenticationToken generate(ServerHttpRequest request, GlobalMetadata globalMetadata) {
 			String token;
 			switch (config.tokenStrategy){
 				case HEAD:
@@ -171,10 +175,8 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 				default:
 					token = request.getQueryParams().getFirst(config.tokenName);
 			}
-			return !StringUtils.isEmpty(token)? new BearerToken(token, WebUtils.getHost(request)) : null;
+			return !StringUtils.isEmpty(token)? new SimpleGatewayAuthenticationToken(globalMetadata,request ,token) : null;
 		}
-
-
 	}
 
 

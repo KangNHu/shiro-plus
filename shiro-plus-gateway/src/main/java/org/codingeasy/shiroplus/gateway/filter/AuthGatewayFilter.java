@@ -80,7 +80,7 @@ public class AuthGatewayFilter extends AbstractAuthorizationInterceptor implemen
 		//鉴权
 		Subject subject = SecurityUtils.getSubject();
 		try {
-			AuthenticationToken authenticationToken = tokenGenerator.generate(exchange.getRequest());
+			AuthenticationToken authenticationToken = tokenGenerator.generate(exchange.getRequest() , globalMetadata);
 			if (authenticationToken == null){
 				throw new AuthenticationException("Invalid certificate");
 			}
