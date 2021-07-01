@@ -90,12 +90,10 @@ public class GatewayAuthExceptionHandler implements AuthExceptionHandler , Order
 		ServerHttpRequest request = getRequest(invoker);
 		ServerHttpResponse response = getResponse(invoker);
 		if (globalMetadata == null){
-			return WebUtils.write(String.format(
-					"当前请求 url[%s] headers [%s] 没有申请租户" ,
+			log.warn("当前请求 url[{}] headers [{}] 没有申请租户"  ,
 					request.getPath().pathWithinApplication().value(),
-					request.getHeaders()
-			) ,response , HttpStatus.FORBIDDEN );
-
+					request.getHeaders());
+			return WebUtils.write("当前请求所属服务没有申请租户" , response , HttpStatus.FORBIDDEN);
 		}
 		String url = globalMetadata.get(redirectAttrName);
 		if (StringUtils.isEmpty(url)){
