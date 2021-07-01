@@ -1,5 +1,6 @@
 package org.codingeasy.shiroplus.gateway;
 
+import com.sun.javafx.fxml.builder.URLBuilder;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
@@ -100,24 +101,24 @@ public class GatewayAuthExceptionHandler implements AuthExceptionHandler , Order
 			return WebUtils.write(msg, response, httpStatus);
 		}else {
 			try {
-				msg = URLEncoder.encode(msg , "utf-8");
-			}catch (UnsupportedEncodingException e) {
-				try {
-					msg = URLEncoder.encode("redirect param encoder error" ,"utf-8");
-				} catch (UnsupportedEncodingException ex) {
-					///
+				msg = URLEncoder.encode(msg, "utf-8");
+				StringBuilder urlSb = new StringBuilder(url);
+				// 添加错误信息
+				if (url.contains("?")){
+					urlSb.append("&");
+				}else {
+					urlSb.append("?");
 				}
+				urlSb.append("errorMsg=");
+				urlSb.append(msg);
+				//添加网络状态码
+				urlSb.append("&httpStatus=");
+				urlSb.append(httpStatus.value());
+				return WebUtils.sendRedirect(urlSb.toString()  , getResponse(invoker));
+			}catch (UnsupportedEncodingException e) {
 				log.warn(msg , e);
+				return WebUtils.write(String.format("重定向失败 [%s]" , e.getMessage()), response, HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			// 添加错误信息
-			if (url.contains("?")){
-				url += "&errorMsg=" + msg;
-			}else {
-				url += "?errorMsg=" + msg;
-			}
-			//添加网络状态码
-			url += "&httpStatus=" + httpStatus.value();
-			return WebUtils.sendRedirect(url , getResponse(invoker));
 		}
 	}
 
