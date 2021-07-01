@@ -10,6 +10,7 @@ import com.alibaba.nacos.spring.util.ConfigParseUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
 import org.codingeasy.shiroplus.core.event.EventManager;
+import org.codingeasy.shiroplus.core.metadata.AbstractMetadata;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.core.metadata.MetadataLoader;
 import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
@@ -74,13 +75,13 @@ public class NacosMetadataLoader implements MetadataLoader, ApplicationListener<
 
 	@Override
 	public List<PermissionMetadata> load() {
-		return getMetadataList(PERMISSION_DATA_ID, PermissionMetadata.class);
+		return getMetadataList(PERMISSION_DATA_ID, NacosPermissionMetadata.class);
 	}
 
 
 	@Override
 	public List<GlobalMetadata> loadGlobal() {
-		return getMetadataList(GLOBAL_DATA_ID, GlobalMetadata.class);
+		return getMetadataList(GLOBAL_DATA_ID, NacosGlobalMetadata.class);
 	}
 
 
@@ -89,10 +90,9 @@ public class NacosMetadataLoader implements MetadataLoader, ApplicationListener<
 	 *
 	 * @param dataId 数据id
 	 * @param tClass class
-	 * @param <T>    返回列表元素类型
 	 * @return
 	 */
-	protected <T> List<T> getMetadataList(String dataId, Class<T> tClass) {
+	protected List getMetadataList(String dataId, Class tClass) {
 		try {
 			String config = configService.getConfig(dataId, getGroup(), getTimeout());
 			return configParseDelegate.parse(
