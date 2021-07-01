@@ -107,10 +107,7 @@ public class AuthGatewayFilter extends AbstractAuthorizationInterceptor implemen
 	 */
 	private Mono<Void> getExceptionHandlerResult(){
 		if (authExceptionHandler instanceof GatewayAuthExceptionHandler){
-			Mono<Void> result = ((GatewayAuthExceptionHandler) authExceptionHandler).getResult();
-			if (result != null){
-				return result;
-			}
+			return ((GatewayAuthExceptionHandler) authExceptionHandler).getResult();
 		}
 		return null;
 	}
