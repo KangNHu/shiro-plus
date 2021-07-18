@@ -75,39 +75,45 @@ public class Application {
 }
 ```
 
-2. 定义一个Realm 否则在鉴权和授权时shiro框架会抛异常
+2. 定义一个AuthProcessor
 
 ```java
 @Component
-public class SimpleAuthorizingRealm extends AuthorizingRealm {
-
-	private String userId = "123456";
-
+public class SimpleAuthProcessor extends HttpServletAuthProcessor {
 
 	private String userToken = "abc123456";
 
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-		if (userId.equals(principalCollection.getPrimaryPrincipal())){
-			SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-			simpleAuthorizationInfo.setRoles(new HashSet<String>(Arrays.asList("test" ,"admin")));
-			simpleAuthorizationInfo.setStringPermissions(new HashSet<String>(Arrays.asList("add" ,"update" , "delete")));
-			return simpleAuthorizationInfo;
-		}
-		return new SimpleAuthorizationInfo();
+	private String userId = "123456";
+
+	private static Map<String , Set<String>> map = new LinkedHashMap<>();
+
+
+	static {
+		map.put("123456:permission" , new HashSet<String>(Arrays.asList("test" ,"admin")));
+		map.put("123456:role" , new HashSet<String>(Arrays.asList("add" ,"update" , "delete")));
 	}
 
 
+
+	//获取请求中的token
 	@Override
-	public Class getAuthenticationTokenClass() {
-		return BearerToken.class;
+	public String getToken(HttpServletRequest request) {
+		return request.getHeader("token");
 	}
 
-	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-		String token = (String) authenticationToken.getPrincipal();
+  //校验token 并返回token主体
+	@Override
+	public Object validate(RequestToken<HttpServletRequest> requestToken) {
+		String token = (String) requestToken.getCredentials();
 		if (userToken.equals(token)){
-			return new SimpleAuthenticationInfo(userId , userToken , "SimpleAuthorizingRealm");
+			return userId;
 		}
 		return null;
+	}
+	//返回用户的权限列表 用于授权
+	@Override
+	public Set<String> getPermissions(Object primaryPrincipal) {
+		return map.get(primaryPrincipal + ":permission");
 	}
 }
 ```
@@ -307,12 +313,29 @@ public class SimpleMetadataLoader implements MetadataLoader {
 shiroplus: 
   plus:
     filter-chain-definition: #filter 链定义。{filterName}(@ShiroFilter#value) ->  path
-      login : /login
+      login : /login # 这里的配置顺序会影响到请求的过滤顺序
     login-url: /login # 登录url
     success-url: /user # 登录成功回调的url
     unauthorized-url: /xxx #授权不成功回调url 该参数赞无使用 授权处理 可以使用授权异常处理器进行处理
     definitions: #定义配置文件路径 ，不推荐使用 具体可参考shiro官网
 ```
+
+##### 内置过滤器
+
+- 名称：auth2
+
+- 实现类：`HttpServletAuthFilter`
+
+- 使用方式
+
+  ```yml
+  shiroplus: 
+    plus:
+      filter-chain-definition: 
+        auth2 : /** # 后面路径是你项目需要进行权限控制的路径
+  ```
+
+  
 
 
 
@@ -378,38 +401,134 @@ shiroplus:
 
   ```java
   @Component
-  public class DefaultAuthExceptionHandler implements AuthExceptionHandler {
+  public class DefaultAuthExceptionHandler implements AuthProcessor<R ,S>  {
+  
+   		...
+  
+  		/**
+  	 * 授权失败处理
+  	 * @param request 请求对象
+  	 * @param response 响应对象
+  	 */
+  	public void authorizationFailure(R request ,S response, AuthorizationException e){
+  		throw e;
+  	}
   
   
-  		@Override
-  		public void authorizationFailure(Invoker invoker , AuthorizationException e) {
-  			//异常处理
-        ...
-  		}
+  	/**
+  	 * 鉴权失败处理
+  	 * @param request 请求对象
+  	 * @param response  响应对象
+  	 */
+  	public void authenticationFailure(R request ,S response, AuthenticationException e){
+  		throw e;
+  	}
   	}
   ```
 
-##### 多租户
+###### 多租户
 
 - 自定义实现TenantIdGenerator
 
   ```
-  public class DefaultTenantIdGenerator implements TenantIdGenerator{
+  public class DefaultTenantIdGenerator implements AuthProcessor<R ,S> {
   
+  	...
   
-  	@Override
-  	public String generate(Invoker invoker) {
-  		//创建租户id
-  		...
+  	/**
+  	 * 生成租户id
+  	 * @param r 请求对象
+  	 * @return 返回租户id
+  	 */
+  	default String getTenantId(R r){
+  		
+  		return getDefaultTenantId();
   	}
+  
   }
   ```
 
-- 在全局元数据中设置TenantId的值即可
+- 在`GlobalMetadata`中设置TenantId的属性值即可
+
+######  AuthProcessor接口说明
+
+```java
+public interface AuthProcessor<R ,S> {
+
+	/**
+	 * 获取token
+	 * <p>获取当前请求的token</p>
+	 * @return 返回token
+	 */
+	String getToken(R request);
+
+	/**
+	 * 校验token 并返回token主体
+	 * @param requestToken token
+	 * @return 返回token主体 用于后续权限查询
+	 */
+	Object validate(RequestToken<R> requestToken);
+
+	/**
+	 * 获取权限列表
+	 * <p>一般为权限标识</p>
+	 * @param primaryPrincipal token 主体
+	 * @return 返回权限列表 ，可以返回空
+	 */
+	Set<String> getPermissions(Object primaryPrincipal);
+
+	/**
+	 * 获取角色列表
+	 * @param primaryPrincipal  token 主体
+	 * @return 返回角色列表 ，可以返回空
+	 */
+	default Set<String> getRoles(Object primaryPrincipal){
+		throw new UnsupportedOperationException();
+	}
+
+
+	/**
+	 * 生成租户id
+	 * @param r 请求对象
+	 * @return 返回租户id
+	 */
+	default String getTenantId(R r){
+		return getDefaultTenantId();
+	}
+
+	/**
+	 * 授权失败处理
+	 * @param request 请求对象
+	 * @param response 响应对象
+	 */
+	default void authorizationFailure(R request ,S response, AuthorizationException e){
+		throw e;
+	}
+
+
+	/**
+	 * 鉴权失败处理
+	 * @param request 请求对象
+	 * @param response  响应对象
+	 */
+	default void authenticationFailure(R request ,S response, AuthenticationException e){
+		throw e;
+	}
+
+
+	/**
+	 * 返回默认的租户id
+	 * @return 租户id
+	 */
+	default String getDefaultTenantId(){
+		return AuthMetadataManager.DEFAULT_TENANT_ID;
+	}
+}
+```
 
 
 
-#### ali nacos对shiro plus的支持
+#### shiro plus对ali nacos的支持
 
 ##### 快速开始
 

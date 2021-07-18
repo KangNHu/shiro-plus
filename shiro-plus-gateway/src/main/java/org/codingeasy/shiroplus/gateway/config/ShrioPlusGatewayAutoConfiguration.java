@@ -3,7 +3,7 @@ package org.codingeasy.shiroplus.gateway.config;
 import org.apache.shiro.mgt.SecurityManager;
 import org.codingeasy.shiroplus.core.event.EventManager;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
-import org.codingeasy.shiroplus.gateway.TokenGenerator;
+import org.codingeasy.shiroplus.gateway.HttpGatewayAuthProcessor;
 import org.codingeasy.shiroplus.gateway.factory.AuthGatewayFilterFactory;
 import org.codingeasy.shiroplus.springboot.config.ShiroPlusSupportConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +34,7 @@ public class ShrioPlusGatewayAutoConfiguration {
 	@Bean
 	public GatewayFilterFactory authGatewayFilterFactory(AuthMetadataManager authMetadataManager,
 	                                         EventManager eventManager,
-                                             @Autowired(required = false) AuthExceptionHandler authExceptionHandler,
-	                                         @Autowired(required = false) TokenGenerator tokenGenerator,
-	                                         @Autowired(required = false) TenantIdGenerator tenantIdGenerator){
-		AuthGatewayFilterFactory authGatewayFilterFactory = new AuthGatewayFilterFactory(authMetadataManager, authExceptionHandler, eventManager);
-		authGatewayFilterFactory.setTenantIdGenerator(tenantIdGenerator);
-		authGatewayFilterFactory.setTokenGenerator(tokenGenerator);
-		return authGatewayFilterFactory;
+	                                         @Autowired(required = false) HttpGatewayAuthProcessor authProcessor){
+		return new AuthGatewayFilterFactory(authMetadataManager, authProcessor , eventManager);
 	}
 }

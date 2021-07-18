@@ -15,7 +15,6 @@ import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
 import org.codingeasy.shiroplus.core.utils.PathUtils;
 import org.codingeasy.shiroplus.gateway.GatewayInvoker;
 import org.codingeasy.shiroplus.gateway.HttpGatewayAuthProcessor;
-import org.codingeasy.shiroplus.gateway.TokenGenerator;
 import org.codingeasy.shiroplus.gateway.utils.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

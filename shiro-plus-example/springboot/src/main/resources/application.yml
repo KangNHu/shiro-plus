@@ -6,6 +6,7 @@ shiroplus:
   plus:
     filter-chain-definition:
       login : /login
+      auth2: /**
     login-url: /login
     success-url: /user
   nacos:

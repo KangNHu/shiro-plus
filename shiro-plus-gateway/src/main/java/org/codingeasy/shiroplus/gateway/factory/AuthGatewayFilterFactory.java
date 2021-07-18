@@ -1,22 +1,12 @@
 package org.codingeasy.shiroplus.gateway.factory;
 
-import org.apache.commons.lang3.StringUtils;
 import org.codingeasy.shiroplus.core.event.EventManager;
-import org.codingeasy.shiroplus.core.interceptor.Invoker;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
-import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
-import org.codingeasy.shiroplus.gateway.GatewayInvoker;
 import org.codingeasy.shiroplus.gateway.HttpGatewayAuthProcessor;
-import org.codingeasy.shiroplus.gateway.TokenGenerator;
 import org.codingeasy.shiroplus.gateway.filter.AuthGatewayFilter;
-import org.codingeasy.shiroplus.gateway.token.GatewayAuthenticationToken;
-import org.codingeasy.shiroplus.gateway.token.SimpleGatewayAuthenticationToken;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.http.HttpCookie;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.util.Assert;
-import org.springframework.web.server.ServerWebExchange;
 
 import static org.codingeasy.shiroplus.gateway.factory.AuthGatewayFilterFactory.CarryStrategy.*;
 
@@ -35,10 +25,6 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 	 */
 	private EventManager eventManager;
 
-	/**
-	 * token 生成器
-	 */
-	private TokenGenerator tokenGenerator;
 	/**
 	 * 配置
 	 */
@@ -65,8 +51,10 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 	public GatewayFilter apply(Config config) {
 		checkConfig(config);
 		if (this.httpGatewayAuthProcessor == null){
-			this.httpGatewayAuthProcessor = new HttpGatewayAuthProcessor(config);
+			this.httpGatewayAuthProcessor = new HttpGatewayAuthProcessor();
 		}
+		//设置配置
+		this.httpGatewayAuthProcessor.setConfig(config);
 		AuthGatewayFilter authGatewayFilter = new AuthGatewayFilter(authMetadataManager,httpGatewayAuthProcessor , eventManager);
 		authGatewayFilter.setPathPrefix(config.authorizationPathPrefix);
 		return authGatewayFilter;

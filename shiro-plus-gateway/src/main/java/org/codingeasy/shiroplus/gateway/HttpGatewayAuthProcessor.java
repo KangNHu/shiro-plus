@@ -7,7 +7,6 @@ import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.core.metadata.MetadataContext;
 import org.codingeasy.shiroplus.core.realm.processor.DefaultAuthProcessor;
 import org.codingeasy.shiroplus.gateway.factory.AuthGatewayFilterFactory;
-import org.codingeasy.shiroplus.gateway.token.SimpleGatewayAuthenticationToken;
 import org.codingeasy.shiroplus.gateway.utils.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,11 +34,12 @@ public class HttpGatewayAuthProcessor extends DefaultAuthProcessor<ServerHttpReq
 
 	private AuthGatewayFilterFactory.Config config;
 
-	public HttpGatewayAuthProcessor(AuthGatewayFilterFactory.Config config){
-		this.config = config;
-	}
 
 	public HttpGatewayAuthProcessor() {
+	}
+
+	public void setConfig(AuthGatewayFilterFactory.Config config) {
+		this.config = config;
 	}
 
 	@Override

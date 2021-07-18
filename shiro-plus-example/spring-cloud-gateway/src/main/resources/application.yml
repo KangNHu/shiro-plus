@@ -24,13 +24,13 @@ spring:
             Path=/api/**
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: common.codingeasy.com.cn:8848
       username: nacos
-      password: nacos
+      password: ning,123456
 nacos:
-  server-addr: localhost:8848
+  server-addr: common.codingeasy.com.cn:8848
   username: nacos
-  password: nacos
+  password: ning,123456
 
 
 management:
