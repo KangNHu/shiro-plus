@@ -51,7 +51,7 @@ mvn clean package
 | spring framework     | 5.2.14.RELEASE |
 | spring boot          | 2.2.13.RELEASE |
 | shiro                | 1.5.1          |
-| servlet-api          | 3.1.0          |
+| servlet-api          | 4.0.0          |
 | spring cloud         | Hoxton.SR11    |
 | nacos-spring-context | 1.1.0          |
 | junit                | 4.12           |
