@@ -2,14 +2,17 @@ package org.codingeasy.shiroplus.core.interceptor;
 
 import com.google.common.base.Charsets;
 import com.google.common.net.MediaType;
+import org.apache.shiro.ShiroException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
-import org.apache.shiro.authz.UnauthenticatedException;
+import org.apache.shiro.authz.UnauthorizedException;
+import org.apache.shiro.util.Initializable;
 import org.apache.shiro.web.util.WebUtils;
 import org.codingeasy.shiroplus.core.event.EventManager;
-import org.codingeasy.shiroplus.core.handler.AuthExceptionHandler;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
+import org.codingeasy.shiroplus.core.metadata.RequestMethod;
+import org.codingeasy.shiroplus.core.realm.processor.DefaultAuthProcessor;
 import org.codingeasy.shiroplus.core.utils.PathUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,19 +28,24 @@ import java.io.PrintWriter;
  *
  * @author : kangning <a>2035711178@qq.com</a>
  */
-public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor implements Filter {
+public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor<HttpServletRequest , HttpServletResponse> implements Filter  {
 
-	private static final Logger logger = LoggerFactory.getLogger(DynamicAuthorizationFilter.class);
 
 
 	public DynamicAuthorizationFilter(AuthMetadataManager authMetadataManager ,  EventManager eventManager) {
-		super(authMetadataManager, new DefaultAuthExceptionHandler() , eventManager);
+		super(authMetadataManager , eventManager);
+		setAuthProcessor(new DefaultAuthProcessor<>());
 	}
 
-
-	public DynamicAuthorizationFilter(AuthMetadataManager authMetadataManager, AuthExceptionHandler authExceptionHandler , EventManager eventManager) {
-		super(authMetadataManager, authExceptionHandler , eventManager);
+	/**
+	 * 获取权限元数据key
+	 * @return 返回key 返回http请求的 path + ":" + method
+	 */
+	@Override
+	protected String getPermissionMetadataKey(HttpServletRequest request) {
+		return WebUtils.getPathWithinApplication(request) + ":" + RequestMethod.form(request.getMethod());
 	}
+
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
@@ -49,7 +57,9 @@ public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		if (request instanceof HttpServletRequest) {
 			invoke(new WebInvoker((HttpServletRequest) request, (HttpServletResponse) response, chain));
+			return;
 		}
+		chain.doFilter(request , response);
 	}
 
 	@Override
@@ -59,11 +69,10 @@ public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor
 
 
 	@Override
-	protected boolean isEnableAuthorization(Invoker invoker) {
+	protected boolean isEnableAuthorization(Invoker<HttpServletRequest , HttpServletResponse> invoker) {
 		WebInvoker webInvoker = (WebInvoker) invoker;
 		//获取全局配置
-		String tenantId = this.tenantIdGenerator.generate(invoker);
-		GlobalMetadata globalMetadata = this.authMetadataManager.getGlobalMetadata(tenantId);
+		GlobalMetadata globalMetadata = super.getGlobalMetadata(invoker.getRequest());;
 		if (globalMetadata == null){
 			return true;
 		}
@@ -73,40 +82,6 @@ public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor
 		}
 		//处理总开关
 		return globalMetadata.getEnableAuthorization() == null || globalMetadata.getEnableAuthorization();
-	}
-
-	/**
-	 * 默认异常处理器
-	 *
-	 * @author kangning <a>2035711178@qq.com</a>
-	 */
-	static class DefaultAuthExceptionHandler implements AuthExceptionHandler {
-
-
-		@Override
-		public void authorizationFailure(Invoker invoker , AuthorizationException e) {
-			WebInvoker webInvoker = (WebInvoker) invoker;
-			HttpServletResponse response = webInvoker.getResponse();
-			response.setContentType(MediaType.ANY_TEXT_TYPE.toString());
-			if (e instanceof UnauthenticatedException){
-				response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-			}else {
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-			}
-			try {
-				response.setCharacterEncoding(Charsets.UTF_8.name());
-				PrintWriter writer = response.getWriter();
-				writer.write(e.getMessage());
-				writer.flush();
-			} catch (Exception e1) {
-				logger.warn("授权失败处理失败 ", e1);
-			}
-		}
-
-		@Override
-		public void authenticationFailure(Invoker invoker, AuthenticationException e) {
-
-		}
 	}
 
 

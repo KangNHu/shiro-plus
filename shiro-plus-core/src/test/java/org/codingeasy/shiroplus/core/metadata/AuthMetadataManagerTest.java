@@ -2,6 +2,7 @@ package org.codingeasy.shiroplus.core.metadata;
 
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
 import org.codingeasy.shiroplus.core.event.EventManager;
+import org.codingeasy.shiroplus.core.event.EventType;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,9 +62,9 @@ public class AuthMetadataManagerTest {
 		EventManager eventManager = new EventManager();
 		eventManager.register(this.authMetadataManager);
 
-		eventManager.publish(new AuthMetadataEvent( AuthMetadataEvent.EventType.UPDATE , new PermissionMetadata("/user" , RequestMethod.POST , Arrays.asList("user:add") , Logical.AND , PermiModel.ROLE)));
-		eventManager.publish(new AuthMetadataEvent( AuthMetadataEvent.EventType.UPDATE , new PermissionMetadata("/user" , RequestMethod.POST , Arrays.asList("user:add:event") , Logical.AND , PermiModel.PRINCIPAL)));
-		eventManager.asyncPublish(new AuthMetadataEvent(AuthMetadataEvent.EventType.UPDATE , new GlobalMetadata(null , Arrays.asList("/swagger") , false , true) ));
+		eventManager.publish(new AuthMetadataEvent( EventType.UPDATE , new PermissionMetadata("/user" , RequestMethod.POST , Arrays.asList("user:add") , Logical.AND , PermiModel.ROLE)));
+		eventManager.publish(new AuthMetadataEvent( EventType.UPDATE , new PermissionMetadata("/user" , RequestMethod.POST , Arrays.asList("user:add:event") , Logical.AND , PermiModel.PRINCIPAL)));
+		eventManager.asyncPublish(new AuthMetadataEvent(EventType.UPDATE , new GlobalMetadata(null , Arrays.asList("/swagger") , false , true) ));
 
 		Thread.sleep(1000L);
 

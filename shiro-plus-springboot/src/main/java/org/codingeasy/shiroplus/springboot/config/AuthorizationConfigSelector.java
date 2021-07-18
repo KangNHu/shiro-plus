@@ -1,5 +1,6 @@
 package org.codingeasy.shiroplus.springboot.config;
 
+import org.codingeasy.shiroplus.core.realm.HttpServletAuthFilter;
 import org.codingeasy.shiroplus.springboot.AuthorModel;
 import org.codingeasy.shiroplus.springboot.annotaion.EnableShiroPlus;
 import org.springframework.context.annotation.ImportSelector;
@@ -38,7 +39,7 @@ public class AuthorizationConfigSelector implements ImportSelector {
 			if (authorModel == AuthorModel.AOP){
 				classNames.add(AopDynamicAuthorizationAutoConfiguration.class.getName());
 			}else {
-				classNames.add(DynamicAuthorizationAutoConfiguration.class.getName());
+				HttpServletAuthFilter.setEnableDynamicAuthorization(true);
 			}
 		}
 		return classNames.toArray(new String[]{});

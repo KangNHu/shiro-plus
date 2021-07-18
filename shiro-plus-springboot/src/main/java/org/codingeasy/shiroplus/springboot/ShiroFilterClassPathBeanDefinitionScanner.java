@@ -1,6 +1,6 @@
 package org.codingeasy.shiroplus.springboot;
 
-import org.codingeasy.shiroplus.springboot.annotaion.ShiroFilter;
+import org.codingeasy.shiroplus.core.annotation.ShiroFilter;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
@@ -65,7 +65,6 @@ public class ShiroFilterClassPathBeanDefinitionScanner extends ClassPathScanning
 				Class<?> beanClass = getClassLoader().loadClass(beanClassName);
 
 				Filter filter = (Filter) beanFactory.createBean(beanClass);
-				beanFactory.autowireBean(filter);
 				filters.put(getFilterName(beanClass), filter);
 			} catch (Exception e) {
 				logger.warn("加载class失败", e);

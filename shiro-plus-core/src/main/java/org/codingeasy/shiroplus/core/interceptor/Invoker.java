@@ -5,7 +5,7 @@ package org.codingeasy.shiroplus.core.interceptor;
  * 调用器
  * @author kangning <a>2035711178@qq.com</a>
  */
-public interface Invoker {
+public interface Invoker<R , S> {
 
 	/**
 	 * 调用
@@ -13,12 +13,17 @@ public interface Invoker {
 	 */
 	Object invoke();
 
-
+	/**
+	 * 获取请求对象
+	 * @return 返回请求对象
+	 */
+	R getRequest();
 
 
 	/**
-	 * 获取权限元信息key
-	 * @return 返回一个key
+	 * 获取响应对象
+	 * @return 返回响应对象
 	 */
-	String getPermissionMetadataKey();
+	S getResponse();
+
 }

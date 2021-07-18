@@ -16,6 +16,8 @@
 
     <modules>
         <module>shiro-plus-loader-nacos</module>
+        <module>shiro-plus-loader-admin-client</module>
+        <module>shiro-plus-loader-admin-server</module>
     </modules>
 
 </project>

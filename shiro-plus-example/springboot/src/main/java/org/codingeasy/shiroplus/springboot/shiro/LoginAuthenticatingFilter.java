@@ -5,7 +5,6 @@ import org.apache.shiro.authc.BearerToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
 import org.apache.shiro.web.util.WebUtils;
-import org.codingeasy.shiroplus.springboot.annotaion.ShiroFilter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 *   
 * @author : kangning <a>2035711178@qq.com</a>
 */
-@ShiroFilter("login")
 public class LoginAuthenticatingFilter extends AuthenticatingFilter {
 
 

@@ -1,9 +1,10 @@
 package org.codingeasy.shiroplus.springboot.config;
 
-import org.codingeasy.shiroplus.core.handler.AuthExceptionHandler;
 import org.codingeasy.shiroplus.core.handler.AuthorizationHandler;
 import org.codingeasy.shiroplus.core.interceptor.AbstractAuthorizationInterceptor;
+import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ImportAware;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,17 +13,17 @@ import java.util.List;
 * 抽象的权限配置  
 * @author : kangning <a>2035711178@qq.com</a>
 */
-public abstract class AbstractAuthorizationAutoConfiguration {
+public abstract class AbstractAuthorizationAutoConfiguration<R ,S> {
 
-	protected AuthExceptionHandler authExceptionHandler;
+	protected AuthProcessor<R ,S> authProcessor;
 
 
 	private List<AuthorizationHandler> authorizationHandlers = new ArrayList<AuthorizationHandler>();
 
 
 	@Autowired(required = false)
-	public void setAuthExceptionHandler(AuthExceptionHandler authExceptionHandler){
-		this.authExceptionHandler = authExceptionHandler;
+	public void setAuthExceptionHandler(AuthProcessor<R ,S> authProcessor){
+		this.authProcessor = authProcessor;
 	}
 
 
@@ -32,10 +33,16 @@ public abstract class AbstractAuthorizationAutoConfiguration {
 	}
 
 
-	protected void addAuthorizationHandlers(AbstractAuthorizationInterceptor interceptor){
+	protected void setCommonComponent(AbstractAuthorizationInterceptor<R ,S> interceptor){
+		if (authProcessor != null){
+			interceptor.setAuthProcessor(authProcessor);
+		}
 		for (AuthorizationHandler authorizationHandler : authorizationHandlers){
 			interceptor.addAuthorizationHandler(authorizationHandler);
 		}
 	}
+
+
+
 
 }

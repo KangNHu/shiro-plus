@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>shiro-plus-loader</artifactId>
+        <groupId>org.codingeasy</groupId>
+        <version>${reversion}</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>shiro-plus-loader-admin-server</artifactId>
+
+    <properties>
+        <jwt.version>9.0</jwt.version>
+        <mp.version>3.3.2</mp.version>
+        <mysql-connector.version>8.0.21</mysql-connector.version>
+        <druid-spring-boot.version>1.1.18</druid-spring-boot.version>
+        <stream-record-springboot.version>1.0.0</stream-record-springboot.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.codingeasy</groupId>
+            <artifactId>shiro-plus-springboot</artifactId>
+            <version>${reversion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codingeasy</groupId>
+            <artifactId>stream-record-springboot</artifactId>
+            <version>${stream-record-springboot.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+        </dependency>
+        <!--jwt-->
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>${jwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid-spring-boot.version}</version>
+        </dependency>
+    </dependencies>
+</project>

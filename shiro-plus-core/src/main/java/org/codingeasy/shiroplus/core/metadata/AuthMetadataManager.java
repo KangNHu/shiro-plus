@@ -6,6 +6,7 @@ import org.apache.shiro.util.CollectionUtils;
 import org.apache.shiro.util.Initializable;
 import org.codingeasy.shiroplus.core.ReadWriteLock;
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
+import org.codingeasy.shiroplus.core.event.EventType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -197,7 +198,7 @@ public class AuthMetadataManager implements EventListener , Initializable {
 	                                 Map metadataMap ,
                                      BiConsumer<T ,String> callback,
 	                                 Class<T> clazz){
-		AuthMetadataEvent.EventType type = event.getType();
+		EventType type = event.getType();
 		if (type == null){
 			logger.info("无效的 metadata event");
 			return;

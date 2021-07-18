@@ -1,5 +1,6 @@
 package org.codingeasy.shiroplus.springboot.config;
 
+import org.aopalliance.intercept.MethodInvocation;
 import org.codingeasy.shiroplus.core.event.EventManager;
 import org.codingeasy.shiroplus.core.interceptor.aop.AopAuthorizationAdvisor;
 import org.codingeasy.shiroplus.core.interceptor.aop.AopAuthorizationInterceptor;
@@ -16,21 +17,16 @@ import org.springframework.context.annotation.Configuration;
 * @author : kangning <a>2035711178@qq.com</a>
 */
 @ConditionalOnBean({AuthMetadataManager.class , EventManager.class})
-public class AopAuthorizationAutoConfiguration extends AbstractAuthorizationAutoConfiguration {
+public class AopAuthorizationAutoConfiguration extends AbstractAuthorizationAutoConfiguration<MethodInvocation, MethodInvocation> {
 
 
 
 	@Bean(name = "aopAuthorizationInterceptor")
 	public AopAuthorizationInterceptor aopAuthorizationInterceptor(AuthMetadataManager authMetadataManager ,
 	                                                               EventManager eventManager){
-		AopAuthorizationInterceptor aopAuthorizationInterceptor = null;
-		if (authExceptionHandler == null){
-			aopAuthorizationInterceptor = new AopAuthorizationInterceptor(authMetadataManager ,eventManager);
-		}else {
-			aopAuthorizationInterceptor = new AopAuthorizationInterceptor(authMetadataManager , this.authExceptionHandler , eventManager);
-		}
+		AopAuthorizationInterceptor aopAuthorizationInterceptor = new AopAuthorizationInterceptor(authMetadataManager ,eventManager);
 		//设置授权处理器
-		addAuthorizationHandlers(aopAuthorizationInterceptor);
+		setCommonComponent(aopAuthorizationInterceptor);
 		return aopAuthorizationInterceptor;
 	}
 

@@ -1,21 +1,16 @@
 package org.codingeasy.shiroplus.gateway.factory;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.BearerToken;
 import org.codingeasy.shiroplus.core.event.EventManager;
-import org.codingeasy.shiroplus.core.handler.AuthExceptionHandler;
 import org.codingeasy.shiroplus.core.interceptor.Invoker;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
-import org.codingeasy.shiroplus.core.mgt.TenantIdGenerator;
-import org.codingeasy.shiroplus.gateway.GatewayAuthExceptionHandler;
 import org.codingeasy.shiroplus.gateway.GatewayInvoker;
+import org.codingeasy.shiroplus.gateway.HttpGatewayAuthProcessor;
 import org.codingeasy.shiroplus.gateway.TokenGenerator;
 import org.codingeasy.shiroplus.gateway.filter.AuthGatewayFilter;
 import org.codingeasy.shiroplus.gateway.token.GatewayAuthenticationToken;
 import org.codingeasy.shiroplus.gateway.token.SimpleGatewayAuthenticationToken;
-import org.codingeasy.shiroplus.gateway.utils.WebUtils;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpCookie;
@@ -36,10 +31,6 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 	 */
 	private AuthMetadataManager authMetadataManager;
 	/**
-	 * 权限异常处理器
-	 */
-	private AuthExceptionHandler authExceptionHandler;
-	/**
 	 * 事件管理器
 	 */
 	private EventManager eventManager;
@@ -49,48 +40,34 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 	 */
 	private TokenGenerator tokenGenerator;
 	/**
-	 * 租户id生成器
-	 */
-	private TenantIdGenerator tenantIdGenerator;
-
-	/**
 	 * 配置
 	 */
-	private  static Config config;
+	private static Config config;
+
+
+	private HttpGatewayAuthProcessor httpGatewayAuthProcessor;
 
 
 	public AuthGatewayFilterFactory(AuthMetadataManager authMetadataManager ,
-	                                AuthExceptionHandler authExceptionHandler ,
+	                                HttpGatewayAuthProcessor httpGatewayAuthProcessor ,
 	                                EventManager eventManager){
 		super(Config.class);
-		this.authExceptionHandler = authExceptionHandler;
+		this.httpGatewayAuthProcessor = httpGatewayAuthProcessor;
 		this.authMetadataManager = authMetadataManager;
 		this.eventManager = eventManager;
 	}
 
-
-	public void setTokenGenerator(TokenGenerator tokenGenerator) {
-		this.tokenGenerator = tokenGenerator;
+	public void setHttpGatewayAuthProcessor(HttpGatewayAuthProcessor httpGatewayAuthProcessor) {
+		this.httpGatewayAuthProcessor = httpGatewayAuthProcessor;
 	}
-
-	public void setTenantIdGenerator(TenantIdGenerator tenantIdGenerator) {
-		this.tenantIdGenerator = tenantIdGenerator;
-	}
-
 
 	@Override
 	public GatewayFilter apply(Config config) {
 		checkConfig(config);
-		if (authExceptionHandler == null){
-			authExceptionHandler = new GatewayAuthExceptionHandler(tenantIdGenerator , authMetadataManager);
+		if (this.httpGatewayAuthProcessor == null){
+			this.httpGatewayAuthProcessor = new HttpGatewayAuthProcessor(config);
 		}
-		AuthGatewayFilter authGatewayFilter = new AuthGatewayFilter(authMetadataManager, authExceptionHandler, eventManager);
-		if (tenantIdGenerator != null){
-			authGatewayFilter.setTenantIdGenerator(tenantIdGenerator);
-		}
-		if (tokenGenerator != null){
-			authGatewayFilter.setTokenGenerator(tokenGenerator);
-		}
+		AuthGatewayFilter authGatewayFilter = new AuthGatewayFilter(authMetadataManager,httpGatewayAuthProcessor , eventManager);
 		authGatewayFilter.setPathPrefix(config.authorizationPathPrefix);
 		return authGatewayFilter;
 	}
@@ -106,78 +83,10 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 		Assert.notNull(config.tokenName , "AuthGatewayFilterFactory$config#tokenName not is null");
 		Assert.notNull(config.tokenStrategy , "AuthGatewayFilterFactory$config#tokenStrategy not is null");
 		Assert.notNull(config.authorizationPathPrefix , "AuthGatewayFilterFactory$config#authorizationPathPrefix not is null");
-		if(this.tenantIdGenerator == null){
-			this.tenantIdGenerator = new DynamicStrategyTenantIdGenerator();
-		}
-		if (this.tokenGenerator == null){
-			this.tokenGenerator = new DynamicStrategyTokenGenerator();
-		}
 		AuthGatewayFilterFactory.config = config;
 	}
 
 
-	/**
-	 * 动态测试租户id生成器
-	 */
-	static class DynamicStrategyTenantIdGenerator implements TenantIdGenerator{
-
-
-		@Override
-		public String generate(Invoker invoker) {
-			GatewayInvoker gatewayInvoker = (GatewayInvoker) invoker;
-			ServerWebExchange serverWebExchange = gatewayInvoker.getServerWebExchange();
-			ServerHttpRequest request = serverWebExchange.getRequest();
-			String tenantId = null;
-			switch (config.tenantStrategy){
-				case HEAD:
-					tenantId = request.getHeaders().getFirst(config.tenantName);
-					break;
-				case QUERY:
-					tenantId = request.getQueryParams().getFirst(config.tenantName);
-					break;
-				case COOKIE:
-					HttpCookie tenantHttpCookie = request.getCookies().getFirst(config.tenantName);
-					tenantId = tenantHttpCookie != null ? tenantHttpCookie.getValue() : null;
-					break;
-				case PATH:
-				default:
-					String path = request.getPath().pathWithinApplication().value();
-					String[] split = path.split("/");
-					if (split.length >= config.tenantPathIndex){
-						tenantId = split[config.tenantPathIndex + 1];
-					}
-
-			}
-			return tenantId == null ? getDefault() : tenantId;
-		}
-	}
-
-
-	/**
-	 * 动态策略token 生成器
-	 */
-	static class DynamicStrategyTokenGenerator implements TokenGenerator{
-
-
-		@Override
-		public GatewayAuthenticationToken generate(ServerHttpRequest request, GlobalMetadata globalMetadata) {
-			String token;
-			switch (config.tokenStrategy){
-				case HEAD:
-					token = request.getHeaders().getFirst(config.tokenName);
-					break;
-				case COOKIE:
-					HttpCookie tenantHttpCookie = request.getCookies().getFirst(config.tokenName);
-					token = tenantHttpCookie != null ? tenantHttpCookie.getValue() : null;
-					break;
-				case QUERY:
-				case PATH:
-				default:
-					token = request.getQueryParams().getFirst(config.tokenName);
-			}
-			return !StringUtils.isEmpty(token)? new SimpleGatewayAuthenticationToken(globalMetadata,request ,token) : null;
-		}
-	}
 
 
 	/**
@@ -231,6 +140,30 @@ public class AuthGatewayFilterFactory extends AbstractGatewayFilterFactory<AuthG
 		public Config setTenantStrategy(CarryStrategy tenantStrategy) {
 			this.tenantStrategy = tenantStrategy;
 			return this;
+		}
+
+		public String getTenantName() {
+			return tenantName;
+		}
+
+		public CarryStrategy getTenantStrategy() {
+			return tenantStrategy;
+		}
+
+		public void setTenantPathIndex(Integer tenantPathIndex) {
+			this.tenantPathIndex = tenantPathIndex;
+		}
+
+		public String getTokenName() {
+			return tokenName;
+		}
+
+		public CarryStrategy getTokenStrategy() {
+			return tokenStrategy;
+		}
+
+		public String getAuthorizationPathPrefix() {
+			return authorizationPathPrefix;
 		}
 
 		public int getTenantPathIndex() {

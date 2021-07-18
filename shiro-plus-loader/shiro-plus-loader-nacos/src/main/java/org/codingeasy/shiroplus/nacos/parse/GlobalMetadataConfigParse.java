@@ -2,9 +2,9 @@ package org.codingeasy.shiroplus.nacos.parse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
-import org.codingeasy.shiroplus.core.metadata.AbstractMetadata;
+import org.codingeasy.shiroplus.core.event.EventType;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
-import org.codingeasy.shiroplus.nacos.metedata.NacosGlobalMetadata;
+import org.codingeasy.shiroplus.nacos.metadata.NacosGlobalMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -96,7 +96,7 @@ public class GlobalMetadataConfigParse  implements ConfigParse<NacosGlobalMetada
 	public NacosGlobalMetadata createReducedMetadata(String item) {
 		NacosGlobalMetadata nacosGlobalMetadata = new NacosGlobalMetadata();
 		nacosGlobalMetadata.setTenantId(item);
-		nacosGlobalMetadata.setEventType(AuthMetadataEvent.EventType.DELETE);
+		nacosGlobalMetadata.setEventType(EventType.DELETE);
 		return nacosGlobalMetadata;
 	}
 

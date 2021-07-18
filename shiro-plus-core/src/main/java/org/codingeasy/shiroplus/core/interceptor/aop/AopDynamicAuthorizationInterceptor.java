@@ -1,20 +1,17 @@
 package org.codingeasy.shiroplus.core.interceptor.aop;
 
+import org.aopalliance.intercept.MethodInvocation;
 import org.apache.shiro.authz.annotation.*;
-import org.apache.shiro.web.util.WebUtils;
 import org.codingeasy.shiroplus.core.event.EventManager;
-import org.codingeasy.shiroplus.core.handler.AuthExceptionHandler;
 import org.codingeasy.shiroplus.core.annotation.DynamicAuthorization;
 import org.codingeasy.shiroplus.core.interceptor.AopInvoker;
 import org.codingeasy.shiroplus.core.interceptor.Invoker;
-import org.codingeasy.shiroplus.core.interceptor.WebInvoker;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.core.metadata.PermiModel;
 import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 import org.codingeasy.shiroplus.core.utils.PathUtils;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 
@@ -35,15 +32,9 @@ public class AopDynamicAuthorizationInterceptor extends AopAuthorizationIntercep
 
 
 
-	public AopDynamicAuthorizationInterceptor(AuthMetadataManager authMetadataManager,
-	                                          AuthExceptionHandler authExceptionHandler,
-	                                          EventManager eventManager) {
-		super(authMetadataManager, authExceptionHandler , eventManager);
-
-	}
-
-	public AopDynamicAuthorizationInterceptor(AuthMetadataManager authMetadataManager , EventManager eventManager) {
+	public AopDynamicAuthorizationInterceptor(AuthMetadataManager authMetadataManager, EventManager eventManager) {
 		super(authMetadataManager , eventManager);
+
 	}
 
 
@@ -59,12 +50,13 @@ public class AopDynamicAuthorizationInterceptor extends AopAuthorizationIntercep
 	 * @return
 	 */
 	@Override
-	protected PermissionMetadata getPermissionMetadata(Invoker invoker) {
+	protected PermissionMetadata getPermissionMetadata(Invoker<MethodInvocation, MethodInvocation> invoker) {
 		PermissionMetadata permissionMetadata = super.getPermissionMetadata(invoker);
 		if (permissionMetadata == null){
 			return super.getSuperPermissionMetadata(invoker);
 		}
-		String cacheKey = invoker.getPermissionMetadataKey();
+
+		String cacheKey = super.getPermissionMetadataKey(invoker.getRequest());
 		permissionMetadata = this.authMetadataManager.getPermissionMetadata(cacheKey , permissionMetadata.getPermiModel());
 		return  permissionMetadata == null ? super.getSuperPermissionMetadata(invoker) : permissionMetadata;
 
@@ -72,12 +64,11 @@ public class AopDynamicAuthorizationInterceptor extends AopAuthorizationIntercep
 
 
 	@Override
-	protected boolean isEnableAuthorization(Invoker invoker) {
+	protected boolean isEnableAuthorization(Invoker<MethodInvocation, MethodInvocation> invoker) {
 		AopInvoker aopInvoker = (AopInvoker) invoker;
 		Method method = aopInvoker.getMethodInvocation().getMethod();
 		//获取全局配置
-		String tenantId = this.tenantIdGenerator.generate(invoker);
-		GlobalMetadata globalMetadata = this.authMetadataManager.getGlobalMetadata(tenantId);
+		GlobalMetadata globalMetadata = super.getGlobalMetadata(invoker.getRequest());
 		if (globalMetadata == null){
 			return true;
 		}

@@ -1,7 +1,8 @@
 package org.codingeasy.shiroplus.nacos.parse;
 
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
-import org.codingeasy.shiroplus.nacos.metedata.NacosMetadata;
+import org.codingeasy.shiroplus.core.event.EventType;
+import org.codingeasy.shiroplus.nacos.metadata.NacosMetadata;
 
 import java.util.*;
 import java.util.function.Function;
@@ -78,12 +79,12 @@ public interface ConfigParse<T extends NacosMetadata> {
 		for (T nm : metadataList){
 			T oldNm = oldMap.get(getKey(nm));
 			if (oldNm == null){
-				nm.setEventType(AuthMetadataEvent.EventType.ADD);
+				nm.setEventType(EventType.ADD);
 				updateMetadataList.add(nm);
 				continue;
 			}
 			if (!oldNm.toString().equals(nm.toString())){
-				nm.setEventType(AuthMetadataEvent.EventType.UPDATE);
+				nm.setEventType(EventType.UPDATE);
 				updateMetadataList.add(nm);
 			}
 		}

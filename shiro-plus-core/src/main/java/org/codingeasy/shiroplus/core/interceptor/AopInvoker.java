@@ -7,7 +7,7 @@ import org.aopalliance.intercept.MethodInvocation;
 * 基于aop的调用器  
 * @author : kangning <a>2035711178@qq.com</a>
 */
-public  class  AopInvoker implements Invoker {
+public  class  AopInvoker implements Invoker<MethodInvocation ,MethodInvocation> {
 
 	private MethodInvocation methodInvocation;
 
@@ -30,9 +30,14 @@ public  class  AopInvoker implements Invoker {
 		}
 	}
 
+	@Override
+	public MethodInvocation getRequest() {
+		return methodInvocation;
+	}
 
 	@Override
-	public String getPermissionMetadataKey() {
-		return methodInvocation.getMethod().toGenericString();
+	public MethodInvocation getResponse() {
+		return methodInvocation;
 	}
+
 }

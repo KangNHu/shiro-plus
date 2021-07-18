@@ -2,6 +2,8 @@ package org.codingeasy.shiroplus.springboot;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.shiro.authc.Authenticator;
+import org.apache.shiro.authc.pam.AuthenticationStrategy;
+import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.authz.Authorizer;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.event.EventBus;
@@ -26,6 +28,9 @@ import java.util.stream.Collectors;
 public class ShiroPlusSecurityManager extends DefaultWebSecurityManager implements ApplicationListener<ContextRefreshedEvent> {
 
 	private boolean init = false;
+
+
+
 
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		if (init){
@@ -86,7 +91,15 @@ public class ShiroPlusSecurityManager extends DefaultWebSecurityManager implemen
 		if (!ArrayUtils.isEmpty(eventBusBeanNames)) {
 			this.setEventBus(applicationContext.getBean(eventBusBeanNames[0] , EventBus.class));
 		}
-
+		// 设置鉴权策略 当使用默认的鉴权时
+		Authenticator defaultAuthenticator = getAuthenticator();
+		if (defaultAuthenticator instanceof ModularRealmAuthenticator){
+			String[] authenticationStrategyBeanNames = applicationContext.getBeanNamesForType(AuthenticationStrategy.class);
+			if (!ArrayUtils.isEmpty(authenticationStrategyBeanNames)) {
+				AuthenticationStrategy authenticationStrategy = applicationContext.getBean(authenticationStrategyBeanNames[0], AuthenticationStrategy.class);
+				((ModularRealmAuthenticator) defaultAuthenticator).setAuthenticationStrategy(authenticationStrategy);
+			}
+		}
 	}
 
 	/**

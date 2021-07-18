@@ -2,6 +2,7 @@ package org.codingeasy.shiroplus.springboot.controller;
 
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
 import org.codingeasy.shiroplus.core.event.EventManager;
+import org.codingeasy.shiroplus.core.event.EventType;
 import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +50,6 @@ public class UserController {
 	 */
 	@PutMapping("/publishEvent")
 	public void publishEvent(@RequestBody PermissionMetadata permissionMetadata){
-		eventManager.publish(new AuthMetadataEvent(AuthMetadataEvent.EventType.UPDATE, permissionMetadata));
+		eventManager.publish(new AuthMetadataEvent(EventType.UPDATE, permissionMetadata));
 	}
 }

@@ -4,7 +4,7 @@ package org.codingeasy.shiroplus.core.interceptor;
 * 权限校验拦截器
 * @author : kangning <a>2035711178@qq.com</a>
 */
-public  interface AuthInterceptor {
+public  interface AuthInterceptor<R ,S> {
 
 
 	/**
@@ -13,5 +13,5 @@ public  interface AuthInterceptor {
 	 * @return 返回返回值
 	 * @throws IllegalArgumentException 调用异常
 	 */
-	Object invoke(Invoker invoker) ;
+	Object invoke(Invoker<R ,S> invoker) ;
 }

@@ -2,9 +2,7 @@ package org.codingeasy.shiroplus.gateway.config;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.codingeasy.shiroplus.core.event.EventManager;
-import org.codingeasy.shiroplus.core.handler.AuthExceptionHandler;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
-import org.codingeasy.shiroplus.core.mgt.TenantIdGenerator;
 import org.codingeasy.shiroplus.gateway.TokenGenerator;
 import org.codingeasy.shiroplus.gateway.factory.AuthGatewayFilterFactory;
 import org.codingeasy.shiroplus.springboot.config.ShiroPlusSupportConfiguration;

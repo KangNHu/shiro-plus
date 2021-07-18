@@ -21,13 +21,16 @@
         <!--第三方依赖-->
         <shiro.versio>1.5.1</shiro.versio>
 
-        <servlet.version>3.1.0</servlet.version>
+        <servlet.version>4.0.0</servlet.version>
         <commons.version>3.11</commons.version>
+        <okhttp.version>4.9.1</okhttp.version>
+        <feign-okhttp.version>10.2.0</feign-okhttp.version>
         <!--spring 依赖-->
         <spring.version>5.2.14.RELEASE</spring.version>
         <spring-boot.version>2.2.13.RELEASE</spring-boot.version>
         <spring-cloud.version>Hoxton.SR11</spring-cloud.version>
-
+        <derby.version>10.10.1.1</derby.version>
+        <commons-dbcp2.version>2.7.0</commons-dbcp2.version>
         <!--nacos-->
         <nacos.context.version>1.1.0</nacos.context.version>
         <!--单元测试-->
@@ -73,6 +76,16 @@
                 <version>${spring.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-okhttp</artifactId>
+                <version>${feign-okhttp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
+            </dependency>
             <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -81,6 +94,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
 
             <!--nacos-->
             <dependency>

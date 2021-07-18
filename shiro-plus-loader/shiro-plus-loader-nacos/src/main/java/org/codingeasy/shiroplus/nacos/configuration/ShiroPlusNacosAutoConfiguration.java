@@ -1,27 +1,20 @@
 package org.codingeasy.shiroplus.nacos.configuration;
 
-import com.alibaba.nacos.api.annotation.NacosProperties;
-import com.alibaba.nacos.api.config.ConfigService;
 import com.alibaba.nacos.spring.beans.factory.annotation.ConfigServiceBeanBuilder;
-import com.alibaba.nacos.spring.context.annotation.config.EnableNacosConfig;
 import org.codingeasy.shiroplus.core.event.EventManager;
 import org.codingeasy.shiroplus.core.metadata.MetadataLoader;
 import org.codingeasy.shiroplus.nacos.annotation.EnableShiroPlusNacos;
-import org.codingeasy.shiroplus.nacos.metedata.NacosMetadataLoader;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
+import org.codingeasy.shiroplus.nacos.metadata.NacosMetadataLoader;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportAware;
 import org.springframework.context.annotation.Primary;
-import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.core.type.AnnotationMetadata;
 
 import java.util.Map;
-import java.util.Set;
 
 /**
 * shiro pllu集成 nacos自动装配类

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 * 基于web的调用  
 * @author : kangning <a>2035711178@qq.com</a>
 */
-public class WebInvoker implements Invoker {
+public class WebInvoker implements Invoker<HttpServletRequest , HttpServletResponse> {
 
 	private HttpServletRequest request;
 
@@ -47,11 +47,5 @@ public class WebInvoker implements Invoker {
 			throw new IllegalStateException(e);
 		}
 		return null;
-	}
-
-
-	@Override
-	public String getPermissionMetadataKey() {
-		return WebUtils.getPathWithinApplication(this.request) + ":" + RequestMethod.form(request.getMethod());
 	}
 }

@@ -7,11 +7,9 @@ import org.codingeasy.shiroplus.core.event.AuthorizeEvent;
 import org.codingeasy.shiroplus.core.event.CommonEventType;
 import org.codingeasy.shiroplus.core.event.EventManager;
 import org.codingeasy.shiroplus.core.handler.*;
-import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
-import org.codingeasy.shiroplus.core.metadata.PermiModel;
-import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
-import org.codingeasy.shiroplus.core.mgt.DefaultTenantIdGenerator;
-import org.codingeasy.shiroplus.core.mgt.TenantIdGenerator;
+import org.codingeasy.shiroplus.core.metadata.*;
+import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
+import org.codingeasy.shiroplus.core.realm.processor.DefaultAuthProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,40 +19,31 @@ import java.util.List;
 *  抽象的动态授权校验
 * @author : kangning <a>2035711178@qq.com</a>
 */
-public class AbstractAuthorizationInterceptor implements AuthInterceptor {
+public abstract class AbstractAuthorizationInterceptor<R , S> implements AuthInterceptor<R , S> {
 
 	private final static Logger logger = LoggerFactory.getLogger(AbstractAuthorizationInterceptor.class);
 
 
 	private AuthorizationHandler authorizationHandler = new ProxyAuthorizationHandler();
-
+	protected AuthProcessor<R ,S> authProcessor = new DefaultAuthProcessor<>();
 	protected AuthMetadataManager authMetadataManager;
-
-	private AuthExceptionHandler authExceptionHandler;
-
 	private EventManager eventManager;
 
-	protected TenantIdGenerator tenantIdGenerator = new DefaultTenantIdGenerator();
 
-
-	public AbstractAuthorizationInterceptor(AuthMetadataManager authMetadataManager ,
-	                                        AuthExceptionHandler authExceptionHandler ,
-	                                        EventManager eventManager){
-		Assert.notNull(authExceptionHandler , "权限异常处理器不能为空");
-		Assert.notNull(authMetadataManager , "权限元数据管理器不能为空");
-		Assert.notNull(eventManager , "事件管理器不能为空");
-
-		this.authExceptionHandler = authExceptionHandler;
+	public AbstractAuthorizationInterceptor(AuthMetadataManager authMetadataManager , EventManager eventManager){
+		Assert.notNull(authMetadataManager , "authMetadataManager is not null");
+		Assert.notNull(eventManager , "eventManager is not null");
 		this.authMetadataManager = authMetadataManager;
 		this.eventManager = eventManager;
 		addDefaultAuthorizationHandlers();
 	}
 
 
-
-	public void setTenantIdGenerator(TenantIdGenerator tenantIdGenerator) {
-		this.tenantIdGenerator = tenantIdGenerator;
+	public void setAuthProcessor(AuthProcessor<R, S> authProcessor) {
+		Assert.notNull(authProcessor , "authProcessor is not null");
+		this.authProcessor = authProcessor;
 	}
+
 
 	/**
 	 * 添加默认的授权处理器
@@ -78,7 +67,7 @@ public class AbstractAuthorizationInterceptor implements AuthInterceptor {
 
 
 	@Override
-	public Object invoke(Invoker invoker){
+	public Object invoke(Invoker<R ,S> invoker){
 		//是否开启授权
 		if (isEnableAuthorization(invoker)) {
 			//获取权限元信息
@@ -99,7 +88,7 @@ public class AbstractAuthorizationInterceptor implements AuthInterceptor {
 						authorizationHandler.authorize(permissionMetadata);
 						//发送授权成功事件
 						eventManager.asyncPublish(new AuthorizeEvent(invoker , CommonEventType.SUCCEED));
-					} catch (AuthorizationException a) {
+					} catch (AuthorizationException e) {
 						logger.warn("请求 [{},{},{}] 权限校验失败 {}",
 								permissionMetadata.getPath(),
 								permissionMetadata.getMethod(),
@@ -108,9 +97,9 @@ public class AbstractAuthorizationInterceptor implements AuthInterceptor {
 						//发送授权失败事件
 						eventManager.asyncPublish(new AuthorizeEvent(invoker , CommonEventType.FAIL));
 						//异常处理
-						this.authExceptionHandler.authorizationFailure(invoker, a);
+						this.authProcessor.authorizationFailure(invoker.getRequest() , invoker.getResponse(), e);
 						//异常后置处理
-						Object result = authExceptionAfterProcessor(this.authExceptionHandler);
+						Object result = authExceptionAfterProcessor(invoker , e);
 						if (result != null){
 							return result;
 						}
@@ -125,11 +114,15 @@ public class AbstractAuthorizationInterceptor implements AuthInterceptor {
 		}
 	}
 
+
+
+
 	/**
 	 * 权限异常处理后置处理
-	 * @param authExceptionHandler 权限处理器
+	 * @param invoker 调用器对象
+	 * @param e 授权异常
 	 */
-	protected Object authExceptionAfterProcessor(AuthExceptionHandler authExceptionHandler) {
+	protected Object authExceptionAfterProcessor(Invoker<R ,S> invoker , AuthorizationException e) {
 		return null;
 	}
 
@@ -137,10 +130,23 @@ public class AbstractAuthorizationInterceptor implements AuthInterceptor {
 	 * 是否开启授权
 	 * @return 如果开启返回true否则false
 	 */
-	protected boolean isEnableAuthorization(Invoker invoker) {
+	protected boolean isEnableAuthorization(Invoker<R ,S> invoker ) {
 		return true;
 	}
 
+
+	/**
+	 * 获取全局元信息
+	 * @param r 请求对象
+	 * @return 返回全局元信息
+	 */
+	public GlobalMetadata getGlobalMetadata(R r){
+		//获取全局配置
+		String tenantId = this.authProcessor.getTenantId(r);
+		GlobalMetadata globalMetadata = this.authMetadataManager.getGlobalMetadata(tenantId);
+		MetadataContext.setCurrentGlobalMetadata(globalMetadata);
+		return globalMetadata;
+	}
 
 	/**
 	 * 获取权限元信息
@@ -148,8 +154,8 @@ public class AbstractAuthorizationInterceptor implements AuthInterceptor {
 	 * @param invoker 调用器
 	 * @return 返回权限元信息
 	 */
-	protected PermissionMetadata getPermissionMetadata(Invoker invoker){
-		String cacheKey = invoker.getPermissionMetadataKey();
+	protected PermissionMetadata getPermissionMetadata(Invoker<R ,S> invoker ){
+		String cacheKey = getPermissionMetadataKey(invoker.getRequest());
 		//获取 permission 授权模式
 		PermissionMetadata permissionMetadata = this.authMetadataManager.getPermissionMetadata(cacheKey, PermiModel.PERMISSION);
 		if (permissionMetadata != null){
@@ -173,4 +179,11 @@ public class AbstractAuthorizationInterceptor implements AuthInterceptor {
 		//获取 principal 授权模式
 		return this.authMetadataManager.getPermissionMetadata(cacheKey , PermiModel.PRINCIPAL);
 	}
+
+	/**
+	 * 获取权限元数据key
+	 * @return 返回key
+	 */
+	protected abstract String  getPermissionMetadataKey(R r);
+
 }

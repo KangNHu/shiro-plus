@@ -1,17 +1,16 @@
 package org.codingeasy.shiroplus.gateway;
 
-import org.apache.commons.lang3.StringUtils;
 import org.codingeasy.shiroplus.core.interceptor.Invoker;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
-import org.springframework.http.server.RequestPath;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
 
 /**
 * 网关调用器
 * @author : KangNing Hu
 */
-public class GatewayInvoker implements Invoker {
+public class GatewayInvoker implements Invoker<ServerHttpRequest , ServerHttpResponse> {
 
 	private ServerWebExchange serverWebExchange;
 
@@ -31,15 +30,19 @@ public class GatewayInvoker implements Invoker {
 		return this.gatewayFilterChain.filter(this.serverWebExchange);
 	}
 
+	@Override
+	public ServerHttpRequest getRequest() {
+		return serverWebExchange.getRequest();
+	}
+
+	@Override
+	public ServerHttpResponse getResponse() {
+		return serverWebExchange.getResponse();
+	}
+
 
 	public ServerWebExchange getServerWebExchange() {
 		return serverWebExchange;
 	}
 
-	@Override
-	public String getPermissionMetadataKey() {
-		ServerHttpRequest request = serverWebExchange.getRequest();
-		RequestPath path = request.getPath();
-		return StringUtils.substringAfter(path.pathWithinApplication().value() , this.pathPrefix) + ":" + request.getMethod();
-	}
 }

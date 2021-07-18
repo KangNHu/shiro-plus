@@ -2,18 +2,16 @@ package org.codingeasy.shiroplus.nacos.parse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
+import org.codingeasy.shiroplus.core.event.EventType;
 import org.codingeasy.shiroplus.core.metadata.Logical;
 import org.codingeasy.shiroplus.core.metadata.PermiModel;
 import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 import org.codingeasy.shiroplus.core.metadata.RequestMethod;
-import org.codingeasy.shiroplus.nacos.metedata.NacosMetadata;
-import org.codingeasy.shiroplus.nacos.metedata.NacosPermissionMetadata;
+import org.codingeasy.shiroplus.nacos.metadata.NacosPermissionMetadata;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.util.*;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -104,7 +102,7 @@ public class PermissionMetadataConfigParse implements ConfigParse<NacosPermissio
 		NacosPermissionMetadata permissionMetadata = new NacosPermissionMetadata();
 		permissionMetadata.setPath(split[0]);
 		permissionMetadata.setMethod(RequestMethod.form(split[1]));
-		permissionMetadata.setEventType(AuthMetadataEvent.EventType.DELETE);
+		permissionMetadata.setEventType(EventType.DELETE);
 		return permissionMetadata;
 	}
 
