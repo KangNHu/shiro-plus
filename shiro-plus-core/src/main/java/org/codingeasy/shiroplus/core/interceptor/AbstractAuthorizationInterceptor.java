@@ -72,6 +72,8 @@ public abstract class AbstractAuthorizationInterceptor<R , S> implements AuthInt
 		if (isEnableAuthorization(invoker)) {
 			//获取权限元信息
 			PermissionMetadata permissionMetadata = getPermissionMetadata(invoker);
+			//设置当前权限元数据
+			MetadataContext.setCurrentPermissionMetadata(permissionMetadata);
 			//元信息不为空，则进行接口权限校验
 			if (permissionMetadata != null) {
 				List<String> permis = permissionMetadata.getPermis();

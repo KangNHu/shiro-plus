@@ -24,6 +24,10 @@ public class ExampleHttpGatewayAuthProcessor extends HttpGatewayAuthProcessor {
 		map.put("123456" + ":permi" , new HashSet<String>(Arrays.asList("add" ,"update" , "delete","get")));
 	}
 
+	@Override
+	public String getToken(ServerHttpRequest request) {
+		return request.getQueryParams().getFirst("token");
+	}
 
 	@Override
 	public Object validate(RequestToken<ServerHttpRequest> requestToken) {
@@ -37,11 +41,11 @@ public class ExampleHttpGatewayAuthProcessor extends HttpGatewayAuthProcessor {
 
 	@Override
 	public Set<String> getPermissions(Object primaryPrincipal) {
-		return super.getPermissions(primaryPrincipal);
+		return map.get(primaryPrincipal + ":permi");
 	}
 
 	@Override
 	public Set<String> getRoles(Object primaryPrincipal) {
-		return null;
+		return map.get(primaryPrincipal + ":roles");
 	}
 }

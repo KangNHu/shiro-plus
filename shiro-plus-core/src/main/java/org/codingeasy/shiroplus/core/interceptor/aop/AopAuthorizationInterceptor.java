@@ -9,10 +9,8 @@ import org.codingeasy.shiroplus.core.event.EventManager;
 import org.codingeasy.shiroplus.core.interceptor.AbstractAuthorizationInterceptor;
 import org.codingeasy.shiroplus.core.interceptor.AopInvoker;
 import org.codingeasy.shiroplus.core.interceptor.Invoker;
-import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
+import org.codingeasy.shiroplus.core.metadata.*;
 import org.codingeasy.shiroplus.core.metadata.Logical;
-import org.codingeasy.shiroplus.core.metadata.PermiModel;
-import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
 import org.springframework.aop.support.AopUtils;
 
@@ -78,7 +76,11 @@ public class AopAuthorizationInterceptor extends AbstractAuthorizationIntercepto
 
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
-		return invoke(new AopInvoker(invocation));
+		try {
+			return invoke(new AopInvoker(invocation));
+		}finally {
+			MetadataContext.remove();
+		}
 	}
 
 

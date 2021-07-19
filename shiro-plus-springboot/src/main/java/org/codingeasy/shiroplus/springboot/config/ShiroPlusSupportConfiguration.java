@@ -20,6 +20,7 @@ import org.springframework.core.Ordered;
 public class ShiroPlusSupportConfiguration {
 
 
+
 	/**
 	 * 注册一个事件管理器
 	 * @param cachingSecurityManager shiroplus 安全管理器

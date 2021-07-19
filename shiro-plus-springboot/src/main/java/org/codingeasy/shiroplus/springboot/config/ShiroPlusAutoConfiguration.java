@@ -9,7 +9,7 @@ import org.codingeasy.shiroplus.core.event.EventManager;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.realm.HttpServletAuthFilter;
 import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
-import org.codingeasy.shiroplus.core.realm.HttpServletAuthRealm;
+import org.codingeasy.shiroplus.core.realm.CommonAuthRealm;
 import org.codingeasy.shiroplus.core.realm.AuthenticationExceptionStrategy;
 import org.codingeasy.shiroplus.springboot.ShiroFilterClassPathBeanDefinitionScanner;
 import org.codingeasy.shiroplus.springboot.ShiroPlusSecurityManager;
@@ -22,7 +22,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
-import javax.annotation.Resource;
 import javax.servlet.Filter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,8 +53,8 @@ public class ShiroPlusAutoConfiguration extends AbstractAuthorizationAutoConfigu
 	 * @return
 	 */
 	@Bean
-	public HttpServletAuthRealm authServletRealm(AuthProcessor<HttpServletRequest , HttpServletResponse> authProcessor){
-		return new HttpServletAuthRealm(authProcessor);
+	public CommonAuthRealm<HttpServletRequest , HttpServletResponse> authServletRealm(AuthProcessor<HttpServletRequest , HttpServletResponse> authProcessor){
+		return new CommonAuthRealm<>(authProcessor);
 	}
 
 	/**

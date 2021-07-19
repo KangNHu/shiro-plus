@@ -1,14 +1,7 @@
 server:
   port: 18086
-  cloud:
-    nacos:
-      discovery:
-        server-addr: common.codingeasy.com.cn:8848
-      username: nacos
-      password: ning,123456
   servlet:
     context-path: /shiroplus
-
 management:
   endpoints:
     web:
@@ -17,3 +10,9 @@ management:
 spring:
   application:
     name: service-gateway-provider
+  cloud:
+    nacos:
+      discovery:
+        server-addr: common.codingeasy.com.cn:8848
+      username: nacos
+      password: ning,123456

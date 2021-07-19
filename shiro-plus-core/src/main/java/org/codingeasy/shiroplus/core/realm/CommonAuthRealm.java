@@ -8,23 +8,23 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.Assert;
 import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.Set;
 
 /**
 * 权限realm  
 * @author : KangNing Hu
 */
-public class HttpServletAuthRealm extends AuthorizingRealm {
+public class CommonAuthRealm<R , S> extends AuthorizingRealm {
 
 
-	private AuthProcessor<HttpServletRequest , HttpServletResponse> authProcessor;
+	private AuthProcessor<R , S> authProcessor;
 
 
-	public HttpServletAuthRealm(AuthProcessor<HttpServletRequest , HttpServletResponse> authProcessor){
+	public CommonAuthRealm(AuthProcessor<R , S> authProcessor){
+		Assert.notNull(authProcessor , "authProcessor is not null");
 		this.authProcessor = authProcessor;
 	}
 	/**
@@ -62,9 +62,9 @@ public class HttpServletAuthRealm extends AuthorizingRealm {
 	 */
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-		RequestToken<HttpServletRequest> requestToken = (RequestToken) authenticationToken;
+		RequestToken<R> requestToken = (RequestToken<R>) authenticationToken;
 		//校验token
 		Object principals = authProcessor.validate(requestToken);
-		return new SimpleAuthenticationInfo(principals , requestToken.getCredentials() , HttpServletAuthRealm.class.getName());
+		return new SimpleAuthenticationInfo(principals , requestToken.getCredentials() , CommonAuthRealm.class.getName());
 	}
 }

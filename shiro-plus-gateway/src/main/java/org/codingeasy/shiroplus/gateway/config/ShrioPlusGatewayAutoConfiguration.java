@@ -3,6 +3,8 @@ package org.codingeasy.shiroplus.gateway.config;
 import org.apache.shiro.mgt.SecurityManager;
 import org.codingeasy.shiroplus.core.event.EventManager;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
+import org.codingeasy.shiroplus.core.realm.CommonAuthRealm;
+import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
 import org.codingeasy.shiroplus.gateway.HttpGatewayAuthProcessor;
 import org.codingeasy.shiroplus.gateway.factory.AuthGatewayFilterFactory;
 import org.codingeasy.shiroplus.springboot.config.ShiroPlusSupportConfiguration;
@@ -11,6 +13,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.cloud.gateway.filter.factory.GatewayFilterFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpResponse;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
 * gateway自动配置类  
@@ -28,6 +35,16 @@ public class ShrioPlusGatewayAutoConfiguration {
 	}
 
 
+
+	/**
+	 * 注册通用的realm
+	 * @param authProcessor
+	 * @return
+	 */
+	@Bean
+	public CommonAuthRealm<ServerHttpRequest, ServerHttpResponse> authServletRealm(@Autowired(required = false) AuthProcessor<ServerHttpRequest, ServerHttpResponse> authProcessor){
+		return new CommonAuthRealm<>(authProcessor);
+	}
 
 
 
