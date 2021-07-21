@@ -11,7 +11,7 @@ public class Page<T> {
 	/**
 	 * 总条数
 	 */
-	private Long total;
+	private Long total = 0L;
 
 	/**
 	 * 分页数据

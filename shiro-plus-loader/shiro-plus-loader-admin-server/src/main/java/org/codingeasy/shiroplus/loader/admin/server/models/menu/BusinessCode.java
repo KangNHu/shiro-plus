@@ -6,10 +6,16 @@ package org.codingeasy.shiroplus.loader.admin.server.models.menu;
  */
 public enum BusinessCode {
 
-	USER(1),
 	//登录
-	LOGIN(1);
-
+	USER(1),
+	//用户
+	SYSTEM(2),
+	//权限
+	PERMISSION(3),
+	//全局元信息配置
+	GLOBAL_METADATA(4),
+	//登录
+	LOGIN(5);
 
 	private int value;
 

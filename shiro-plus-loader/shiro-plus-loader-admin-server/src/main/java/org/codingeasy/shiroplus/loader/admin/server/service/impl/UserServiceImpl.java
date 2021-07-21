@@ -10,8 +10,10 @@ import org.codingeasy.shiroplus.loader.admin.server.dao.LogsDao;
 import org.codingeasy.shiroplus.loader.admin.server.dao.UserDao;
 import org.codingeasy.shiroplus.loader.admin.server.exception.BusinessAssert;
 import org.codingeasy.shiroplus.loader.admin.server.exception.BusinessException;
+import org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer;
 import org.codingeasy.shiroplus.loader.admin.server.logs.route.LoginRouteTarget;
 import org.codingeasy.shiroplus.loader.admin.server.models.Page;
+import org.codingeasy.shiroplus.loader.admin.server.models.UserSimple;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.LogsEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.UserEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.UserRoleCodesEntity;
@@ -23,18 +25,22 @@ import org.codingeasy.shiroplus.loader.admin.server.security.LoginInfoToken;
 import org.codingeasy.shiroplus.loader.admin.server.service.UserService;
 import org.codingeasy.shiroplus.loader.admin.server.utils.EncryptionUtils;
 import org.codingeasy.shiroplus.loader.admin.server.utils.JwtUtils;
+import org.codingeasy.shiroplus.loader.admin.server.utils.SystemUtils;
 import org.codingeasy.shiroplus.loader.admin.server.utils.UserUtils;
 import org.codingeasy.streamrecord.core.AttributeAccess;
-import org.codingeasy.streamrecord.core.annotation.Record;
-import org.codingeasy.streamrecord.core.annotation.RecordService;
-import org.codingeasy.streamrecord.core.annotation.RouteTarget;
+import org.codingeasy.streamrecord.core.annotation.*;
 import org.codingeasy.streamrecord.core.processor.ProcessorStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
-import static org.codingeasy.shiroplus.loader.admin.server.models.menu.BusinessCode.LOGIN;
+import static org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer.BUSINESS_ID_KEY;
+import static org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer.NEW_VALUE_KEY;
 import static org.codingeasy.shiroplus.loader.admin.server.models.menu.CommonStatus.*;
 
 /**
@@ -139,12 +145,17 @@ public class UserServiceImpl implements UserService {
 		page.setCurrent(request.getPageNo());
 		page.setSize(request.getPageSize());
 		page.setOrders(Arrays.asList(OrderItem.desc("last_update_tm")));
-		return new Page<UserEntity>(userDao.selectPage(page, new QueryWrapper<UserEntity>()
+		Page<UserEntity> userPage = new Page<>(userDao.selectPage(page, new QueryWrapper<UserEntity>()
 				.lambda()
 				.like(!StringUtils.isEmpty(request.getUsername()), UserEntity::getUsername, request.getUsername())
 				.like(!StringUtils.isEmpty(request.getNickname()), UserEntity::getNickname, request.getNickname())
 				.in(UserEntity::getStatus, Arrays.asList(DISABLE.getValue(), NORMAL.getValue()))
 		));
+		Optional
+				.of(userPage.getList())
+				.orElse(new ArrayList<>())
+				.forEach(item -> item.setPassword(null));
+		return userPage;
 	}
 
 	/**
@@ -152,8 +163,9 @@ public class UserServiceImpl implements UserService {
 	 * @param userId 用户id
 	 * @return
 	 */
+	@Record("'删除用户 ID:'+#userId+''")
 	@Override
-	public int delete(Long userId) {
+	public int delete(@Param(BUSINESS_ID_KEY) Long userId) {
 		return userDao.deleteById(userId);
 	}
 
@@ -162,8 +174,9 @@ public class UserServiceImpl implements UserService {
 	 * @param request 密码信息
 	 * @return
 	 */
+	@Record("修改密码")
 	@Override
-	public int updatePassword(PasswordInfoRequest request) {
+	public int updatePassword(@Search PasswordInfoRequest request) {
 		UserEntity user = getUser(request.getUserId() , true);
 		if (user == null){
 			throw new BusinessException("账户不存在");
@@ -184,8 +197,9 @@ public class UserServiceImpl implements UserService {
 	 * @param user
 	 * @return
 	 */
+	@Record("'更新用户['+#user.username +']'")
 	@Override
-	public int update(UserEntity user) {
+	public int update(@Search @Param(NEW_VALUE_KEY) UserEntity user) {
 		user.setPassword(null);
 		return userDao.updateById(user);
 	}
@@ -223,10 +237,53 @@ public class UserServiceImpl implements UserService {
 		//查询条件
 		LambdaQueryWrapper<LogsEntity> queryWrapper = new QueryWrapper<LogsEntity>()
 				.lambda()
-				.eq(LogsEntity::getBusinessCode, BusinessCode.constant(LOGIN))
+				.eq(LogsEntity::getBusinessCode, BusinessCode.constant(BusinessCode.LOGIN))
 				.eq(LogsEntity::getBusinessId, UserUtils.getUserId())
 				.orderByDesc(LogsEntity::getCreateTm);
 		return new Page<>(logsDao.selectPage(page , queryWrapper));
+	}
+
+
+	/**
+	 * 重置密码
+	 * @param userId 用户id
+	 * @return
+	 */
+	@Record("'重置了用户[' + #user.username + ']密码'")
+	@Override
+	public int restPassword(@Search UserEntity user) {
+		UserEntity userEntity = userDao.selectById(user.getId());
+		BusinessAssert.notNull(userEntity.getId() , "用户不存在");
+		//用于日志模版参数
+		user.setUsername(userEntity.getUsername());
+		userEntity = new UserEntity();
+		userEntity.setUpdateBy(UserUtils.getUserId());
+		userEntity.setId(user.getId());
+		userEntity.setPassword(EncryptionUtils.encrypt(SystemUtils.getInitPassword() , user.getUsername()));
+		return userDao.updateById(userEntity);
+	}
+
+
+
+	/**
+	 * 获取用户下拉框数据
+	 * @return 返回列表
+	 */
+	@Override
+	public List<UserSimple> getUserSelectData(String username) {
+		LambdaQueryWrapper<UserEntity> queryWrapper = new QueryWrapper<UserEntity>()
+				.lambda()
+				.like(!StringUtils.isEmpty(username), UserEntity::getUsername, username)
+				.in(UserEntity::getStatus, Arrays.asList(constant(NORMAL), constant(DISABLE)));
+		List<UserEntity> userEntities = userDao.selectList(queryWrapper);
+		return userEntities
+				.stream()
+				.map(item ->{
+					UserSimple userSimple = new UserSimple();
+					userSimple.setId(item.getId());
+					userSimple.setUsername(item.getUsername());
+					return userSimple;
+				}).collect(Collectors.toList());
 	}
 
 

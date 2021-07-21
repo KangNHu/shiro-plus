@@ -28,6 +28,7 @@ public class ShiroFilterClassPathBeanDefinitionScanner extends ClassPathScanning
 
 	public ShiroFilterClassPathBeanDefinitionScanner(AbstractAutowireCapableBeanFactory beanFactory) {
 		this.beanFactory = beanFactory;
+
 		//重置spring 扫描注解
 		resetFilters(false);
 		//添加shiroFilter

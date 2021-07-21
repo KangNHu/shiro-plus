@@ -143,10 +143,13 @@ public abstract class AbstractAuthorizationInterceptor<R , S> implements AuthInt
 	 * @return 返回全局元信息
 	 */
 	public GlobalMetadata getGlobalMetadata(R r){
-		//获取全局配置
-		String tenantId = this.authProcessor.getTenantId(r);
-		GlobalMetadata globalMetadata = this.authMetadataManager.getGlobalMetadata(tenantId);
-		MetadataContext.setCurrentGlobalMetadata(globalMetadata);
+		GlobalMetadata globalMetadata = MetadataContext.getCurrentGlobalMetadata();
+		if (globalMetadata == null) {
+			//获取全局配置
+			String tenantId = this.authProcessor.getTenantId(r);
+			globalMetadata = this.authMetadataManager.getGlobalMetadata(tenantId);
+			MetadataContext.setCurrentGlobalMetadata(globalMetadata);
+		}
 		return globalMetadata;
 	}
 

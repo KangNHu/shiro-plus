@@ -1,38 +1,50 @@
 package org.codingeasy.shiroplus.loader.admin.server.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.checkerframework.checker.units.qual.A;
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
-import org.codingeasy.shiroplus.loader.admin.server.dao.EventDao;
-import org.codingeasy.shiroplus.loader.admin.server.dao.EventProcessorRecordDao;
-import org.codingeasy.shiroplus.loader.admin.server.dao.GlobalConfigDao;
-import org.codingeasy.shiroplus.loader.admin.server.dao.PermissionConfigDao;
+import org.codingeasy.shiroplus.core.event.EventManager;
+import org.codingeasy.shiroplus.loader.admin.server.dao.*;
+import org.codingeasy.shiroplus.loader.admin.server.exception.BusinessAssert;
+import org.codingeasy.shiroplus.loader.admin.server.listener.ConfigEvent;
+import org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer;
 import org.codingeasy.shiroplus.loader.admin.server.models.Page;
-import org.codingeasy.shiroplus.loader.admin.server.models.entity.EventEntity;
-import org.codingeasy.shiroplus.loader.admin.server.models.entity.EventProcessorRecordEntity;
-import org.codingeasy.shiroplus.loader.admin.server.models.entity.GlobalConfigEntity;
-import org.codingeasy.shiroplus.loader.admin.server.models.entity.PermissionConfigEntity;
+import org.codingeasy.shiroplus.loader.admin.server.models.entity.*;
+import org.codingeasy.shiroplus.loader.admin.server.models.menu.CommonStatus;
+import org.codingeasy.shiroplus.loader.admin.server.models.menu.ConfigType;
 import org.codingeasy.shiroplus.loader.admin.server.models.request.GlobalConfigRequest;
 import org.codingeasy.shiroplus.loader.admin.server.models.request.PermissionConfigRequest;
 import org.codingeasy.shiroplus.loader.admin.server.service.ConfigService;
+import org.codingeasy.shiroplus.loader.admin.server.utils.UserUtils;
 import org.codingeasy.shiroplus.loader.admin.server.utils.WebUtils;
+import org.codingeasy.streamrecord.core.annotation.Param;
+import org.codingeasy.streamrecord.core.annotation.Record;
+import org.codingeasy.streamrecord.core.annotation.RecordService;
+import org.codingeasy.streamrecord.core.annotation.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static org.codingeasy.shiroplus.loader.admin.server.models.menu.CommonStatus.NORMAL;
 
 /**
 * 配置管理 业务层  
 * @author : KangNing Hu
 */
-@Service
+@RecordService
 public class ConfigServiceImpl implements ConfigService {
 
 	@Autowired
@@ -46,6 +58,13 @@ public class ConfigServiceImpl implements ConfigService {
 
 	@Autowired
 	private EventProcessorRecordDao eventProcessorRecordDao;
+
+
+	@Autowired
+	private ConfigExtendDao configExtendDao;
+
+	@Autowired
+	private EventManager eventManager;
 
 	/**
 	 * 获取所有全局配置
@@ -132,7 +151,148 @@ public class ConfigServiceImpl implements ConfigService {
 	}
 
 	@Override
-	public Page<GlobalConfig> globalPage(GlobalConfigRequest request) {
-		return null;
+	public Page<GlobalConfigEntity> globalPage(GlobalConfigRequest request) {
+		//设置分页条件
+		com.baomidou.mybatisplus.extension.plugins.pagination.Page<GlobalConfigEntity> query = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>();
+		query.setCurrent(request.getPageNo());
+		query.setSize(request.getPageSize());
+		//设置查询条件
+		LambdaQueryWrapper<GlobalConfigEntity> queryWrapper = new QueryWrapper<GlobalConfigEntity>()
+				.lambda()
+				.eq(!StringUtils.isEmpty(request.getTenantId() ), GlobalConfigEntity::getTenantId, request.getTenantId())
+				.eq(GlobalConfigEntity::getStatus, CommonStatus.constant(NORMAL))
+				.orderByDesc(GlobalConfigEntity::getCreateTm);
+		return new Page<>(globalConfigDao.selectPage(query ,queryWrapper));
+	}
+
+
+	/**
+	 * 新增全局元信息
+	 * @param globalConfigEntity 待新增的数据
+	 * @return
+	 */
+	@Override
+	@Transactional(rollbackFor = Throwable.class)
+	@Record("'新增全局元信息[租户ID:'+#globalConfigEntity.tenantId+']'")
+	public int addGlobal(GlobalConfigEntity globalConfigEntity) {
+		Integer count = globalConfigDao.selectCount(
+				new QueryWrapper<GlobalConfigEntity>()
+						.lambda()
+						.eq(GlobalConfigEntity::getTenantId, globalConfigEntity.getTenantId())
+		);
+		BusinessAssert.state(count == 0 , "租户已存在");
+		globalConfigEntity.setCreateBy(UserUtils.getUserId());
+		globalConfigEntity.setUpdateBy(UserUtils.getUserId());
+		globalConfigEntity.setCreateTm(System.currentTimeMillis());
+		globalConfigEntity.setStatus(CommonStatus.constant(NORMAL));
+		globalConfigDao.insert(globalConfigEntity);
+		//关联扩展字段
+		associationExtend(globalConfigEntity.getId() , globalConfigEntity.getExtend());
+		//发送新增事件
+		eventManager.asyncPublish(ConfigEvent.globalAddEvent(globalConfigEntity));
+		return 1;
+	}
+
+	/**
+	 * 删除全局元信息
+	 * @param id 元信息id
+	 * @return
+	 */
+	@Record("'删除全局元信息[ID:'+#id+']'")
+	@Override
+	@Transactional(rollbackFor = Throwable.class)
+	public int deleteGlobal(@Param(LogsProducer.BUSINESS_ID_KEY) Long id) {
+		//获取
+		GlobalConfigEntity globalConfigEntity = globalConfigDao.selectById(id);
+		//删除主表数据
+		globalConfigDao.deleteById(id);
+		//删除扩展信息
+		configExtendDao.delete(
+				new QueryWrapper<ConfigExtendEntity>()
+						.lambda()
+						.eq(ConfigExtendEntity::getConfigId , id)
+		);
+		//发送删除事件
+		eventManager.asyncPublish(ConfigEvent.globalDeleteEvent(globalConfigEntity));
+		return 1;
+	}
+
+	/**
+	 * 获取全局元信息
+	 * @param id 元信息id
+	 * @return
+	 */
+	@Override
+	public GlobalConfigEntity getGlobal(Long id) {
+		//获取基本数据
+		GlobalConfigEntity globalConfigEntity = globalConfigDao.selectById(id);
+		//获取扩展字段信息
+		List<ConfigExtendEntity> configExtendEntities = configExtendDao.selectList(
+				new QueryWrapper<ConfigExtendEntity>()
+						.lambda()
+						.eq(ConfigExtendEntity::getConfigId, id)
+		);
+		//装配扩展字段信息
+		if (!CollectionUtils.isEmpty(configExtendEntities)){
+			globalConfigEntity.setExtend(configExtendEntities.stream().collect(Collectors.toMap(ConfigExtendEntity::getName , ConfigExtendEntity::getValue)));
+		}
+		return globalConfigEntity;
+	}
+
+
+	/**
+	 * 修改全局元信息
+	 * @param globalConfigEntity 全局元信息
+	 * @return
+	 */
+	@Record("'修改全局元信息[tenantID:'+ #globalConfigEntity.tenantId +']'")
+	@Transactional(rollbackFor = Throwable.class)
+	@Override
+	public int updateGlobal(@Search @Param(LogsProducer.NEW_VALUE_KEY) GlobalConfigEntity globalConfigEntity) {
+		//校验租户是否存在
+		Integer count = globalConfigDao.selectCount(
+				new QueryWrapper<GlobalConfigEntity>()
+						.lambda()
+						.notIn(GlobalConfigEntity::getId, globalConfigEntity.getId())
+						.eq(GlobalConfigEntity::getTenantId, globalConfigEntity.getTenantId())
+		);
+		BusinessAssert.state(count == 0 , "租户ID已存在");
+		//修改主表信息
+		globalConfigEntity.setUpdateBy(UserUtils.getUserId());
+		globalConfigDao.updateById(globalConfigEntity);
+		//重新关联扩展字段
+		associationExtend(globalConfigEntity.getId() , globalConfigEntity.getExtend());
+		//发送更新事件
+		eventManager.asyncPublish(ConfigEvent.globalUpdateEvent(globalConfigEntity));
+		return 1;
+	}
+
+	/**
+	 * 关联扩展字段
+	 * @param id 元数据id
+	 * @param extend 扩展字段
+	 */
+	private void associationExtend(Long id, Map<String, Object> extend) {
+		//删除旧的关联
+		configExtendDao.delete(
+				new QueryWrapper<ConfigExtendEntity>()
+						.lambda()
+						.eq(ConfigExtendEntity::getConfigId , id)
+		);
+		//重新关联
+		if (MapUtils.isEmpty(extend)){
+			return;
+		}
+		configExtendDao.batchInsert(extend
+				.entrySet()
+				.stream()
+				.map(item ->{
+					ConfigExtendEntity configExtendEntity = new ConfigExtendEntity();
+					configExtendEntity.setConfigId(id);
+					configExtendEntity.setName(item.getKey());
+					configExtendEntity.setValue(item.getValue() == null ? null :item.getValue().toString());
+					configExtendEntity.setType(ConfigType.constant(ConfigType.GLOBAL));
+					return configExtendEntity;
+				}).collect(Collectors.toList()));
 	}
 }

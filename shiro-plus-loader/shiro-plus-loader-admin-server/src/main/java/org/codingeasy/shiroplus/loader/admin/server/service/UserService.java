@@ -2,6 +2,7 @@ package org.codingeasy.shiroplus.loader.admin.server.service;
 
 
 import org.codingeasy.shiroplus.loader.admin.server.models.Page;
+import org.codingeasy.shiroplus.loader.admin.server.models.UserSimple;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.LogsEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.UserEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.UserRoleCodesEntity;
@@ -9,6 +10,8 @@ import org.codingeasy.shiroplus.loader.admin.server.models.request.PasswordInfoR
 import org.codingeasy.shiroplus.loader.admin.server.models.request.RequestPage;
 import org.codingeasy.shiroplus.loader.admin.server.models.request.UserPageRequest;
 import org.codingeasy.shiroplus.loader.admin.server.security.LoginInfoToken;
+
+import java.util.List;
 
 /**
 *   
@@ -96,4 +99,21 @@ public interface UserService {
 	 * @return 返回分页结果
 	 */
 	Page<LogsEntity> getCurrentUserLogs(RequestPage page);
+
+	/**
+	 * 重置密码
+	 * @param user 用户
+	 * @return
+	 */
+	int restPassword(UserEntity user);
+
+
+
+	/**
+	 * 获取用户下拉框数据
+	 * @param username 搜索条件
+	 * @return 返回列表
+	 */
+	List<UserSimple> getUserSelectData(String username);
+
 }

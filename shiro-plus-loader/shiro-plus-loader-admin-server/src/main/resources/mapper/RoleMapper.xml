@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.codingeasy.shiroplus.loader.admin.server.dao.RoleDao">
+
+    <resultMap id="user_roles_result" type="org.codingeasy.shiroplus.loader.admin.server.models.entity.UserRolesEntity">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <collection property="roles" ofType="org.codingeasy.shiroplus.loader.admin.server.models.entity.RoleEntity">
+            <id property="id" column="r_id"/>
+            <result property="name" column="r_name"/>
+            <result property="code" column="r_code"/>
+        </collection>
+    </resultMap>
+    <select id="selectUserRoles" resultMap="user_roles_result">
+        SELECT
+        u.id,
+        u.username,
+        u.nickname,
+        r.id AS r_id,
+        r.`name` AS r_name,
+        r.`code` AS r_code
+        FROM
+        sp_user u
+        LEFT JOIN sp_user_role ur ON u.id = ur.user_id
+        LEFT JOIN sp_role r ON ur.role_id = r.id
+        <where>
+            <if test="request.userId != null">
+                AND u.id = #{request.userId}
+            </if>
+            <if test="request.username != null and request.username != ''">
+                AND u.username like CONCAT('',#{request.username},'%')
+            </if>
+            <if test="request.userIds != null and request.userIds.size() != 0">
+                u.id IN <foreach collection="request.userIds" item="userId" separator="," open="(" close=")">
+                #{userId}
+            </foreach>
+            </if>
+            AND u.status IN (1 ,2)
+        </where>
+    </select>
+</mapper>

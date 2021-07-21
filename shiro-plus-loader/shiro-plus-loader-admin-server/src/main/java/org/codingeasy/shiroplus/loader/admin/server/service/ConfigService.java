@@ -44,5 +44,37 @@ public interface ConfigService {
 	 * @param request
 	 * @return
 	 */
-	Page<GlobalConfig> globalPage(GlobalConfigRequest request);
+	Page<GlobalConfigEntity> globalPage(GlobalConfigRequest request);
+
+	/**
+	 * 新增全局元信息
+	 * @param globalConfigEntity 待新增的数据
+	 * @return
+	 */
+	int addGlobal(GlobalConfigEntity globalConfigEntity);
+
+
+	/**
+	 * 删除全局元信息
+	 * @param id 元信息id
+	 * @return
+	 */
+	int deleteGlobal(Long id);
+
+
+	/**
+	 * 获取全局元信息
+	 * @param id 元信息id
+	 * @return
+	 */
+	GlobalConfigEntity getGlobal(Long id);
+
+
+
+	/**
+	 * 修改全局元信息
+	 * @param globalConfigEntity 全局元信息
+	 * @return
+	 */
+	int updateGlobal(GlobalConfigEntity globalConfigEntity);
 }

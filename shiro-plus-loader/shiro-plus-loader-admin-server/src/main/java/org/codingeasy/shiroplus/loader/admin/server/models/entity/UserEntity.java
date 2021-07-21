@@ -3,7 +3,9 @@ package org.codingeasy.shiroplus.loader.admin.server.models.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer;
 import org.codingeasy.shiroplus.loader.admin.server.models.Action;
+import org.codingeasy.streamrecord.core.annotation.Param;
 
 import javax.validation.constraints.NotNull;
 
@@ -16,8 +18,9 @@ import javax.validation.constraints.NotNull;
 @TableName("sp_user")
 public class UserEntity {
 
-	@NotNull(message = "用户id不能为空" , groups = {Action.Update.class , Action.Add.class})
+	@NotNull(message = "用户id不能为空" , groups = Action.Update.class)
 	@TableId(type = IdType.AUTO)
+	@Param(LogsProducer.BUSINESS_ID_KEY)
 	private Long id;
 
 	/**

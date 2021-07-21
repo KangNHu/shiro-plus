@@ -24,7 +24,8 @@ public class ConfigExtendEntity{
      */
 	private String value;
     /**
-     * 配置表类型 
+     * 配置表类型
+     * @see org.codingeasy.shiroplus.loader.admin.server.models.menu.ConfigType
      */
 	private Integer type;
 

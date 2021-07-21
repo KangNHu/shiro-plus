@@ -7,7 +7,9 @@
         <id property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="nickname" column="nickname"/>
-        <collection property="roles" column="code" javaType="java.lang.String"/>
+        <collection property="roles" ofType="java.lang.String">
+            <result column="code"/>
+        </collection>
     </resultMap>
     <select id="getUserPermissions" resultMap="user_roles_result">
         SELECT

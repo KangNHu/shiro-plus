@@ -23,25 +23,43 @@ public class SystemEntity {
 	/**
 	 * 事件有效时间
 	 */
+	@NotNull(message = "事件有效时间不能改为空")
 	private Long eventTime;
 
 
 	/**
 	 * 登录token的签名密钥
 	 */
+	@NotNull(message = "登录token的签名密钥不能为空")
 	private String keyPair;
 
 
 	/**
 	 * 客户端token
 	 */
+	@NotNull(message = "客户端token不能为空")
 	private String clientToken;
 
 	/**
 	 * 登录有效时间
 	 */
+	@NotNull(message = "登录有效时间不能为空")
 	private Integer loginValidTime;
 
+	/**
+	 * 初始化密码
+	 */
+	@NotNull(message = "初始化密码不能为空")
+	private String initPassword;
+
+
+	public String getInitPassword() {
+		return initPassword;
+	}
+
+	public void setInitPassword(String initPassword) {
+		this.initPassword = initPassword;
+	}
 
 	public String getVersion() {
 		return version;

@@ -3,6 +3,8 @@ package org.codingeasy.shiroplus.core.realm.processor;
 import com.google.common.base.Charsets;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
+import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
+import org.codingeasy.shiroplus.core.metadata.MetadataContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,6 +29,9 @@ public class HttpServletAuthProcessor extends DefaultAuthProcessor<HttpServletRe
 	 */
 	@Override
 	public void authorizationFailure(HttpServletRequest request, HttpServletResponse response, AuthorizationException e) {
+		logger.warn("租户 [{}]授权失败  [{}]" ,
+				getTenantId(request),
+				e.getMessage());
 		writeAuthFailure(response, HttpServletResponse.SC_FORBIDDEN ,e.getMessage());
 	}
 
@@ -38,6 +43,9 @@ public class HttpServletAuthProcessor extends DefaultAuthProcessor<HttpServletRe
 	 */
 	@Override
 	public void authenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
+		logger.warn("租户 [{}]授权失败  [{}]" ,
+				getTenantId(request),
+				e.getMessage());
 		writeAuthFailure(response,HttpServletResponse.SC_UNAUTHORIZED , e.getMessage());
 	}
 

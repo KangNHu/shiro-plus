@@ -2,6 +2,7 @@ package org.codingeasy.shiroplus.loader.admin.server.logs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hazelcast.cp.internal.raft.impl.log.LogEntry;
+import com.hazelcast.internal.json.Json;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.LogsEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.menu.BusinessCode;
 import org.codingeasy.shiroplus.loader.admin.server.utils.JsonUtils;
@@ -28,7 +29,8 @@ public class LogsProducer  implements RecordProducer {
 	public static final String OPERATION_TYPE_KEY = "_operation_type";
 	public static final String IGNORE_KEY = "_ignore_key";
 	public static final String OPERATION_TM_KEY = "_operation_tm";
-	public static final String EXTEND_IP_KEY = "extend_ip";
+	public static final String EXTEND_IP_KEY = "_extend_ip";
+	public static final String NEW_VALUE_KEY = "_new_value_key";
 	@Override
 	public RecordInfoWrapper doProduce(CurrentContext currentContext) {
 
@@ -50,6 +52,11 @@ public class LogsProducer  implements RecordProducer {
 		logEntry.setBusinessId(attributeAccess.getAttribute(BUSINESS_ID_KEY));
 		//操作类型
 		logEntry.setOperationType(attributeAccess.getAttribute(OPERATION_TYPE_KEY));
+		//记录新数据
+		Object newValue = attributeAccess.getAttribute(NEW_VALUE_KEY);
+		if (newValue != null){
+			logEntry.setNewData(JsonUtils.toJsonString(newValue));
+		}
 		//设置记录内容
 		logEntry.setMessage((String) attributeAccess.get(RecordInfo.MASSAGE_ATTR));
 		Long time = attributeAccess.getAttribute(OPERATION_TM_KEY);

@@ -2,8 +2,10 @@ package org.codingeasy.shiroplus.loader.admin.server.controller;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.codingeasy.shiroplus.loader.admin.server.models.Action;
 import org.codingeasy.shiroplus.loader.admin.server.models.Page;
 import org.codingeasy.shiroplus.loader.admin.server.models.Response;
+import org.codingeasy.shiroplus.loader.admin.server.models.UserSimple;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.LogsEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.UserEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.request.PasswordInfoRequest;
@@ -15,6 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 /**
 * 用户管理  
@@ -85,10 +88,22 @@ public class UserController {
 	 * @return
 	 */
 	@PutMapping("/updatePassword")
-	public Response<Integer> updatePassword(@RequestBody @Validated PasswordInfoRequest request){
+	public Response<Integer> updatePassword(@RequestBody  PasswordInfoRequest request){
 		return Response.ok(userService.updatePassword(request));
 	}
 
+
+	/**
+	 * 重置密码
+	 * @param userId 用户id
+	 * @return
+	 */
+	@PutMapping("/restPassword")
+	public Response<Integer> restPassword(Long userId){
+		UserEntity userEntity = new UserEntity();
+		userEntity.setId(userId);
+		return Response.ok(userService.restPassword(userEntity));
+	}
 
 	/**
 	 * 修改用户信息
@@ -96,7 +111,7 @@ public class UserController {
 	 * @return
 	 */
 	@PutMapping("")
-	public Response<Integer> update(@RequestBody @Validated UserEntity user){
+	public Response<Integer> update(@RequestBody @Validated(Action.Update.class) UserEntity user){
 		return Response.ok(userService.update(user));
 	}
 
@@ -107,7 +122,16 @@ public class UserController {
 	 * @return
 	 */
 	@PostMapping("")
-	public Response<Integer> add(@RequestBody @Validated UserEntity user){
+	public Response<Integer> add(@RequestBody @Validated(Action.Add.class) UserEntity user){
 		return Response.ok(userService.add(user));
+	}
+
+	/**
+	 * 获取用户下拉框数据
+	 * @return 返回列表
+	 */
+	@GetMapping("/getUserSelectData")
+	public Response<List<UserSimple>> getUserSelectData(String username){
+		return Response.ok(userService.getUserSelectData(username));
 	}
 }

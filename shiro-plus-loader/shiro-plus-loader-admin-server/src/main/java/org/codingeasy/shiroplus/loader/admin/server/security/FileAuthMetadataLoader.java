@@ -2,6 +2,7 @@ package org.codingeasy.shiroplus.loader.admin.server.security;
 
 import org.apache.commons.lang3.StringUtils;
 import org.codingeasy.shiroplus.core.metadata.*;
+import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -37,7 +38,9 @@ public class FileAuthMetadataLoader  implements MetadataLoader {
 
 	@Override
 	public List<GlobalMetadata> loadGlobal() {
-		return null;
+		GlobalMetadata globalMetadata = new GlobalMetadata(AuthMetadataManager.DEFAULT_TENANT_ID, null, true, true);
+		globalMetadata.setAttr(GlobalMetadata.EXTEND_ADMIN_ID_KEY , 1);
+		return Arrays.asList(globalMetadata);
 	}
 
 	/**

@@ -56,6 +56,13 @@ public class SystemUtils {
 		return getSystemInfo().getClientToken();
 	}
 
+	/**
+	 * 返回初始化密码
+	 * @return 返回初始化密码
+	 */
+	public static String getInitPassword(){
+		return getSystemInfo().getInitPassword();
+	}
 
 	/**
 	 * 获取事件有效时间

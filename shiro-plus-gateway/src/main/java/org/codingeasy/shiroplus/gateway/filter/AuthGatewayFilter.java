@@ -85,8 +85,16 @@ public class AuthGatewayFilter extends AbstractAuthorizationInterceptor<ServerHt
 		}
 		//获取异常处理结果
 		Mono<Void> exceptionHandlerResult = getExceptionHandlerResult();
+		if (exceptionHandlerResult != null){
+			return exceptionHandlerResult;
+		}
+		//超级管理员校验
+		Object adminId = globalMetadata.get(GlobalMetadata.EXTEND_ADMIN_ID_KEY);
+		if (adminId != null && adminId.equals(subject.getPrincipal())){
+			return chain.filter(exchange);
+		}
 		//授权
-		return exceptionHandlerResult == null ?(Mono<Void>) invoke(gatewayInvoker) : exceptionHandlerResult;
+		return (Mono<Void>) invoke(gatewayInvoker);
 	}
 
 

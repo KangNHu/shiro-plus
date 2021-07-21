@@ -2,6 +2,7 @@ package org.codingeasy.shiroplus.loader.admin.server.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.UserEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.UserRoleCodesEntity;
 
@@ -19,5 +20,5 @@ public interface UserDao extends BaseMapper<UserEntity> {
 	 * @param userId user id
 	 * @return 返回用户权限信息 ，如果没有则返回null
 	 */
-	UserRoleCodesEntity getUserPermissions(Long userId);
+	UserRoleCodesEntity getUserPermissions(@Param("userId") Long userId);
 }

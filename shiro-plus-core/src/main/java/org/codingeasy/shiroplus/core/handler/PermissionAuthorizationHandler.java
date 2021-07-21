@@ -6,6 +6,7 @@ import org.codingeasy.shiroplus.core.metadata.PermiModel;
 import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 import org.codingeasy.shiroplus.core.utils.AnnotationUtils;
 
+import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 

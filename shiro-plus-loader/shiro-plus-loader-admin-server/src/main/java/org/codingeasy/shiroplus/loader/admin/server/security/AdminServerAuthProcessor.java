@@ -2,11 +2,13 @@ package org.codingeasy.shiroplus.loader.admin.server.security;
 
 import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
 import org.codingeasy.shiroplus.core.realm.RequestToken;
+import org.codingeasy.shiroplus.core.realm.processor.HttpServletAuthProcessor;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.UserRoleCodesEntity;
 import org.codingeasy.shiroplus.loader.admin.server.service.UserService;
 import org.codingeasy.shiroplus.loader.admin.server.utils.JwtUtils;
 import org.codingeasy.shiroplus.loader.admin.server.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +23,11 @@ import java.util.Set;
 * @author : KangNing Hu
 */
 @Component
-public class AdminServerAuthProcessor implements AuthProcessor<HttpServletRequest , HttpServletResponse> {
+public class AdminServerAuthProcessor extends HttpServletAuthProcessor {
 
 
 	@Autowired
+	@Lazy
 	private UserService userService;
 
 

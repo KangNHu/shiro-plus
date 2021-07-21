@@ -3,6 +3,7 @@ package org.codingeasy.shiroplus.core.realm;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.Assert;
 import org.apache.shiro.web.filter.authz.AuthorizationFilter;
 import org.apache.shiro.web.util.WebUtils;
@@ -21,6 +22,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
+import static org.codingeasy.shiroplus.core.metadata.GlobalMetadata.EXTEND_ADMIN_ID_KEY;
 
 /**
 * 权限过滤器  
@@ -56,12 +59,22 @@ public class HttpServletAuthFilter extends DynamicAuthorizationFilter {
 				if (StringUtils.isEmpty(token)) {
 					throw new AuthenticationException("Invalid certificate");
 				}
-				//创建token,执行登录
-				SecurityUtils
-						//获取主体
-						.getSubject()
-						//登录
-						.login(new RequestToken<>(httpServletRequest, token));
+
+				//获取主体
+				Subject subject = SecurityUtils.getSubject();
+				////创建token,执行登录
+				subject.login(new RequestToken<>(httpServletRequest, token));
+				//超级管理员校验
+				Object principal = subject.getPrincipal();
+				GlobalMetadata globalMetadata = getGlobalMetadata(httpServletRequest);
+				if (globalMetadata != null ) {
+					Object adminId = globalMetadata.get(EXTEND_ADMIN_ID_KEY);
+					if (adminId != null&& principal != null && adminId.toString().equals(principal.toString())){
+						chain.doFilter(request , response);
+						return;
+					}
+				}
+				//是否开启动态授权
 				if (enableDynamicAuthorization) {
 					super.doFilter(request, response, chain);
 				}else {

@@ -10,7 +10,7 @@ import java.util.List;
 * @author : kangning <a>2035711178@qq.com</a>
 */
 public class GlobalMetadata extends AbstractMetadata{
-
+	public static final String EXTEND_ADMIN_ID_KEY = "admin-id";
 
 	public GlobalMetadata(String tenantId, List<String> anons, Boolean enableAuthentication, Boolean enableAuthorization) {
 		this.tenantId = tenantId;

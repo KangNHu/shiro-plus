@@ -49,7 +49,7 @@ public class LogsPostProcessor implements RecordPostProcessor {
 			logger.warn("当前操作记录未知的类型");
 			attributeAccess.setAttribute(IGNORE_KEY , Boolean.TRUE);
 		}
-		attributeAccess.setAttribute(LogsProducer.OPERATION_TYPE_KEY , null);
+		attributeAccess.setAttribute(LogsProducer.OPERATION_TYPE_KEY , operationType);
 	}
 
 	@Override

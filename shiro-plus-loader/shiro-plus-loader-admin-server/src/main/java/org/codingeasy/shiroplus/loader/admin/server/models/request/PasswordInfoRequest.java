@@ -1,5 +1,8 @@
 package org.codingeasy.shiroplus.loader.admin.server.models.request;
 
+import org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer;
+import org.codingeasy.streamrecord.core.annotation.Param;
+
 import javax.validation.constraints.NotNull;
 
 /**
@@ -12,6 +15,7 @@ public class PasswordInfoRequest {
 	 * user id
 	 */
 	@NotNull(message = "用户id不能为空")
+	@Param(LogsProducer.BUSINESS_ID_KEY)
 	private Long userId;
 
 
@@ -27,6 +31,7 @@ public class PasswordInfoRequest {
 	 */
 	@NotNull(message = "新密码不能为空")
 	private String newPassword;
+
 
 
 	public Long getUserId() {

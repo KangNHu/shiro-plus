@@ -46,6 +46,60 @@ public class ConfigEvent extends EventObject {
 		 return configEvent;
 	}
 
+	/**
+	 * 权限元信息的新增事件
+	 * @param source 事件源
+	 * @return 返回事件对象
+	 */
+	public static ConfigEvent permissionAddEvent(Object source){
+		return build(source ,ConfigType.PERMISSION , EventType.ADD );
+	}
+	/**
+	 * 权限元信息的更新事件
+	 * @param source 事件源
+	 * @return 返回事件对象
+	 */
+	public static ConfigEvent permissionUpdateEvent(Object source){
+		return build(source ,ConfigType.PERMISSION , EventType.UPDATE );
+	}
+
+	/**
+	 * 权限元信息的更新事件
+	 * @param source 事件源
+	 * @return 返回事件对象
+	 */
+	public static ConfigEvent permissionDeleteEvent(Object source){
+		return build(source ,ConfigType.PERMISSION , EventType.DELETE );
+	}
+
+
+	/**
+	 * 全局元信息的新增事件
+	 * @param source 事件源
+	 * @return 返回事件对象
+	 */
+	public static ConfigEvent globalAddEvent(Object source){
+		return build(source ,ConfigType.GLOBAL , EventType.ADD );
+	}
+
+	/**
+	 * 全局元信息的更新事件
+	 * @param source 事件源
+	 * @return 返回事件对象
+	 */
+	public static ConfigEvent globalUpdateEvent(Object source){
+		return build(source ,ConfigType.GLOBAL , EventType.ADD );
+	}
+
+	/**
+	 * 全局元信息的删除事件
+	 * @param source 事件源
+	 * @return 返回事件对象
+	 */
+	public static ConfigEvent globalDeleteEvent(Object source){
+		return build(source ,ConfigType.GLOBAL , EventType.DELETE );
+	}
+
 
 	public ConfigType getConfigType() {
 		return configType;

@@ -19,9 +19,14 @@ public class LogsEntity  implements RecordInfo {
 	@TableId(type = IdType.AUTO)
 	private Long id;
     /**
-     * 
+     * 旧数据
      */
 	private String oldData;
+
+	/**
+	 * 新数据
+	 */
+	private String newData;
     /**
      * 日志内容
      */
@@ -38,6 +43,7 @@ public class LogsEntity  implements RecordInfo {
      * 操作人
      */
 	private Long operationId;
+
     /**
      * 业务编码
      * @see  BusinessCode
@@ -54,7 +60,13 @@ public class LogsEntity  implements RecordInfo {
 	private String extend;
 
 
+	public String getNewData() {
+		return newData;
+	}
 
+	public void setNewData(String newData) {
+		this.newData = newData;
+	}
 
 	public Long getBusinessId() {
 		return businessId;

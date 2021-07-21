@@ -42,6 +42,8 @@ public class SystemInitListener implements ApplicationListener<ContextRefreshedE
 		systemEntity = new SystemEntity();
 		systemEntity.setVersion(SystemEntity.VERSION);
 		systemEntity.setClientToken("123456");
+		//初始化密码
+		systemEntity.setInitPassword("admin123456");
 		//1天
 		systemEntity.setEventTime(1*24*3600*1000L);
 		//2小时
