@@ -77,4 +77,34 @@ public interface ConfigService {
 	 * @return
 	 */
 	int updateGlobal(GlobalConfigEntity globalConfigEntity);
+
+
+	/**
+	 * 新增权限元信息
+	 * @param permissionConfigEntity 待新增的数据
+	 * @return
+	 */
+	int addPermission(PermissionConfigEntity permissionConfigEntity);
+
+
+	/**
+	 * 删除权限元信息
+	 * @param id 元信息id
+	 * @return
+	 */
+	int deletePermission(Long id);
+
+	/**
+	 * 获取权限元信息
+	 * @param id 元信息id
+	 * @return
+	 */
+	PermissionConfigEntity getPermission(Long id);
+
+	/**
+	 * 修改权限元信息
+	 * @param permissionConfigEntity 权限元信息
+	 * @return
+	 */
+	int updatePermission(PermissionConfigEntity permissionConfigEntity);
 }

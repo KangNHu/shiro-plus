@@ -15,7 +15,7 @@ public class PermissionConfigRequest extends RequestPage{
 	 * 请求方式
 	 *
 	 */
-	private int method;
+	private Integer method;
 
 	/**
 	 * 权限模式 1.角色授权模式 2.权限授权模式 3票据授权模式4.认证状态授权模式5.用户信息存在状态的授权模式
@@ -37,11 +37,11 @@ public class PermissionConfigRequest extends RequestPage{
 		this.path = path;
 	}
 
-	public int getMethod() {
+	public Integer getMethod() {
 		return method;
 	}
 
-	public void setMethod(int method) {
+	public void setMethod(Integer method) {
 		this.method = method;
 	}
 

@@ -1,5 +1,11 @@
 package org.codingeasy.shiroplus.loader.admin.server.models.menu;
 
+import org.codingeasy.shiroplus.loader.admin.server.models.Dict;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * 请求方法类型
  * @author hukangning
@@ -34,6 +40,17 @@ public enum RequestMethod {
 		return null;
 	}
 
+	/**
+	 * 转字典
+	 * @return
+	 */
+	public static List<Dict> toDict(){
+		return Arrays
+				.asList(RequestMethod.values())
+				.stream()
+				.map(item -> new Dict(item.value , item.name))
+				.collect(Collectors.toList());
+	}
 
 	RequestMethod(String name , int value){
 		this.name = name;

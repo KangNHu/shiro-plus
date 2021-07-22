@@ -36,9 +36,13 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.codingeasy.shiroplus.loader.admin.server.models.menu.CommonStatus.NORMAL;
+import static org.codingeasy.shiroplus.loader.admin.server.models.menu.CommonStatus.constant;
+import static org.codingeasy.shiroplus.loader.admin.server.models.menu.ConfigType.GLOBAL;
+import static org.codingeasy.shiroplus.loader.admin.server.models.menu.ConfigType.PERMISSION;
 
 /**
 * 配置管理 业务层  
@@ -144,11 +148,7 @@ public class ConfigServiceImpl implements ConfigService {
 				}).collect(Collectors.toList());
 
 	}
-	@Override
-	public Page<PermissionConfigEntity> permissionPage(PermissionConfigRequest request) {
 
-		return null;
-	}
 
 	@Override
 	public Page<GlobalConfigEntity> globalPage(GlobalConfigRequest request) {
@@ -187,7 +187,7 @@ public class ConfigServiceImpl implements ConfigService {
 		globalConfigEntity.setStatus(CommonStatus.constant(NORMAL));
 		globalConfigDao.insert(globalConfigEntity);
 		//关联扩展字段
-		associationExtend(globalConfigEntity.getId() , globalConfigEntity.getExtend());
+		associationExtend(globalConfigEntity.getId() , globalConfigEntity.getExtend() ,ConfigType.constant(GLOBAL));
 		//发送新增事件
 		eventManager.asyncPublish(ConfigEvent.globalAddEvent(globalConfigEntity));
 		return 1;
@@ -211,6 +211,7 @@ public class ConfigServiceImpl implements ConfigService {
 				new QueryWrapper<ConfigExtendEntity>()
 						.lambda()
 						.eq(ConfigExtendEntity::getConfigId , id)
+						.eq(ConfigExtendEntity::getType , ConfigType.constant(GLOBAL))
 		);
 		//发送删除事件
 		eventManager.asyncPublish(ConfigEvent.globalDeleteEvent(globalConfigEntity));
@@ -227,17 +228,13 @@ public class ConfigServiceImpl implements ConfigService {
 		//获取基本数据
 		GlobalConfigEntity globalConfigEntity = globalConfigDao.selectById(id);
 		//获取扩展字段信息
-		List<ConfigExtendEntity> configExtendEntities = configExtendDao.selectList(
-				new QueryWrapper<ConfigExtendEntity>()
-						.lambda()
-						.eq(ConfigExtendEntity::getConfigId, id)
-		);
-		//装配扩展字段信息
-		if (!CollectionUtils.isEmpty(configExtendEntities)){
-			globalConfigEntity.setExtend(configExtendEntities.stream().collect(Collectors.toMap(ConfigExtendEntity::getName , ConfigExtendEntity::getValue)));
+		if (globalConfigEntity != null) {
+			globalConfigEntity.setExtend(getExtend(id, ConfigType.constant(GLOBAL)));
 		}
 		return globalConfigEntity;
 	}
+
+
 
 
 	/**
@@ -261,9 +258,113 @@ public class ConfigServiceImpl implements ConfigService {
 		globalConfigEntity.setUpdateBy(UserUtils.getUserId());
 		globalConfigDao.updateById(globalConfigEntity);
 		//重新关联扩展字段
-		associationExtend(globalConfigEntity.getId() , globalConfigEntity.getExtend());
+		associationExtend(globalConfigEntity.getId() , globalConfigEntity.getExtend() ,ConfigType.constant(GLOBAL));
 		//发送更新事件
 		eventManager.asyncPublish(ConfigEvent.globalUpdateEvent(globalConfigEntity));
+		return 1;
+	}
+
+	/**
+	 * 权限元数据条件分页列表
+	 * @param request 请求条件
+	 * @return 返回符合条件的权限配置列表
+	 */
+	@Override
+	public Page<PermissionConfigEntity> permissionPage(PermissionConfigRequest request) {
+		//创建分页条件
+		com.baomidou.mybatisplus.extension.plugins.pagination.Page<PermissionConfigEntity> query = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>();
+		query.setSize(request.getPageSize());
+		query.setCurrent(request.getPageNo());
+		//创建查询条件
+		LambdaQueryWrapper<PermissionConfigEntity> queryWrapper = new QueryWrapper<PermissionConfigEntity>()
+				.lambda()
+				.eq(request.getMethod() != null, PermissionConfigEntity::getMethod, request.getMethod())
+				.eq(request.getPermiModel() != null, PermissionConfigEntity::getPermiModel, request.getPermiModel())
+				.like(!StringUtils.isEmpty(request.getPath()), PermissionConfigEntity::getPath, request.getPath())
+				.like(StringUtils.isEmpty(request.getPermiCode()), PermissionConfigEntity::getPermis, request.getPermiCode())
+				.orderByDesc(PermissionConfigEntity::getCreateTm);
+		return new Page<>(permissionConfigDao.selectPage(query , queryWrapper));
+	}
+
+	@Record(
+			"'新增权限元信息[path:'" +
+			" + #permissionConfigEntity.path " +
+			"+',method:'+T(org.codingeasy.shiroplus.loader.admin.server.models.menu.RequestMethod).form(#permissionConfigEntity.method)"+
+			"+']'"
+	)
+	@Transactional(rollbackFor = Throwable.class)
+	@Override
+	public int addPermission(@Search @Param(LogsProducer.NEW_VALUE_KEY) PermissionConfigEntity permissionConfigEntity) {
+		//新增主表数据
+		permissionConfigEntity.setCreateBy(UserUtils.getUserId());
+		permissionConfigEntity.setUpdateBy(UserUtils.getUserId());
+		permissionConfigEntity.setStatus(constant(NORMAL));
+		permissionConfigEntity.setCreateTm(System.currentTimeMillis());
+		permissionConfigDao.insert(permissionConfigEntity);
+		//重新关联扩展字段
+		associationExtend(permissionConfigEntity.getId() , permissionConfigEntity.getExtend() , ConfigType.constant(PERMISSION));
+		//发送新增事件
+		eventManager.asyncPublish(ConfigEvent.permissionAddEvent(permissionConfigEntity));
+		return 1;
+	}
+
+
+
+	@Record("'删除权限元数据[ID:' + #id +']'")
+	@Transactional(rollbackFor = Throwable.class)
+	@Override
+	public int deletePermission(Long id) {
+		//查询旧数据
+		PermissionConfigEntity permissionConfigEntity = permissionConfigDao.selectById(id);
+		BusinessAssert.notNull(permissionConfigEntity , "未知的权限元信息");
+		//删除主表信息
+		permissionConfigDao.deleteById(id);
+		//删除扩展信息
+		configExtendDao.delete(
+				new QueryWrapper<ConfigExtendEntity>()
+						.lambda()
+						.eq(ConfigExtendEntity::getConfigId , id)
+						.eq(ConfigExtendEntity::getType , ConfigType.constant(PERMISSION))
+		);
+		//发送删除事件
+		eventManager.asyncPublish(ConfigEvent.permissionDeleteEvent(permissionConfigEntity));
+		return 0;
+	}
+
+
+	/**
+	 * 获取权限元信息
+	 * @param id 元信息id
+	 * @return
+	 */
+	@Override
+	public PermissionConfigEntity getPermission(Long id) {
+		//获取基本数据
+		PermissionConfigEntity permissionConfigEntity = permissionConfigDao.selectById(id);
+		//获取扩展字段信息
+		if (permissionConfigEntity != null) {
+			permissionConfigEntity.setExtend(getExtend(id, ConfigType.constant(PERMISSION)));
+		}
+		return permissionConfigEntity;
+	}
+
+
+	@Record(
+			"'更新权限元信息[path:'" +
+			" + #permissionConfigEntity.path " +
+			"+',method:'+T(org.codingeasy.shiroplus.loader.admin.server.models.menu.RequestMethod).form(#permissionConfigEntity.method)"+
+			"+']'"
+	)
+	@Transactional(rollbackFor = Throwable.class)
+	@Override
+	public int updatePermission(@Search @Param(LogsProducer.NEW_VALUE_KEY) PermissionConfigEntity permissionConfigEntity) {
+		//更新基本数据
+		permissionConfigEntity.setUpdateBy(UserUtils.getUserId());
+		permissionConfigDao.updateById(permissionConfigEntity);
+		//重新关联
+		associationExtend(permissionConfigEntity.getId() , permissionConfigEntity.getExtend() , ConfigType.constant(PERMISSION));
+		//发送更新事件
+		eventManager.asyncPublish(ConfigEvent.permissionUpdateEvent(permissionConfigEntity));
 		return 1;
 	}
 
@@ -271,8 +372,9 @@ public class ConfigServiceImpl implements ConfigService {
 	 * 关联扩展字段
 	 * @param id 元数据id
 	 * @param extend 扩展字段
+	 * @param type 元信息类型
 	 */
-	private void associationExtend(Long id, Map<String, Object> extend) {
+	private void associationExtend(Long id, Map<String, Object> extend , int type) {
 		//删除旧的关联
 		configExtendDao.delete(
 				new QueryWrapper<ConfigExtendEntity>()
@@ -291,8 +393,29 @@ public class ConfigServiceImpl implements ConfigService {
 					configExtendEntity.setConfigId(id);
 					configExtendEntity.setName(item.getKey());
 					configExtendEntity.setValue(item.getValue() == null ? null :item.getValue().toString());
-					configExtendEntity.setType(ConfigType.constant(ConfigType.GLOBAL));
+					configExtendEntity.setType(type);
 					return configExtendEntity;
 				}).collect(Collectors.toList()));
+	}
+
+	/**
+	 * 获取扩展信息
+	 * @param id 元信息id
+	 * @param type 元信息类型
+	 */
+	private Map<String, Object> getExtend(Long id, int type) {
+		List<ConfigExtendEntity> configExtendEntities = configExtendDao.selectList(
+				new QueryWrapper<ConfigExtendEntity>()
+						.lambda()
+						.eq(ConfigExtendEntity::getConfigId, id)
+						.eq(ConfigExtendEntity::getType , type)
+		);
+		//装配扩展字段信息
+		return Optional
+				.of(configExtendEntities)
+				.orElse(new ArrayList<>())
+				.stream()
+				.collect(Collectors.toMap(ConfigExtendEntity::getName , ConfigExtendEntity::getValue));
+
 	}
 }

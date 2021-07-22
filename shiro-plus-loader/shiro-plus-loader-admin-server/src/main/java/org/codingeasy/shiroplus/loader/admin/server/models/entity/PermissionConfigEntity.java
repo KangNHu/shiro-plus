@@ -1,8 +1,16 @@
 package org.codingeasy.shiroplus.loader.admin.server.models.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer;
+import org.codingeasy.shiroplus.loader.admin.server.models.Action;
+import org.codingeasy.streamrecord.core.annotation.Param;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * 权限配置表
@@ -13,9 +21,15 @@ import java.util.Date;
 @TableName("sp_permission_config")
 public class PermissionConfigEntity {
 
+
+	@TableId(type = IdType.AUTO)
+	@Param(LogsProducer.BUSINESS_ID_KEY)
+	@NotNull(message = "ID不能为空" , groups = Action.Update.class)
+	private Long id;
     /**
      * controller 方法的映射路径
      */
+    @NotNull(message = "接口URL不能为空" , groups = Action.Add.class)
 	private String path;
     /**
      * 状态 0 删除 1 正常
@@ -24,19 +38,29 @@ public class PermissionConfigEntity {
     /**
      * 方法的请求方式 如 get post
      */
+    @NotNull(message = "方法的请求方式不能为空" , groups = Action.Add.class)
 	private Integer method;
     /**
      * 权限标识列表
      */
+    @NotNull(message = "权限标识不能为空" , groups = Action.Add.class)
 	private String permis;
     /**
      * 逻辑类型 1 and 2 or
      */
+    @NotNull(message = "逻辑符不能为空" , groups = Action.Add.class)
 	private Integer logical;
     /**
      * 权限模式 1.角色授权模式 2.权限授权模式 3票据授权模式4.认证状态授权模式5.用户信息存在状态的授权模式
      */
+    @NotNull(message = "授权模式不能为空" , groups = Action.Add.class)
 	private Integer permiModel;
+
+	/**
+	 * 扩展字段
+	 */
+	@TableField(exist = false)
+	private Map<String , Object> extend;
     /**
      * 更新人
      */
@@ -46,14 +70,18 @@ public class PermissionConfigEntity {
      */
 	private Long createBy;
     /**
-     * 
-     */
-	private Date lastUpdateTm;
-    /**
      * 创建时间
      */
 	private Long createTm;
 
+
+	public Map<String, Object> getExtend() {
+		return extend;
+	}
+
+	public void setExtend(Map<String, Object> extend) {
+		this.extend = extend;
+	}
 
 	public String getPath() {
 		return path;
@@ -119,12 +147,12 @@ public class PermissionConfigEntity {
 		this.createBy = createBy;
 	}
 
-	public Date getLastUpdateTm() {
-		return lastUpdateTm;
+	public Long getId() {
+		return id;
 	}
 
-	public void setLastUpdateTm(Date lastUpdateTm) {
-		this.lastUpdateTm = lastUpdateTm;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Long getCreateTm() {

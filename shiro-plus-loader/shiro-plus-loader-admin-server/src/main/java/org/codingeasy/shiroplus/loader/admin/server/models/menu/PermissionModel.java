@@ -1,6 +1,11 @@
 package org.codingeasy.shiroplus.loader.admin.server.models.menu;
 
 import org.codingeasy.shiroplus.core.metadata.PermiModel;
+import org.codingeasy.shiroplus.loader.admin.server.models.Dict;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
 * 授权模式  
@@ -31,6 +36,17 @@ public enum  PermissionModel {
 		this.name = name;
 	}
 
+	/**
+	 * 转字典
+	 * @return
+	 */
+	public static List<Dict> toDict(){
+		return Arrays
+				.asList(PermissionModel.values())
+				.stream()
+				.map(item -> new Dict(item.value , item.name))
+				.collect(Collectors.toList());
+	}
 	/**
 	 * 值转换为名称
 	 * @param value 值

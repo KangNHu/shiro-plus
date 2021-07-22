@@ -24,6 +24,7 @@
         <module>springboot</module>
         <module>spring-cloud-gateway</module>
         <module>spring-cloud-gateway-provider</module>
+        <module>spring-cloud-gateway-admin</module>
     </modules>
 
     <dependencyManagement>

@@ -1,5 +1,11 @@
 package org.codingeasy.shiroplus.loader.admin.server.models.menu;
 
+import org.codingeasy.shiroplus.loader.admin.server.models.Dict;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * 逻辑
  * @author hukangning
@@ -23,6 +29,18 @@ public enum Logical{
 		this.name = name;
 	}
 
+
+	/**
+	 * 转字典
+	 * @return
+	 */
+	public static List<Dict> toDict(){
+		return Arrays
+				.asList(Logical.values())
+				.stream()
+				.map(item -> new Dict(item.value , item.name))
+				.collect(Collectors.toList());
+	}
 	/**
 	 * 值转换为名称
 	 * @param value 值
