@@ -32,11 +32,19 @@
         </dependency>
         <dependency>
             <groupId>org.codingeasy</groupId>
+            <artifactId>stream-record-core</artifactId>
+            <version>${stream-record-springboot.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/META-INF/lib/stream-record-core-1.0.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>org.codingeasy</groupId>
             <artifactId>stream-record-springboot</artifactId>
             <version>${stream-record-springboot.version}</version>
             <scope>system</scope>
-            <systemPath>${project.basedir}/lib/stream-record-springboot-1.0.0.jar</systemPath>
+            <systemPath>${project.basedir}/src/main/resources/META-INF/lib/stream-record-springboot-1.0.0.jar</systemPath>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -70,6 +78,16 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.3.3.RELEASE</version>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                    <mainClass>org.codingeasy.shiroplus.loader.admin.server.AdminServerApplication</mainClass>
+                    <classifier>${project.basedir}/src/main/resources/META-INF/lib</classifier>
+                </configuration>
+            </plugin>
             <!-- 插件maven-clean-plugin，用于在编译前，清除之前编译的文件、文件夹等，避免残留之前的内容 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -182,6 +200,7 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <imageName>shiroplus/${artifactId}</imageName>
                     <dockerDirectory>${project.basedir}</dockerDirectory>
                     <resources>
                         <resource>

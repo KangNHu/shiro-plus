@@ -11,6 +11,7 @@
   <artifactId>shiro-plus-loader-admin-server</artifactId>
   <version>1.0.0-RELEASE</version>
   <properties>
+    <docker.image.prefix>shiroplus</docker.image.prefix>
     <stream-record-springboot.version>1.0.0</stream-record-springboot.version>
     <mysql-connector.version>8.0.21</mysql-connector.version>
     <jwt.version>9.0</jwt.version>
@@ -25,8 +26,17 @@
     </dependency>
     <dependency>
       <groupId>org.codingeasy</groupId>
+      <artifactId>stream-record-core</artifactId>
+      <version>${stream-record-springboot.version}</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/META-INF/lib/stream-record-core-1.0.0.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>org.codingeasy</groupId>
       <artifactId>stream-record-springboot</artifactId>
       <version>${stream-record-springboot.version}</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/src/main/resources/META-INF/lib/stream-record-springboot-1.0.0.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -59,6 +69,16 @@
   </dependencies>
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.3.3.RELEASE</version>
+        <configuration>
+          <includeSystemScope>true</includeSystemScope>
+          <mainClass>org.codingeasy.shiroplus.loader.admin.server.AdminServerApplication</mainClass>
+          <classifier>${project.basedir}/src/main/resources/META-INF/lib</classifier>
+        </configuration>
+      </plugin>
       <plugin>
         <artifactId>maven-clean-plugin</artifactId>
         <version>3.1.0</version>
@@ -141,6 +161,31 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <id>build-image</id>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <imageName>shiroplus/${artifactId}</imageName>
+          <dockerDirectory>${project.basedir}</dockerDirectory>
+          <resources>
+            <resource>
+              <targetPath>/</targetPath>
+              <directory>${project.build.directory}</directory>
+              <include>${project.build.finalName}.jar</include>
+            </resource>
+          </resources>
+        </configuration>
       </plugin>
     </plugins>
   </build>
