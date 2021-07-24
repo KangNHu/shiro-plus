@@ -29,8 +29,8 @@ public class ClientConfiguration {
 				.encoder(new JacksonEncoder())
 				.client(new feign.okhttp.OkHttpClient(new OkHttpClient
 						.Builder()
-						.connectTimeout(10 , TimeUnit.MILLISECONDS)
-						.callTimeout(10 , TimeUnit.MILLISECONDS)
+						.connectTimeout(10 , TimeUnit.SECONDS)
+						.callTimeout(10 , TimeUnit.SECONDS)
 						.build()
 				))
 				.requestInterceptor(new SecurityRequestInterceptor(properties));

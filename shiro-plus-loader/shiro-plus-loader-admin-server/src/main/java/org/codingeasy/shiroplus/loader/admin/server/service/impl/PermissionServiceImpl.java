@@ -95,7 +95,7 @@ public class PermissionServiceImpl implements PermissionService {
 		PermissionRequest permissionRequest = new PermissionRequest();
 		permissionRequest.setUserId(userId);
 		return Optional
-				.of(roleDao.selectUserRoles(permissionRequest))
+				.ofNullable(roleDao.selectUserRoles(permissionRequest))
 				.orElse(Arrays.asList(new UserRolesEntity()))
 				.get(0);
 	}

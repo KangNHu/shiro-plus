@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.codingeasy.shiroplus.loader.admin.server.dao.PermissionConfigDao">
+
+    <resultMap id="permission_config_extend" type="org.codingeasy.shiroplus.loader.admin.server.models.entity.PermissionConfigExtendEntity">
+        <result column="path" property="path"/>
+        <result column="method" property="method"/>
+        <result column="permis" property="permis"/>
+        <result column="logical" property="logical"/>
+        <result column="permi_model" property="permiModel"/>
+        <collection property="extendList" ofType="org.codingeasy.shiroplus.loader.admin.server.models.entity.ConfigExtendEntity">
+            <result property="name" column="name"/>
+            <result property="value" column="value"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="queryList" resultMap="permission_config_extend">
+        SELECT
+         pf.path,
+         pf.method,
+         pf.permis,
+         pf.logical,
+         pf.permi_model,
+         ce.name,
+         ce.value
+        FROM sp_permission_config pf
+        LEFT JOIN sp_config_extend ce ON ce.config_id = pf.id AND ce.type = 1 AND pf.status =1
+    </select>
+
+</mapper>

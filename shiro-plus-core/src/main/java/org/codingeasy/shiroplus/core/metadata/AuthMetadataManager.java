@@ -28,7 +28,7 @@ public class AuthMetadataManager implements EventListener , Initializable {
 
 	private final Logger logger = LoggerFactory.getLogger(AuthMetadataManager.class);
 
-	private Map<String , Map< PermiModel, PermissionMetadata>> permissionMetadataMap = new HashMap<>();
+	private Map<String , PermissionMetadata> permissionMetadataMap = new HashMap<>();
 
 	private Map<String , GlobalMetadata> globalMetadataMap = new HashMap<>();
 
@@ -61,9 +61,7 @@ public class AuthMetadataManager implements EventListener , Initializable {
 						continue;
 					}
 					logger.info("加载权限元信息 {}", permissionMetadata.toString());
-					String cacheKey = getCacheKey(permissionMetadata);
-					Map<PermiModel, PermissionMetadata> map = permissionMetadataMap.computeIfAbsent(cacheKey, key -> new HashMap<>());
-					map.put(permissionMetadata.getPermiModel() , permissionMetadata);
+					permissionMetadataMap.put(getCacheKey(permissionMetadata), permissionMetadata);
 				}
 			}
 			//初始化全局元信息
@@ -88,11 +86,7 @@ public class AuthMetadataManager implements EventListener , Initializable {
 	public PermissionMetadata getPermissionMetadata(String key  ,PermiModel permiModel){
 		try {
 			permissionMetadataLock.readLock();
-			Map<PermiModel, PermissionMetadata> map = permissionMetadataMap.get(key);
-			if (map == null){
-				return null;
-			}
-			PermissionMetadata permissionMetadata = map.get(permiModel);
+			PermissionMetadata permissionMetadata = permissionMetadataMap.get(key);
 			return permissionMetadata == null ? null : permissionMetadata.clone();
 		}catch (CloneNotSupportedException e) {
 			logger.warn("clone error" ,e);
@@ -175,10 +169,7 @@ public class AuthMetadataManager implements EventListener , Initializable {
 				this::getCacheKey ,
 				permissionMetadataLock ,
 				permissionMetadataMap,
-				(pm , cacheKey) ->{
-					Map<PermiModel, PermissionMetadata> map = permissionMetadataMap.computeIfAbsent(cacheKey, key -> new HashMap<>());
-					map.put(pm.getPermiModel() , pm);
-				},
+				(pm , cacheKey) -> permissionMetadataMap.put(cacheKey ,pm ),
 				PermissionMetadata.class
 		);
 	}
@@ -216,6 +207,9 @@ public class AuthMetadataManager implements EventListener , Initializable {
 			readWriteLock.writeLock();
 			for (Object o : list) {
 				if (!clazz.isAssignableFrom(o.getClass())){
+					if (logger.isDebugEnabled()){
+						logger.debug("事件源类型不匹配 {}" , o.getClass());
+					}
 					continue;
 				}
 				String key = cacheKey.apply((T) o);

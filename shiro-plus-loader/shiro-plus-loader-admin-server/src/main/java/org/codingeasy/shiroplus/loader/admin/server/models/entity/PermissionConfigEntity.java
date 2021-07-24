@@ -4,13 +4,19 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.apache.commons.lang3.StringUtils;
+import org.codingeasy.shiroplus.core.metadata.PermiModel;
+import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 import org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer;
 import org.codingeasy.shiroplus.loader.admin.server.models.Action;
+import org.codingeasy.shiroplus.loader.admin.server.models.menu.Logical;
+import org.codingeasy.shiroplus.loader.admin.server.models.menu.PermissionModel;
+import org.codingeasy.shiroplus.loader.admin.server.models.menu.RequestMethod;
 import org.codingeasy.streamrecord.core.annotation.Param;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 权限配置表
@@ -161,5 +167,29 @@ public class PermissionConfigEntity {
 
 	public void setCreateTm(Long createTm) {
 		this.createTm = createTm;
+	}
+
+
+	/**
+	 * 转元数据对象
+	 * @return 返回元数据对象
+	 */
+	public PermissionMetadata toMetadata(){
+		//构建元信息
+		PermissionMetadata permissionMetadata = new PermissionMetadata();
+		String permis = this.getPermis();
+		if (!StringUtils.isEmpty(permis)){
+			permissionMetadata.setPermis(Arrays.asList(permis.split(",")));
+		}
+		permissionMetadata.setPath(this.path);
+		permissionMetadata.setPermiModel(PermiModel.form(PermissionModel.form(this.getPermiModel())));
+		permissionMetadata.setLogical(org.codingeasy.shiroplus.core.metadata.Logical.form(Logical.form(this.getLogical())));
+		permissionMetadata.setMethod(org.codingeasy.shiroplus.core.metadata.RequestMethod.form(RequestMethod.form(this.getMethod())));
+		permissionMetadata.setAttr(
+				Optional
+					.ofNullable(this.extend)
+					.orElse(new HashMap<>())
+		);
+		return permissionMetadata;
 	}
 }

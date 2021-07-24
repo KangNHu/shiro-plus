@@ -11,7 +11,7 @@ public class AuthMetadataEvent extends EventObject {
 	/**
 	 * 事件类型
 	 */
-	private EventType type;
+	protected EventType type;
 
 
 
@@ -19,6 +19,8 @@ public class AuthMetadataEvent extends EventObject {
 		super(metadata);
 		this.type = type;
 	}
+
+
 
 
 	public EventType getType() {

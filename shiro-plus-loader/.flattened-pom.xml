@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.codingeasy</groupId>
+    <artifactId>shiro-plus-pom</artifactId>
+    <version>1.0.0-RELEASE</version>
+    <relativePath>../shiro-plus-pom/pom.xml</relativePath>
+  </parent>
+  <groupId>org.codingeasy</groupId>
+  <artifactId>shiro-plus-loader</artifactId>
+  <version>1.0.0-RELEASE</version>
+  <packaging>pom</packaging>
+  <modules>
+    <module>shiro-plus-loader-nacos</module>
+    <module>shiro-plus-loader-admin-client</module>
+    <module>shiro-plus-loader-admin-server</module>
+  </modules>
+</project>

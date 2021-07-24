@@ -29,7 +29,7 @@ public class ResponseDecoder extends JacksonDecoder {
 			if (!re.isSucceed()){
 				throw new IllegalStateException(re.getMsg());
 			}
-			return re.getData();
+			return re;
 		}
 	}
 

@@ -1,5 +1,6 @@
 package org.codingeasy.shiroplus.loader.admin.server.listener;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.event.Subscribe;
@@ -8,7 +9,10 @@ import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.core.metadata.PermiModel;
 import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 import org.codingeasy.shiroplus.loader.admin.server.dao.EventDao;
+import org.codingeasy.shiroplus.loader.admin.server.dao.InstanceDao;
 import org.codingeasy.shiroplus.loader.admin.server.exception.BusinessAssert;
+import org.codingeasy.shiroplus.loader.admin.server.models.dto.GlobalMetadataEventDto;
+import org.codingeasy.shiroplus.loader.admin.server.models.dto.PermissionMetadataEventDto;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.*;
 import org.codingeasy.shiroplus.loader.admin.server.models.menu.ConfigType;
 import org.codingeasy.shiroplus.loader.admin.server.models.menu.Logical;
@@ -23,10 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -46,6 +47,9 @@ public class ConfigActiveListener {
 	@Autowired
 	@Lazy
 	private ConfigService configService;
+
+	@Autowired
+	private InstanceDao instanceDao;
 
 	@Subscribe
 	public void onActive(ConfigEvent event) {
@@ -71,22 +75,9 @@ public class ConfigActiveListener {
 		if (configType != ConfigType.PERMISSION) {
 			return;
 		}
-		PermissionConfigExtendEntity permissionConfig = (PermissionConfigExtendEntity) event.getSource();
+		PermissionConfigEntity permissionConfig = (PermissionConfigEntity) event.getSource();
 		//构建元信息
-		PermissionMetadata permissionMetadata = new PermissionMetadata();
-		String permis = permissionConfig.getPermis();
-		if (!StringUtils.isEmpty(permis)){
-			permissionMetadata.setPermis(Arrays.asList(permis.split(",")));
-		}
-		permissionMetadata.setPermiModel(PermiModel.form(PermissionModel.form(permissionConfig.getPermiModel())));
-		permissionMetadata.setLogical(org.codingeasy.shiroplus.core.metadata.Logical.form(Logical.form(permissionConfig.getLogical())));
-		permissionMetadata.setMethod(org.codingeasy.shiroplus.core.metadata.RequestMethod.form(RequestMethod.form(permissionConfig.getMethod())));
-		permissionMetadata.setAttr(Optional
-				.of(permissionConfig.getExtendList())
-				.orElse(new ArrayList<>())
-				.stream()
-				.collect(Collectors.toMap(ConfigExtendEntity::getName , ConfigExtendEntity::getValue))
-		);
+		PermissionMetadata permissionMetadata = permissionConfig.toMetadata();
 		//构建shiro plus事件对象
 		AuthMetadataEvent authMetadataEvent = new AuthMetadataEvent(event.getEventType(), permissionMetadata);
 		saveEvent(authMetadataEvent);
@@ -104,18 +95,7 @@ public class ConfigActiveListener {
 		GlobalConfigEntity globalConfig = (GlobalConfigEntity) event.getSource();
 		BusinessAssert.notNull(globalConfig.getTenantId() ,"处理变更事件失败 ，租户ID不能为空");
 		//构建元信息
-		GlobalMetadata globalMetadata = new GlobalMetadata();
-		globalMetadata.setTenantId(globalConfig.getTenantId());
-		globalMetadata.setEnableAuthorization(globalConfig.getEnableAuthorization() == 1);
-		globalMetadata.setEnableAuthentication(globalConfig.getEnableAuthentication() == 1);
-		String anons = globalConfig.getAnons();
-		if (!StringUtils.isEmpty(anons)){
-			globalMetadata.setAnons(Arrays.asList(anons.split(",")));
-		}
-		globalMetadata.setAttr(Optional
-				.of(globalConfig.getExtend())
-				.orElse(new HashMap<>())
-		);
+		GlobalMetadata globalMetadata = globalConfig.toMetadata();
 		//构建shiro plus事件对象
 		AuthMetadataEvent authMetadataEvent = new AuthMetadataEvent(event.getEventType(), globalMetadata);
 		saveEvent(authMetadataEvent);
@@ -126,10 +106,33 @@ public class ConfigActiveListener {
 	 * @param authMetadataEvent 事件对象
 	 */
 	private void saveEvent(AuthMetadataEvent authMetadataEvent){
-		EventEntity eventEntity = new EventEntity();
-		eventEntity.setEvent(JsonUtils.toJsonString(authMetadataEvent));
-		eventEntity.setTime(SystemUtils.getEventTime());
-		eventDao.insert(eventEntity);
+		int sourceType;
+		Object source = authMetadataEvent.getSource();
+		if (source instanceof PermissionMetadata){
+			PermissionMetadataEventDto permissionMetadataEventDto = new PermissionMetadataEventDto();
+			permissionMetadataEventDto.setEventType(authMetadataEvent.getType());
+			permissionMetadataEventDto.setPermissionMetadata((PermissionMetadata) authMetadataEvent.getSource());
+			authMetadataEvent = permissionMetadataEventDto;
+			sourceType =1;
+		}else if (source instanceof GlobalMetadata){
+			GlobalMetadataEventDto globalMetadataEventDto = new GlobalMetadataEventDto();
+			globalMetadataEventDto.setEventType(authMetadataEvent.getType());
+			globalMetadataEventDto.setGlobalMetadata((GlobalMetadata) authMetadataEvent.getSource());
+			authMetadataEvent = globalMetadataEventDto;
+			sourceType = 2;
+		}else {
+			log.warn("未知的事件源类型 {}" ,source.getClass());
+			return;
+		}
+		String event = JsonUtils.toJsonString(authMetadataEvent);
+		//获取所有存活的客户端实例
+		List<InstanceEntity> instanceEntities = instanceDao.selectList(new QueryWrapper<>());
+		eventDao.batchInsert(
+				instanceEntities
+					.stream()
+					.map(item -> new EventEntity(event ,item.getId() , sourceType))
+					.collect(Collectors.toList())
+		);
 	}
 
 }

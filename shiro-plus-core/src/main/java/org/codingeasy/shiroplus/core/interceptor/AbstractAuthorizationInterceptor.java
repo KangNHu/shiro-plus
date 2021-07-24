@@ -3,6 +3,7 @@ package org.codingeasy.shiroplus.core.interceptor;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.util.Assert;
+import org.apache.shiro.util.StringUtils;
 import org.codingeasy.shiroplus.core.event.AuthorizeEvent;
 import org.codingeasy.shiroplus.core.event.CommonEventType;
 import org.codingeasy.shiroplus.core.event.EventManager;
@@ -105,19 +106,21 @@ public abstract class AbstractAuthorizationInterceptor<R , S> implements AuthInt
 						if (result != null){
 							return result;
 						}
+					}finally {
+						clear();
 					}
 				}
 			}
 		}
-		try {
-			return invoker.invoke();
-		}catch (Exception e){
-			throw new IllegalArgumentException(e);
-		}
+		return invoker.invoke();
 	}
 
-
-
+	/**
+	 * 用于释放资源
+	 */
+	protected void clear(){
+		MetadataContext.remove();
+	}
 
 	/**
 	 * 权限异常处理后置处理
@@ -161,6 +164,11 @@ public abstract class AbstractAuthorizationInterceptor<R , S> implements AuthInt
 	 */
 	protected PermissionMetadata getPermissionMetadata(Invoker<R ,S> invoker ){
 		String cacheKey = getPermissionMetadataKey(invoker.getRequest());
+		//权限元信息key的后置处理
+		String newCacheKey = authProcessor.permissionMetadataKeyPostProcessor(invoker.getRequest(), cacheKey);
+		if (StringUtils.hasText(newCacheKey)){
+			cacheKey = newCacheKey;
+		}
 		//获取 permission 授权模式
 		PermissionMetadata permissionMetadata = this.authMetadataManager.getPermissionMetadata(cacheKey, PermiModel.PERMISSION);
 		if (permissionMetadata != null){

@@ -61,8 +61,8 @@ public class AopAuthorizationInterceptor extends AbstractAuthorizationIntercepto
 	@Override
 	protected String getPermissionMetadataKey(MethodInvocation methodInvocation) {
 		return methodInvocation.getMethod().toGenericString();
-	}
 
+	}
 
 	/**
 	 * 获取权限元数据
@@ -76,11 +76,7 @@ public class AopAuthorizationInterceptor extends AbstractAuthorizationIntercepto
 
 	@Override
 	public Object invoke(MethodInvocation invocation) throws Throwable {
-		try {
-			return invoke(new AopInvoker(invocation));
-		}finally {
-			MetadataContext.remove();
-		}
+		return invoke(new AopInvoker(invocation));
 	}
 
 

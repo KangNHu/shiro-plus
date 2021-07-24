@@ -5,6 +5,9 @@ import org.apache.shiro.authc.Authenticator;
 import org.apache.shiro.authc.pam.AuthenticationStrategy;
 import org.apache.shiro.authc.pam.ModularRealmAuthenticator;
 import org.apache.shiro.authz.Authorizer;
+import org.apache.shiro.authz.ModularRealmAuthorizer;
+import org.apache.shiro.authz.permission.PermissionResolver;
+import org.apache.shiro.authz.permission.RolePermissionResolver;
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.event.EventBus;
 import org.apache.shiro.mgt.RememberMeManager;
@@ -57,24 +60,38 @@ public class ShiroPlusSecurityManager extends DefaultWebSecurityManager implemen
 			);
 		}
 		//cacheManage
-		String[] cacheManagerBeanNames = applicationContext.getBeanNamesForType(CacheManager.class);
-		if (!ArrayUtils.isEmpty(cacheManagerBeanNames)) {
-			this.setCacheManager(applicationContext.getBean(cacheManagerBeanNames[0] , CacheManager.class));
+		CacheManager cacheManager = getValidComponent(applicationContext, CacheManager.class);
+		if (cacheManager != null) {
+			this.setCacheManager(cacheManager);
 		}
 		//rememberMeManager
-		String[] rememberMeManagerBeanNames = applicationContext.getBeanNamesForType(RememberMeManager.class);
-		if (!ArrayUtils.isEmpty(rememberMeManagerBeanNames)) {
-			this.setRememberMeManager(applicationContext.getBean(rememberMeManagerBeanNames[0] , RememberMeManager.class));
+		RememberMeManager rememberMeManager = getValidComponent(applicationContext ,RememberMeManager.class);
+		if (rememberMeManager != null) {
+			this.setRememberMeManager(rememberMeManager);
 		}
 		//sessionManager
 		SessionManager sessionManager = getValidComponent(applicationContext, SessionManager.class);
 		if (sessionManager != null) {
 			this.setSessionManager(sessionManager);
 		}
+		//RolePermissionResolver
+		Authorizer authorizer = this.getAuthorizer();
+		if (authorizer instanceof ModularRealmAuthorizer){
+			RolePermissionResolver rolePermissionResolver = getValidComponent(applicationContext, RolePermissionResolver.class);
+			if (rolePermissionResolver != null) {
+				((ModularRealmAuthorizer) authorizer).setRolePermissionResolver(rolePermissionResolver);
+			}
+			PermissionResolver permissionResolver = getValidComponent(applicationContext, PermissionResolver.class);
+			if (permissionResolver != null) {
+				((ModularRealmAuthorizer) authorizer).setPermissionResolver(permissionResolver);
+			}
+
+		}
+
 		//subjectFactory
-		String[] subjectFactoryBeanNames = applicationContext.getBeanNamesForType(SubjectFactory.class);
-		if (!ArrayUtils.isEmpty(subjectFactoryBeanNames)) {
-			this.setSubjectFactory(applicationContext.getBean(subjectFactoryBeanNames[0] , SubjectFactory.class));
+		SubjectFactory subjectFactory = getValidComponent(applicationContext, SubjectFactory.class);
+		if (subjectFactory != null) {
+			this.setSubjectFactory(subjectFactory);
 		}
 		//authenticator
 		Authenticator authenticator = getValidComponent(applicationContext, Authenticator.class);
@@ -82,14 +99,14 @@ public class ShiroPlusSecurityManager extends DefaultWebSecurityManager implemen
 			this.setAuthenticator(authenticator);
 		}
 		//authorizer
-		Authorizer authorizer = getValidComponent(applicationContext, Authorizer.class);
-		if (authorizer != null) {
-			this.setAuthorizer(authorizer);
+		Authorizer globalAuthorizer = getValidComponent(applicationContext, Authorizer.class);
+		if (globalAuthorizer != null) {
+			this.setAuthorizer(globalAuthorizer);
 		}
 		//eventBus
-		String[] eventBusBeanNames = applicationContext.getBeanNamesForType(EventBus.class);
-		if (!ArrayUtils.isEmpty(eventBusBeanNames)) {
-			this.setEventBus(applicationContext.getBean(eventBusBeanNames[0] , EventBus.class));
+		EventBus eventBus = getValidComponent(applicationContext, EventBus.class);
+		if (eventBus != null) {
+			this.setEventBus(eventBus);
 		}
 		// 设置鉴权策略 当使用默认的鉴权时
 		Authenticator defaultAuthenticator = getAuthenticator();

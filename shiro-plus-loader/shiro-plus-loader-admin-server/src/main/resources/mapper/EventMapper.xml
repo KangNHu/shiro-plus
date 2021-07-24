@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.codingeasy.shiroplus.loader.admin.server.dao.EventDao">
+
+    <insert id="batchInsert">
+        INSERT INTO sp_event(event,instance_id,source_type)
+        VALUES <foreach collection="eventEntities" item="eventEntity" separator="," >
+                    (
+                        #{eventEntity.event},
+                        #{eventEntity.instanceId},
+                        #{eventEntity.sourceType}
+                    )
+                </foreach>
+    </insert>
+
+</mapper>

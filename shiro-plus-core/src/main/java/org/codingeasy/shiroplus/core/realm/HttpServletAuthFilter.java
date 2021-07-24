@@ -12,6 +12,7 @@ import org.codingeasy.shiroplus.core.interceptor.DynamicAuthorizationFilter;
 import org.codingeasy.shiroplus.core.interceptor.WebInvoker;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
+import org.codingeasy.shiroplus.core.metadata.MetadataContext;
 import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
 import org.codingeasy.shiroplus.core.utils.PathUtils;
 
@@ -82,6 +83,8 @@ public class HttpServletAuthFilter extends DynamicAuthorizationFilter {
 				}
 			}catch (AuthenticationException e){
 				authProcessor.authenticationFailure(httpServletRequest , httpServletResponse , e);
+			}finally {
+				MetadataContext.remove();
 			}
 			return;
 		}
@@ -89,6 +92,10 @@ public class HttpServletAuthFilter extends DynamicAuthorizationFilter {
 	}
 
 
+	@Override
+	protected void clear() {
+		///
+	}
 
 	/**
 	 * 是否开启鉴权

@@ -2,20 +2,23 @@ package org.codingeasy.shiroplus.loader.admin.server.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.config.GlobalConfig;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
 import org.codingeasy.shiroplus.core.event.EventManager;
+import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
+import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 import org.codingeasy.shiroplus.loader.admin.server.dao.*;
 import org.codingeasy.shiroplus.loader.admin.server.exception.BusinessAssert;
 import org.codingeasy.shiroplus.loader.admin.server.listener.ConfigEvent;
 import org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer;
 import org.codingeasy.shiroplus.loader.admin.server.models.Page;
+import org.codingeasy.shiroplus.loader.admin.server.models.dto.AuthMetadataEventWrap;
+import org.codingeasy.shiroplus.loader.admin.server.models.dto.GlobalMetadataEventDto;
+import org.codingeasy.shiroplus.loader.admin.server.models.dto.PermissionMetadataEventDto;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.*;
 import org.codingeasy.shiroplus.loader.admin.server.models.menu.CommonStatus;
 import org.codingeasy.shiroplus.loader.admin.server.models.menu.ConfigType;
@@ -23,16 +26,13 @@ import org.codingeasy.shiroplus.loader.admin.server.models.request.GlobalConfigR
 import org.codingeasy.shiroplus.loader.admin.server.models.request.PermissionConfigRequest;
 import org.codingeasy.shiroplus.loader.admin.server.service.ConfigService;
 import org.codingeasy.shiroplus.loader.admin.server.utils.UserUtils;
-import org.codingeasy.shiroplus.loader.admin.server.utils.WebUtils;
 import org.codingeasy.streamrecord.core.annotation.Param;
 import org.codingeasy.streamrecord.core.annotation.Record;
 import org.codingeasy.streamrecord.core.annotation.RecordService;
 import org.codingeasy.streamrecord.core.annotation.Search;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +61,7 @@ public class ConfigServiceImpl implements ConfigService {
 	private EventDao eventDao;
 
 	@Autowired
-	private EventProcessorRecordDao eventProcessorRecordDao;
+	private InstanceDao instanceDao;
 
 
 	@Autowired
@@ -75,20 +75,23 @@ public class ConfigServiceImpl implements ConfigService {
 	 * @return 返回所有的全局配置信息
 	 */
 	@Override
-	public List<GlobalConfigEntity> getGlobalConfigs() {
+	public List<GlobalMetadata> getGlobalMetadataAll() {
 		int pageNo = 1;
-		List<GlobalConfigEntity> globalConfigEntities = new ArrayList<>();
-		List<GlobalConfigEntity> currentGlobalConfigEntities = null;
+		List<GlobalConfigExtendEntity> globalConfigEntities = new ArrayList<>();
+		List<GlobalConfigExtendEntity> currentGlobalConfigEntities = null;
 		do {
-			com.baomidou.mybatisplus.extension.plugins.pagination.Page<GlobalConfigEntity> queryPage = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>();
+			com.baomidou.mybatisplus.extension.plugins.pagination.Page<GlobalConfigExtendEntity> queryPage = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>();
 			queryPage.setSize(2000);
 			queryPage.setCurrent(pageNo);
-			Page<GlobalConfigEntity> page = new Page<>(globalConfigDao.selectPage(queryPage, new QueryWrapper<GlobalConfigEntity>().lambda()));
+			Page<GlobalConfigExtendEntity> page = new Page<>(globalConfigDao.queryList(queryPage));
 			currentGlobalConfigEntities = page.getList();
 			globalConfigEntities.addAll(currentGlobalConfigEntities);
 			pageNo++;
 		}while (!CollectionUtils.isEmpty(currentGlobalConfigEntities));
-		return globalConfigEntities;
+		return globalConfigEntities
+				.stream()
+				.map(GlobalConfigExtendEntity::toMetadata)
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -96,20 +99,23 @@ public class ConfigServiceImpl implements ConfigService {
 	 * @return 返回所有的权限配置信息
 	 */
 	@Override
-	public List<PermissionConfigEntity> getPermissionConfigs() {
+	public List<PermissionMetadata> getPermissionMetadataAll() {
 		int pageNo = 1;
-		List<PermissionConfigEntity> permissionConfigEntities = new ArrayList<>();
-		List<PermissionConfigEntity> currentGlobalConfigEntities = null;
+		List<PermissionConfigExtendEntity> permissionConfigEntities = new ArrayList<>();
+		List<PermissionConfigExtendEntity> currentGlobalConfigEntities = null;
 		do {
-			com.baomidou.mybatisplus.extension.plugins.pagination.Page<PermissionConfigEntity> queryPage = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>();
+			com.baomidou.mybatisplus.extension.plugins.pagination.Page<PermissionConfigExtendEntity> queryPage = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>();
 			queryPage.setSize(2000);
 			queryPage.setCurrent(pageNo);
-			Page<PermissionConfigEntity> page = new Page<>(permissionConfigDao.selectPage(queryPage, new QueryWrapper<PermissionConfigEntity>().lambda()));
+			Page<PermissionConfigExtendEntity> page = new Page<>(permissionConfigDao.queryList(queryPage));
 			currentGlobalConfigEntities = page.getList();
 			permissionConfigEntities.addAll(currentGlobalConfigEntities);
 			pageNo++;
 		}while (!CollectionUtils.isEmpty(currentGlobalConfigEntities));
-		return permissionConfigEntities;
+		return permissionConfigEntities
+				.stream()
+				.map(PermissionConfigExtendEntity::toMetadata)
+				.collect(Collectors.toList());
 	}
 
 	/**
@@ -117,35 +123,44 @@ public class ConfigServiceImpl implements ConfigService {
 	 * @return 返回所有待消费的事件
 	 */
 	@Override
-	public List<AuthMetadataEvent> pullEvents(HttpServletRequest request) {
-		//获取远程ip
-		String remoteIp = WebUtils.getRemoteIp(request);
-		//pull event list
-		List<EventEntity> eventEntities = eventDao.pullEvents(remoteIp);
-		if (CollectionUtils.isEmpty(eventEntities)) {
-			return new ArrayList<>();
+	public AuthMetadataEventWrap pullEvents(String instanceCode) {
+		//获取实例id
+		InstanceEntity instanceEntity = instanceDao.selectOne(
+				new QueryWrapper<InstanceEntity>()
+						.lambda()
+						.eq(InstanceEntity::getCode, instanceCode)
+		);
+		BusinessAssert.notNull(instanceEntity , "当前客户端实例未注册");
+		//获取待消费事件
+		List<EventEntity> events = eventDao.selectList(
+				new QueryWrapper<EventEntity>()
+						.lambda()
+						.eq(EventEntity::getInstanceId, instanceEntity.getId())
+		);
+		if (!CollectionUtils.isEmpty(events)) {
+			//删除已消费事件
+			eventDao.deleteBatchIds(
+					events
+							.stream()
+							.distinct()
+							.map(EventEntity::getId)
+							.collect(Collectors.toList())
+			);
 		}
-		// 添加event 处理记录
-		eventProcessorRecordDao.batchInsert(eventEntities
-				.stream()
-				.map(item -> {
-					EventProcessorRecordEntity eventProcessorRecordEntity = new EventProcessorRecordEntity();
-					eventProcessorRecordEntity.setEventId(item.getId());
-					eventProcessorRecordEntity.setHost(remoteIp);
-					return eventProcessorRecordEntity;
-				})
-				.collect(Collectors.toList()));
-		ObjectMapper objectMapper = new ObjectMapper();
-		//转换实体
-		return eventEntities
-				.stream()
-				.map(item -> {
-					try {
-						return objectMapper.readValue(item.getEvent(), AuthMetadataEvent.class);
-					} catch (JsonProcessingException e) {
-						throw new IllegalStateException(e);
-					}
-				}).collect(Collectors.toList());
+		AuthMetadataEventWrap authMetadataEventWrap = new AuthMetadataEventWrap();
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			for (EventEntity event : events) {
+				if (event.getSourceType() == ConfigType.constant(PERMISSION)) {
+					authMetadataEventWrap.getPermissionMetadataEvents().add(objectMapper.readValue(event.getEvent(), PermissionMetadataEventDto.class));
+				} else if (event.getSourceType() == ConfigType.constant(GLOBAL)) {
+					authMetadataEventWrap.getGlobalMetadataEvents().add(objectMapper.readValue(event.getEvent(), GlobalMetadataEventDto.class));
+				}
+			}
+		}catch (Exception e){
+			throw new IllegalStateException(e);
+		}
+		return authMetadataEventWrap;
 
 	}
 
@@ -412,7 +427,7 @@ public class ConfigServiceImpl implements ConfigService {
 		);
 		//装配扩展字段信息
 		return Optional
-				.of(configExtendEntities)
+				.ofNullable(configExtendEntities)
 				.orElse(new ArrayList<>())
 				.stream()
 				.collect(Collectors.toMap(ConfigExtendEntity::getName , ConfigExtendEntity::getValue));

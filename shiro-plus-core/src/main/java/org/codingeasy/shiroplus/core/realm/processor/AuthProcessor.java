@@ -2,9 +2,11 @@ package org.codingeasy.shiroplus.core.realm.processor;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.Permission;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.realm.RequestToken;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -41,9 +43,18 @@ public interface AuthProcessor<R ,S> {
 	 * @return 返回角色列表 ，可以返回空
 	 */
 	default Set<String> getRoles(Object primaryPrincipal){
-		throw new UnsupportedOperationException();
+		return new HashSet<>();
 	}
 
+	/**
+	 * 获取权限列表
+	 * <p>一般为权限标识的对象</p>
+	 * @param primaryPrincipal token 主体
+	 * @return
+	 */
+	default Set<Permission> getPermissionObjects(Object primaryPrincipal){
+		return new HashSet<>();
+	}
 
 	/**
 	 * 生成租户id
@@ -52,6 +63,17 @@ public interface AuthProcessor<R ,S> {
 	 */
 	default String getTenantId(R r){
 		return getDefaultTenantId();
+	}
+
+	/**
+	 * permission 元信息key的后置处理
+	 * @param r 请求对象
+	 * @param key permission key
+	 * @return 返回处理后的permission key ，如果返回空或者返回本身则无变化，
+	 * 如果返回的是一个新的key 则使用新的key作为当前请求的权限元信息的唯一标识去获取权限元信息
+	 */
+	default String permissionMetadataKeyPostProcessor(R r , String key){
+		return key;
 	}
 
 	/**
@@ -81,4 +103,6 @@ public interface AuthProcessor<R ,S> {
 	default String getDefaultTenantId(){
 		return AuthMetadataManager.DEFAULT_TENANT_ID;
 	}
+
+
 }

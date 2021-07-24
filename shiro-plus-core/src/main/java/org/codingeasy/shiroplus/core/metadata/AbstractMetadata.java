@@ -14,6 +14,15 @@ public class AbstractMetadata implements Metadata {
 
 	private HashMap<String , Object> extend = new HashMap<>();
 
+
+	public HashMap<String, Object> getExtend() {
+		return extend;
+	}
+
+	public void setExtend(HashMap<String, Object> extend) {
+		this.extend = extend;
+	}
+
 	/**
 	 * 设置属性
 	 * @param key 属性key

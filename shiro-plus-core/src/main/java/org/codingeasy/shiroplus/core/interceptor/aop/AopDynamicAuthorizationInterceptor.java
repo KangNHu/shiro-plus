@@ -55,10 +55,7 @@ public class AopDynamicAuthorizationInterceptor extends AopAuthorizationIntercep
 		if (permissionMetadata == null){
 			return super.getSuperPermissionMetadata(invoker);
 		}
-
-		String cacheKey = super.getPermissionMetadataKey(invoker.getRequest());
-		permissionMetadata = this.authMetadataManager.getPermissionMetadata(cacheKey , permissionMetadata.getPermiModel());
-		return  permissionMetadata == null ? super.getSuperPermissionMetadata(invoker) : permissionMetadata;
+		return  permissionMetadata;
 
 	}
 

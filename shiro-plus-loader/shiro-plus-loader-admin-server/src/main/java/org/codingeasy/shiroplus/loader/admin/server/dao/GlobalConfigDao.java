@@ -1,8 +1,10 @@
 package org.codingeasy.shiroplus.loader.admin.server.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.GlobalConfigEntity;
+import org.codingeasy.shiroplus.loader.admin.server.models.entity.GlobalConfigExtendEntity;
 
 /**
  * 全局配置
@@ -13,4 +15,10 @@ import org.codingeasy.shiroplus.loader.admin.server.models.entity.GlobalConfigEn
 @Mapper
 public interface GlobalConfigDao extends BaseMapper<GlobalConfigEntity> {
 
+	/**
+	 * 查询列表 （包括扩展字段）
+	 * @param queryPage
+	 * @return
+	 */
+	Page<GlobalConfigExtendEntity> queryList(Page<GlobalConfigExtendEntity> queryPage);
 }

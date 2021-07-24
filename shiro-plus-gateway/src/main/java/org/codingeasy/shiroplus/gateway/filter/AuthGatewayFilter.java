@@ -10,6 +10,7 @@ import org.codingeasy.shiroplus.core.interceptor.AbstractAuthorizationIntercepto
 import org.codingeasy.shiroplus.core.interceptor.Invoker;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
 import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
+import org.codingeasy.shiroplus.core.metadata.MetadataContext;
 import org.codingeasy.shiroplus.core.realm.RequestToken;
 import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
 import org.codingeasy.shiroplus.core.utils.PathUtils;
@@ -51,54 +52,61 @@ public class AuthGatewayFilter extends AbstractAuthorizationInterceptor<ServerHt
 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-		GatewayInvoker gatewayInvoker = createGatewayInvoker(exchange , chain);
-		ServerHttpRequest request = exchange.getRequest();
-		//是否开启鉴权
-		GlobalMetadata globalMetadata = super.getGlobalMetadata(request);
-		if (globalMetadata == null){
-			logger.warn("当前请求 url[{}] headers [{}] 没有申请租户"  ,
-					request.getPath().pathWithinApplication().value(),
-					request.getHeaders());
-			return WebUtils.write("当前请求所属服务没有申请租户" , exchange.getResponse() , HttpStatus.FORBIDDEN);
-		}
-		Boolean enableAuthentication = globalMetadata.getEnableAuthentication();
-		if (enableAuthentication != null&& !enableAuthentication){
-			return chain.filter(exchange);
-		}
-		//是否忽略url 白名单
-		RequestPath path = request.getPath();
-		String url = path.pathWithinApplication().value();
-		if (PathUtils.matches(globalMetadata.getAnons() , url)) {
-			return chain.filter(exchange);
-		}
-		//获取token
-		String token = this.authProcessor.getToken(exchange.getRequest());
-		if (StringUtils.isEmpty(token)){
-			throw new AuthenticationException("Invalid certificate");
-		}
-		//鉴权
-		Subject subject = SecurityUtils.getSubject();
 		try {
-			subject.login(new RequestToken<>( exchange.getRequest() , token));
-		}catch (AuthenticationException e){
-			authProcessor.authenticationFailure(gatewayInvoker.getRequest() , gatewayInvoker.getResponse() , e);
+			GatewayInvoker gatewayInvoker = createGatewayInvoker(exchange, chain);
+			ServerHttpRequest request = exchange.getRequest();
+			//是否开启鉴权
+			GlobalMetadata globalMetadata = super.getGlobalMetadata(request);
+			if (globalMetadata == null) {
+				logger.warn("当前请求 url[{}] headers [{}] 没有申请租户",
+						request.getPath().pathWithinApplication().value(),
+						request.getHeaders());
+				return WebUtils.write("当前请求所属服务没有申请租户", exchange.getResponse(), HttpStatus.FORBIDDEN);
+			}
+			Boolean enableAuthentication = globalMetadata.getEnableAuthentication();
+			if (enableAuthentication != null && !enableAuthentication) {
+				return chain.filter(exchange);
+			}
+			//是否忽略url 白名单
+			RequestPath path = request.getPath();
+			String url = path.pathWithinApplication().value();
+			if (PathUtils.matches(globalMetadata.getAnons(), url)) {
+				return chain.filter(exchange);
+			}
+			//获取token
+			String token = this.authProcessor.getToken(exchange.getRequest());
+			if (StringUtils.isEmpty(token)) {
+				throw new AuthenticationException("Invalid certificate");
+			}
+			//鉴权
+			Subject subject = SecurityUtils.getSubject();
+			try {
+				subject.login(new RequestToken<>(exchange.getRequest(), token));
+			} catch (AuthenticationException e) {
+				authProcessor.authenticationFailure(gatewayInvoker.getRequest(), gatewayInvoker.getResponse(), e);
+			}
+			//获取异常处理结果
+			Mono<Void> exceptionHandlerResult = getExceptionHandlerResult();
+			if (exceptionHandlerResult != null) {
+				return exceptionHandlerResult;
+			}
+			//超级管理员校验
+			Object adminId = globalMetadata.get(GlobalMetadata.EXTEND_ADMIN_ID_KEY);
+			if (adminId != null && adminId.equals(subject.getPrincipal())) {
+				return chain.filter(exchange);
+			}
+			//授权
+			return (Mono<Void>) invoke(gatewayInvoker);
+		}finally {
+			MetadataContext.remove();
 		}
-		//获取异常处理结果
-		Mono<Void> exceptionHandlerResult = getExceptionHandlerResult();
-		if (exceptionHandlerResult != null){
-			return exceptionHandlerResult;
-		}
-		//超级管理员校验
-		Object adminId = globalMetadata.get(GlobalMetadata.EXTEND_ADMIN_ID_KEY);
-		if (adminId != null && adminId.equals(subject.getPrincipal())){
-			return chain.filter(exchange);
-		}
-		//授权
-		return (Mono<Void>) invoke(gatewayInvoker);
 	}
 
 
-
+	@Override
+	protected void clear() {
+		///
+	}
 
 	@Override
 	protected Object authExceptionAfterProcessor(Invoker<ServerHttpRequest, ServerHttpResponse> invoker, AuthorizationException e) {

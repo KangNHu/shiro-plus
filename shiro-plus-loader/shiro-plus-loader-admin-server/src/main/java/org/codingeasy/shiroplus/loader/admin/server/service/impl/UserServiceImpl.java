@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
 				.in(UserEntity::getStatus, Arrays.asList(DISABLE.getValue(), NORMAL.getValue()))
 		));
 		Optional
-				.of(userPage.getList())
+				.ofNullable(userPage.getList())
 				.orElse(new ArrayList<>())
 				.forEach(item -> item.setPassword(null));
 		return userPage;

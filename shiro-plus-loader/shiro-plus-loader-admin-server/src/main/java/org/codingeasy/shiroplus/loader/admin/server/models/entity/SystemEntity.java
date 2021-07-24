@@ -23,8 +23,8 @@ public class SystemEntity {
 	/**
 	 * 事件有效时间
 	 */
-	@NotNull(message = "事件有效时间不能改为空")
-	private Long eventTime;
+	@NotNull(message = "心跳的最大时间 ，大于这个时间将自动清理客服端实例")
+	private Long heartbeatMaxTime;
 
 
 	/**
@@ -69,12 +69,12 @@ public class SystemEntity {
 		this.version = version;
 	}
 
-	public Long getEventTime() {
-		return eventTime;
+	public Long getHeartbeatMaxTime() {
+		return heartbeatMaxTime;
 	}
 
-	public void setEventTime(Long eventTime) {
-		this.eventTime = eventTime;
+	public void setHeartbeatMaxTime(Long heartbeatMaxTime) {
+		this.heartbeatMaxTime = heartbeatMaxTime;
 	}
 
 	public String getKeyPair() {

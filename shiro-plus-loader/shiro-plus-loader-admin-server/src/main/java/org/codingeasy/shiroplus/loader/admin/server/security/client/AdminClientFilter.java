@@ -5,6 +5,8 @@ import org.apache.shiro.web.servlet.AdviceFilter;
 import org.codingeasy.shiroplus.core.annotation.ShiroFilter;
 import org.codingeasy.shiroplus.loader.admin.server.utils.SystemUtils;
 import org.codingeasy.shiroplus.loader.admin.server.utils.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.naming.AuthenticationException;
 import javax.servlet.*;
@@ -19,7 +21,7 @@ import java.io.IOException;
 @ShiroFilter("adminClient")
 public class AdminClientFilter extends AdviceFilter {
 
-
+	private final static Logger logger = LoggerFactory.getLogger(AdminClientFilter.class);
 
 	@Override
 	protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {
@@ -27,7 +29,7 @@ public class AdminClientFilter extends AdviceFilter {
 			return true;
 		}
 		String token = WebUtils.getToken((HttpServletRequest) request);
-		if (!StringUtils.isEmpty(token)){
+		if (StringUtils.isEmpty(token)){
 			throw new AuthenticationException("Invalid certificate");
 		}
 		if (!token.equals(SystemUtils.getClientToken())){
@@ -41,6 +43,8 @@ public class AdminClientFilter extends AdviceFilter {
 	protected void cleanup(ServletRequest request, ServletResponse response, Exception existing) throws ServletException, IOException {
 		if (request instanceof HttpServletRequest && existing instanceof AuthenticationException){
 			HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+			HttpServletRequest httpServletRequest = (HttpServletRequest)request;
+			logger.warn("客户端授权失败 {} : {}" ,WebUtils.getRemoteIp(httpServletRequest) , httpServletRequest.getRequestURI());
 			httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 			httpServletResponse.flushBuffer();
 			return;

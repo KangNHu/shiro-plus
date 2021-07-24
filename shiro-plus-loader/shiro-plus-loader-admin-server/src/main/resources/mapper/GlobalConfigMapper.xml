@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.codingeasy.shiroplus.loader.admin.server.dao.GlobalConfigDao">
+
+    <resultMap id="global_config_extend" type="org.codingeasy.shiroplus.loader.admin.server.models.entity.GlobalConfigExtendEntity">
+        <result column="tenant_id" property="tenantId"/>
+        <result column="anons" property="anons"/>
+        <result column="enable_authentication" property="enableAuthentication"/>
+        <result column="enable_authorization" property="enableAuthorization"/>
+        <collection property="extendList" ofType="org.codingeasy.shiroplus.loader.admin.server.models.entity.ConfigExtendEntity">
+            <result property="name" column="name"/>
+            <result property="value" column="value"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="queryList" resultMap="global_config_extend">
+        SELECT
+         gc.tenant_id,
+         gc.anons,
+         gc.enable_authentication,
+         gc.enable_authorization,
+         ce.name,
+         ce.value
+        FROM sp_global_config gc
+        LEFT JOIN sp_config_extend ce ON ce.config_id = gc.id AND ce.type = 2 AND gc.status =1
+    </select>
+
+</mapper>

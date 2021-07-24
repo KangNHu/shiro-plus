@@ -1,6 +1,7 @@
 package org.codingeasy.shiroplus.loader.admin.server.models.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -12,20 +13,45 @@ import com.baomidou.mybatisplus.annotation.TableName;
 public class EventEntity {
 
 	@TableId(type = IdType.AUTO)
+	@TableField("id")
 	private Long id;
 
 
 	/**
 	 * 事件内容
 	 */
+	@TableField("event")
 	private String event;
 
 
 	/**
-	 * 有效时长
+	 * 实例id
 	 */
-	private Long time;
+	@TableField("instance_id")
+	private Long instanceId;
 
+	/**
+	 * 事件源类型
+	 */
+	private Integer sourceType;
+
+
+	public EventEntity() {
+	}
+
+	public EventEntity(String event, Long instanceId, Integer sourceType) {
+		this.event = event;
+		this.instanceId = instanceId;
+		this.sourceType = sourceType;
+	}
+
+	public Integer getSourceType() {
+		return sourceType;
+	}
+
+	public void setSourceType(Integer sourceType) {
+		this.sourceType = sourceType;
+	}
 
 	public Long getId() {
 		return id;
@@ -43,11 +69,11 @@ public class EventEntity {
 		this.event = event;
 	}
 
-	public Long getTime() {
-		return time;
+	public Long getInstanceId() {
+		return instanceId;
 	}
 
-	public void setTime(Long time) {
-		this.time = time;
+	public void setInstanceId(Long instanceId) {
+		this.instanceId = instanceId;
 	}
 }

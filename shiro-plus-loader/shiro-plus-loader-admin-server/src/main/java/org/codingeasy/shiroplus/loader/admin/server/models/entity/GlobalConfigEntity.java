@@ -4,13 +4,14 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import org.apache.commons.lang3.StringUtils;
+import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer;
 import org.codingeasy.shiroplus.loader.admin.server.models.Action;
 import org.codingeasy.streamrecord.core.annotation.Param;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 全局配置
@@ -155,5 +156,27 @@ public class GlobalConfigEntity {
 
 	public void setUpdateBy(Long updateBy) {
 		this.updateBy = updateBy;
+	}
+
+	/**
+	 * 转元数据对象
+	 * @return 返回元数据对象
+	 */
+	public GlobalMetadata toMetadata(){
+		//构建元信息
+		GlobalMetadata globalMetadata = new GlobalMetadata();
+		globalMetadata.setTenantId(this.getTenantId());
+		globalMetadata.setEnableAuthorization(this.getEnableAuthorization() == 1);
+		globalMetadata.setEnableAuthentication(this.getEnableAuthentication() == 1);
+		String anons = this.getAnons();
+		if (!StringUtils.isEmpty(anons)){
+			globalMetadata.setAnons(Arrays.asList(anons.split(",")));
+		}
+		globalMetadata.setAttr(
+				Optional
+						.ofNullable(this.getExtend())
+						.orElse(new HashMap<>())
+		);
+		return globalMetadata;
 	}
 }

@@ -5,6 +5,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.Permission;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
@@ -37,12 +38,14 @@ public class CommonAuthRealm<R , S> extends AuthorizingRealm {
 		Object primaryPrincipal = principalCollection.getPrimaryPrincipal();
 		//获取权限列表
 		Set<String> permissions = authProcessor.getPermissions(primaryPrincipal);
+		Set<Permission> permissionObjects =authProcessor.getPermissionObjects(primaryPrincipal);
 		//获取角色列表
 		Set<String> roles = authProcessor.getRoles(primaryPrincipal);
 		//构建授权信息
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		authorizationInfo.setStringPermissions(permissions);
 		authorizationInfo.setRoles(roles);
+		authorizationInfo.setObjectPermissions(permissionObjects);
 		return authorizationInfo;
 	}
 

@@ -19,8 +19,12 @@ public class AdminServerProperties {
 	/**
 	 * 刷新间隔
 	 */
-	private long refreshInterval;
+	private long refreshInterval = 3000L;
 
+	/**
+	 * ping 的最大失败次数
+	 */
+	private int pingMaxFailureCount = 3;
 
 	public String getHost() {
 		return host;
@@ -32,6 +36,14 @@ public class AdminServerProperties {
 
 	public String getToken() {
 		return token;
+	}
+
+	public int getPingMaxFailureCount() {
+		return pingMaxFailureCount;
+	}
+
+	public void setPingMaxFailureCount(int pingMaxFailureCount) {
+		this.pingMaxFailureCount = pingMaxFailureCount;
 	}
 
 	public void setToken(String token) {

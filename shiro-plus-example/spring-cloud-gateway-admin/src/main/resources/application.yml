@@ -1,0 +1,44 @@
+server:
+  port: 8991
+spring:
+  application:
+    name: auth-gateway
+  cloud:
+    util:
+      enabled: true
+    gateway:
+      routes:
+        - id: nacos-route
+          uri: lb://service-gateway-provider
+          filters:
+            - name: Auth
+              args:
+                tenantName: tenantId
+                tenantStrategy: PATH
+                tokenName: token
+                tokenStrategy: PATH
+                tenantPathIndex: 1
+                authorizationPathPrefix: /api
+            - StripPrefix=1
+          predicates:
+            Path=/api/**
+    nacos:
+      discovery:
+        server-addr: common.codingeasy.com.cn:8848
+      username: nacos
+      password: ning,123456
+nacos:
+  server-addr: common.codingeasy.com.cn:8848
+  username: nacos
+  password: ning,123456
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+shiroplus:
+  admin:
+    client:
+      host: http://localhost:8869/shiroplus
+      token: 1234561

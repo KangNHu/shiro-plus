@@ -3,7 +3,6 @@ server:
   servlet:
     context-path: /shiroplus
 
-
 spring:
   datasource:
     druid:

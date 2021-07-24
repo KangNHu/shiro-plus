@@ -1,8 +1,10 @@
 package org.codingeasy.shiroplus.loader.admin.server.security;
 
+import org.checkerframework.checker.units.qual.A;
 import org.codingeasy.shiroplus.core.realm.processor.AuthProcessor;
 import org.codingeasy.shiroplus.core.realm.RequestToken;
 import org.codingeasy.shiroplus.core.realm.processor.HttpServletAuthProcessor;
+import org.codingeasy.shiroplus.loader.admin.server.cache.CacheManager;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.UserRoleCodesEntity;
 import org.codingeasy.shiroplus.loader.admin.server.service.UserService;
 import org.codingeasy.shiroplus.loader.admin.server.utils.JwtUtils;
@@ -25,10 +27,16 @@ import java.util.Set;
 @Component
 public class AdminServerAuthProcessor extends HttpServletAuthProcessor {
 
+	private static final String CACHE_KEY = AdminServerAuthProcessor.class.getName() + ":user:permission:info:id:";
 
 	@Autowired
 	@Lazy
 	private UserService userService;
+
+
+	@Autowired
+	@Lazy
+	private CacheManager cacheManager;
 
 
 	/**
@@ -75,7 +83,7 @@ public class AdminServerAuthProcessor extends HttpServletAuthProcessor {
 	public Set<String> getRoles(Object primaryPrincipal) {
 		return new HashSet<>(
 				Optional
-						.of(getUserPermissions((Long) primaryPrincipal).getRoles())
+						.ofNullable(getUserPermissions((Long) primaryPrincipal).getRoles())
 						.orElse(new ArrayList<>())
 		);
 	}
@@ -87,7 +95,7 @@ public class AdminServerAuthProcessor extends HttpServletAuthProcessor {
 	 * @return 返回用户权限信息
 	 */
 	public UserRoleCodesEntity getUserPermissions(Long userId){
-		UserRoleCodesEntity userPermissions = userService.getUserPermissions(userId);
+		UserRoleCodesEntity userPermissions = cacheManager.getCache(CACHE_KEY + userId, () -> userService.getUserPermissions(userId));
 		return userPermissions == null ? new UserRoleCodesEntity() : userPermissions;
 	}
 }

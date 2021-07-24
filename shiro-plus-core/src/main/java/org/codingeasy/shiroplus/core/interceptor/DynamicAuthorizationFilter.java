@@ -1,12 +1,6 @@
 package org.codingeasy.shiroplus.core.interceptor;
 
-import com.google.common.base.Charsets;
-import com.google.common.net.MediaType;
-import org.apache.shiro.ShiroException;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authz.AuthorizationException;
-import org.apache.shiro.authz.UnauthorizedException;
-import org.apache.shiro.util.Initializable;
+
 import org.apache.shiro.web.util.WebUtils;
 import org.codingeasy.shiroplus.core.event.EventManager;
 import org.codingeasy.shiroplus.core.metadata.AuthMetadataManager;
@@ -14,14 +8,12 @@ import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.core.metadata.RequestMethod;
 import org.codingeasy.shiroplus.core.realm.processor.DefaultAuthProcessor;
 import org.codingeasy.shiroplus.core.utils.PathUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * 动态授权过滤器
@@ -64,7 +56,7 @@ public class DynamicAuthorizationFilter extends AbstractAuthorizationInterceptor
 
 	@Override
 	public void destroy() {
-
+		System.out.println();
 	}
 
 

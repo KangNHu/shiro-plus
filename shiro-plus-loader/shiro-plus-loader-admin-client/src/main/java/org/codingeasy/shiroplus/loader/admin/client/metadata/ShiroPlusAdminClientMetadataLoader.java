@@ -15,71 +15,33 @@ import org.springframework.context.event.ContextRefreshedEvent;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
 * shiro plus admin的加载器  
 * @author : KangNing Hu
 */
-public class ShiroPlusAdminClientMetadataLoader implements Runnable ,  MetadataLoader , ApplicationListener<ContextRefreshedEvent> {
+public class ShiroPlusAdminClientMetadataLoader implements   MetadataLoader {
 
-	private final static Logger logger = LoggerFactory.getLogger(ShiroPlusAdminClientMetadataLoader.class);
 
-	private EventManager eventManager;
 
 	private AdminClient adminClient;
 
-	private long refreshInterval = 3 * 1000;
 
-	private volatile boolean isStart = false;
-
-	public ShiroPlusAdminClientMetadataLoader(EventManager eventManager , AdminClient adminClient){
+	public ShiroPlusAdminClientMetadataLoader(AdminClient adminClient){
 		this.adminClient = adminClient;
-		this.eventManager = eventManager;
-	}
-
-	public void setRefreshInterval(long refreshInterval) {
-		this.refreshInterval = refreshInterval;
 	}
 
 	@Override
 	public List<PermissionMetadata> load() {
-		return adminClient.getPermissionConfigs().getData();
+		return adminClient.getPermissionMetadataAll().getData();
 	}
 
 	@Override
 	public List<GlobalMetadata> loadGlobal() {
-		return adminClient.getGlobalConfigs().getData();
+		return adminClient.getGlobalMetadataAll().getData();
 	}
 
 
-	@Override
-	public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-		if (isStart){
-			logger.info("元数据同步已启动");
-			return;
-		}
-		this.eventManager.getExecutor().execute(this::run);
-		this.isStart = true;
-	}
 
-	@Override
-	public void run() {
-		try {
-			List<AuthMetadataEvent> events = this.adminClient.pullEvents().getData();
-			if (CollectionUtils.isEmpty(events)){
-				if (logger.isDebugEnabled()){
-					logger.debug("未发生变更事件");
-				}
-				return;
-			}
-			//循环发送事件
-			events.stream().forEach(this.eventManager::publish);
-			//休眠
-			TimeUnit.MILLISECONDS.sleep(refreshInterval);
-		}catch (Exception e){
-			logger.error("处理元数据变更失败" ,e);
-		}finally {
-			this.eventManager.getExecutor().execute(this::run);
-		}
-	}
 }

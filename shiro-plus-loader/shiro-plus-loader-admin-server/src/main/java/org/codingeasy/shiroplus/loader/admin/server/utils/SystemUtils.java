@@ -1,6 +1,7 @@
 package org.codingeasy.shiroplus.loader.admin.server.utils;
 
 import com.nimbusds.jose.jwk.RSAKey;
+import org.codingeasy.shiroplus.loader.admin.server.cache.CacheManager;
 import org.codingeasy.shiroplus.loader.admin.server.dao.SystemDao;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.SystemEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,18 @@ import java.text.ParseException;
 @Component
 public class SystemUtils {
 
+	private static final String CACHE_KEY = SystemUtils.class.getName() +":system:info";
+
 	private static  SystemDao systemDao;
+
+
+	private static  CacheManager cacheManager;
+
+
+	@Autowired
+	public void setCacheManager(CacheManager cacheManager) {
+		this.cacheManager = cacheManager;
+	}
 
 	@Autowired
 	public void setSystemDao(SystemDao systemDao){
@@ -43,7 +55,7 @@ public class SystemUtils {
 	 * @return 返回系统信息
 	 */
 	public static SystemEntity getSystemInfo(){
-		return getSource().selectById(getVersion());
+		return cacheManager.getCache(CACHE_KEY , () -> getSource().selectById(getVersion()));
 	}
 
 
@@ -65,11 +77,11 @@ public class SystemUtils {
 	}
 
 	/**
-	 * 获取事件有效时间
-	 * @return 返回有效时长 单位 毫秒
+	 * 获取健康检查的最大时间
+	 * @return 最大时间 单位 毫秒
 	 */
-	public static long getEventTime(){
-		return getSystemInfo().getLoginValidTime();
+	public static long getHeartbeatMaxTime(){
+		return getSystemInfo().getHeartbeatMaxTime();
 	}
 
 
