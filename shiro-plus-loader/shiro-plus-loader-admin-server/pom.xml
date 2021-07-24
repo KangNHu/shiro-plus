@@ -181,27 +181,17 @@
                         </goals>
                     </execution>
                 </executions>
-                <imageName>shiroplus/${project.artifactId}</imageName>
-                <imageTags>
-                    <imageTag>${project.version}</imageTag>
-                </imageTags>
-                <forceTags>true</forceTags>
-                <dockerDirectory>${project.basedir}</dockerDirectory>
-                <resources>
-                    <resource>
-                        <targetPath>/</targetPath>
-                        <directory>${project.build.directory}</directory>
-                        <include>${project.build.finalName}.jar</include>
-                    </resource>
-                </resources>
+                <configuration>
+                    <dockerDirectory>${project.basedir}</dockerDirectory>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
             </plugin>
-
         </plugins>
     </build>
 </project>
-<script>
-import Tags from "./ui/src/components/Tags";
-export default {
-components: {Tags}
-}
-</script>
