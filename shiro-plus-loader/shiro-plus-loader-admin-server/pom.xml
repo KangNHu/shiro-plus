@@ -195,17 +195,6 @@
                 </executions>
                 <configuration>
                     <imageName>shiroplus/${artifactId}</imageName>
-                    <dockerDirectory>${project.basedir}</dockerDirectory>
-                    <buildArgs>
-                        <jarName>${project.build.finalName}</jarName>
-                    </buildArgs>
-                    <resources>
-                        <resource>
-                            <targetPath>/</targetPath>
-                            <directory>${project.build.directory}</directory>
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
                 </configuration>
             </plugin>
         </plugins>
