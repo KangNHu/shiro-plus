@@ -10,6 +10,7 @@ import org.codingeasy.shiroplus.gateway.factory.AuthGatewayFilterFactory;
 import org.codingeasy.shiroplus.springboot.config.ShiroPlusSupportConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.gateway.filter.factory.GatewayFilterFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -23,6 +24,11 @@ import javax.servlet.http.HttpServletResponse;
 * gateway自动配置类  
 * @author : KangNing Hu
 */
+@ConditionalOnProperty(
+		prefix ="shiroplus.gateway",
+		name = "enable",
+		havingValue = "true"
+)
 @Import(ShiroPlusSupportConfiguration.class)
 public class ShrioPlusGatewayAutoConfiguration {
 

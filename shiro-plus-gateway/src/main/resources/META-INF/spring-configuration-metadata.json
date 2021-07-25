@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "shiroplus.gateway.enable",
+      "type": "java.lang.Boolean",
+      "description": "shiroplus gateway 激活开关 默认为激活状态"
+    }
+  ]
+
+}

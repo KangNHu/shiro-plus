@@ -32,7 +32,6 @@ nacos:
   username: nacos
   password: ning,123456
 
-
 management:
   endpoints:
     web:
