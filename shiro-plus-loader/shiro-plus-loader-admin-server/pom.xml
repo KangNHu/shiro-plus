@@ -195,6 +195,7 @@
                 </executions>
                 <configuration>
                     <imageName>shiroplus/${artifactId}</imageName>
+                    <dockerDirectory>${project.basedir}</dockerDirectory>
                 </configuration>
             </plugin>
         </plugins>
