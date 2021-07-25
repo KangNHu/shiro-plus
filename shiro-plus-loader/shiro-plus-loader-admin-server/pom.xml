@@ -79,32 +79,8 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <layout>JAR</layout>
-                    <layers>
-                        <enabled>true</enabled>
-                    </layers>
-                </configuration>
             </plugin>
             <!-- 插件maven-clean-plugin，用于在编译前，清除之前编译的文件、文件夹等，避免残留之前的内容 -->
             <plugin>
@@ -220,6 +196,9 @@
                 <configuration>
                     <imageName>shiroplus/${artifactId}</imageName>
                     <dockerDirectory>${project.basedir}</dockerDirectory>
+                    <buildArgs>
+                        <jarName>${project.build.finalName}</jarName>
+                    </buildArgs>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>

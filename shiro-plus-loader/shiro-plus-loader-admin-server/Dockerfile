@@ -1,12 +1,21 @@
+FROM maven:3.5.2-jdk-8-alpine AS maven_build
 
-MAINTAINER hukangning
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
+COPY pom.xml /tmp/
 
-FROM openjdk:8-jdk-alpine
-COPY --from=builder dependencies/ ./
-COPY --from=builder snapshot-dependencies/ ./
-COPY --from=builder spring-boot-loader/ ./
-COPY --from=builder application/ ./
-ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
+COPY src /tmp/src/
+
+WORKDIR /tmp/
+
+RUN mvn package
+
+FROM openjdk:8
+
+#expose port 8080
+EXPOSE 8080
+
+#default command
+CMD java -jar /data/${jarName}.jar
+
+#copy  docker image from builder image
+
+COPY --from=maven_build /tmp/target/${jarName}.jar /data/${jarName}.jar

@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Built-By: emo.leumassi
+Built-By: org.codingeay
 Build-Jdk: 1.8.0
 Main-Class: org.codingeasy.shiroplus.loader.admin.server.AdminServerApplication
 Created-By: Apache Maven
