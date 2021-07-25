@@ -1,4 +1,4 @@
-FROM jdk-8-alpine
+FROM jdk-8-alpine AS maven_build
 
 COPY pom.xml /tmp/
 
