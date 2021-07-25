@@ -1,1 +1,5 @@
+Manifest-Version: 1.0
+Built-By: emo.leumassi
+Build-Jdk: 1.8.0
 Main-Class: org.codingeasy.shiroplus.loader.admin.server.AdminServerApplication
+Created-By: Apache Maven
