@@ -70,13 +70,27 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>2.3.3.RELEASE</version>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
         <configuration>
-          <includeSystemScope>true</includeSystemScope>
-          <mainClass>org.codingeasy.shiroplus.loader.admin.server.AdminServerApplication</mainClass>
-          <classifier>${project.basedir}/src/main/resources/META-INF/lib</classifier>
+          <archive>
+            <manifest>
+              <addClasspath>true</addClasspath>
+              <classpathPrefix>${project.basedir}/src/main/resources/META-INF/lib</classpathPrefix>
+              <mainClass>org.codingeasy.shiroplus.loader.admin.server.AdminServerApplication</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <encoding>UTF-8</encoding>
+          <compilerArguments>
+            <extdirs>${project.basedir}/lib</extdirs>
+          </compilerArguments>
         </configuration>
       </plugin>
       <plugin>

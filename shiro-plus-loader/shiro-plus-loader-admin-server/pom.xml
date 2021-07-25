@@ -79,18 +79,12 @@
     <build>
         <plugins>
             <plugin>
-                <!-- Build an executable JAR -->
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.0</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <classpathPrefix>${project.basedir}/src/main/resources/META-INF/lib</classpathPrefix>
-                            <mainClass>org.codingeasy.shiroplus.loader.admin.server.AdminServerApplication</mainClass>
-                        </manifest>
-                    </archive>
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
                 </configuration>
             </plugin>
             <!-- 插件maven-clean-plugin，用于在编译前，清除之前编译的文件、文件夹等，避免残留之前的内容 -->
