@@ -54,4 +54,5 @@ public class ShrioPlusGatewayAutoConfiguration {
 	                                         @Autowired(required = false) HttpGatewayAuthProcessor authProcessor){
 		return new AuthGatewayFilterFactory(authMetadataManager, authProcessor , eventManager);
 	}
+
 }

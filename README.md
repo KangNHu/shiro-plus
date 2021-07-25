@@ -1,5 +1,7 @@
 # shiro-plus
 
+### spring boot
+
 #### 介绍
 ##### 一款shiro的加强版框架，它提供了如下功能
 - 动态授权 （根据远程或本地配置对访问接口进行权限动态调整）
@@ -11,7 +13,7 @@
 - 提供了多租户的支持
 - 当动态授权都不开启时，可以单纯当成一个shiro框架，并且对shiro本身并没有任何侵入
 - 事件处理
-- 支持基于nacos的权限元信息配置
+- 支持第三方元数据中心
 
 
 
@@ -36,11 +38,14 @@ mvn clean package
 - shiro-plus-core：核心工程 包括 事件处理 ，元信息加载，授权处理（静态和动态）
 - shiro-plus-pom: shirt plus的依赖版本管理
 - shiro-plus-loader shiro plus的元数据加载器实现
-  - shiro-plus-loader-nacos 基于ali nacos的实现
+  - shiro-plus-loader-nacos 基于nacos的元数据中心
+  - shiro-plus-loader-admin-server shiro plus admin 元数据中心
+  - shiro-plus-loader-admin-client shiro plus admin元数据中的客服端
 - shiro-plus-example：示例工程
-  - spring-cloud-gateway 集成 spring cloud gateway 例子
+  - spring-cloud-gateway 集成 spring cloud gateway 例子 （naocs作为元数据中心）
   - spring-cloud-gateway-provider spring-cloud-gateway项目的辅助工程
   - springboot  集成spring boot 列子工程
+  - spring-cloud-gateway-admin  集成 spring cloud gateway 例子 （shiro plus admin 作为元数据中心）
 - shiro-plus-gateway: spring cloud gateway的集成
 - shiro-plus-springboot： spring boot的集成，模块化开发
 
@@ -117,6 +122,17 @@ public class SimpleAuthProcessor extends HttpServletAuthProcessor {
 	}
 }
 ```
+
+3. application.yml文件配置
+
+   ```yml
+   shiroplus:
+     plus:
+       filter-chain-definition:
+         auth2: {path_rule} #path_rule是你需要进行权限控制的的路径规则 如 /** 符合ant匹配模式
+   ```
+
+   
 
 ##### 注解说明
 
@@ -298,7 +314,7 @@ public class LoginAuthenticatingFilter extends AuthenticatingFilter {
 
 ###### 其他组件注册
 
-通过spring bean的方式进行注册 如：
+通过spring bean的方式进行注册 [点击前往](#shiro_components) 如：
 
 ```
 @Component
@@ -341,9 +357,11 @@ shiroplus:
 
 ##### 扩展
 
-###### 处理器
+###### 授权处理器
 
 - AuthorizationHandler
+
+- 缺省情况下支持shiro框架所有的授权实现
 
 - 使用方式
 
@@ -374,7 +392,7 @@ shiroplus:
 
 - 使用方式
 
-  ```
+  ```java
   @Component
   public class SimpleMetadataLoader implements MetadataLoader {
   
@@ -395,7 +413,7 @@ shiroplus:
 
 ###### 授权异常处理器
 
-- AuthExceptionHandler
+- AuthProcessor<R ,S>
 
 - 使用方式
 
@@ -451,6 +469,8 @@ shiroplus:
 - 在`GlobalMetadata`中设置TenantId的属性值即可
 
 ######  AuthProcessor接口说明
+
+**提示：shiro plus容器中有且只有一个实例**
 
 ```java
 public interface AuthProcessor<R ,S> {
@@ -526,13 +546,118 @@ public interface AuthProcessor<R ,S> {
 }
 ```
 
+###### shiro 原生组件扩展明细<a id ="shiro_components"></a>
 
+| 接口名称               | 说明                                                         |
+| ---------------------- | ------------------------------------------------------------ |
+| Realm                  | 一般用于处理授权和鉴权，shiro plus已做了相应实现，如非特殊场景不推荐 |
+| CacheManager           | 缓存管理器                                                   |
+| RememberMeManager      | 记住我功能的管理器                                           |
+| SessionManager         | 会话管理器                                                   |
+| Authorizer             | 授权处理器 不推荐自行扩展                                    |
+| SubjectFactory         | 主体工厂 不推荐自行扩展                                      |
+| Authenticator          | 鉴权处理器 不推荐自行扩展                                    |
+| RolePermissionResolver | 角色权限标识的解析器用于实现不同的`Permission`接口实现       |
+| PermissionResolver     | 权限标识的解析器 用于实现不同的`Permission`接口实现          |
+| EventBus               | 事件主线 ，shirt plus 已做了处理 不推荐自行扩展              |
+| AuthenticationStrategy | 鉴权策略 用于处理整个鉴权过程的生命周期                      |
 
-#### shiro plus对ali nacos的支持
+### spring cloud gateway
 
 ##### 快速开始
 
-- 激活shirt plus nacos
+- 激活shiro plus gateway
+
+  ```java
+  @SpringBootApplication
+  @EnableShiroPlusAdminClient
+  @EnableDiscoveryClient
+  public class GatewayApplication {
+  
+  
+  	public static void main(String[] args) {
+  		SpringApplication.run(GatewayApplication.class , args);
+  	}
+  
+  
+  }
+  ```
+
+- 实现自己的权限统一处理器
+
+  ```java
+  @Component
+  public class ExampleHttpGatewayAuthProcessor extends HttpGatewayAuthProcessor {
+  
+  
+  	private static Map<Object , Set<String>> map = new HashMap<>();
+  
+  	private String userToken = "abc123456";
+  	static {
+  		map.put("123456" + ":roles" , new HashSet<String>(Arrays.asList("test" ,"admin")));
+  		map.put("123456" + ":permi" , new HashSet<String>(Arrays.asList("add" ,"update" , "delete","get")));
+  	}
+  
+  	@Override
+  	public String getToken(ServerHttpRequest request) {
+  		return request.getQueryParams().getFirst("token");
+  	}
+  
+  	@Override
+  	public Object validate(RequestToken<ServerHttpRequest> requestToken) {
+  		String token = (String) requestToken.getPrincipal();
+  		if (userToken.equals(token)){
+  			return "123456";
+  		}
+  		return null;
+  	}
+  
+  
+  	@Override
+  	public Set<String> getPermissions(Object primaryPrincipal) {
+  		return map.get(primaryPrincipal + ":permi");
+  	}
+  
+  	@Override
+  	public Set<String> getRoles(Object primaryPrincipal) {
+  		return map.get(primaryPrincipal + ":roles");
+  	}
+  }
+  ```
+
+- 配置说明
+
+  ```yaml
+  spring:
+      gateway:
+        routes:
+            filters:
+             # shiro plus 权限控制内置过滤器名称
+              - name: Auth
+                args:
+                	# 指定租户Id 的参数名称 用于从请求中获取租户id
+                  tenantName: tenantId 
+                  # 指定获取租户id的策略 可选枚举值 COOKIE ,HEAD ,QUERY(?tenantId=xxx的形式),PATH(/shiro/{tenantId}的形式)
+                  tenantStrategy: PATH 
+                  #指定token 的参数名称 用于从请求中获取token
+                  tokenName: token 
+                  #指定获取租户id的策略 可选枚举值 COOKIE ,HEAD ,QUERY,PATH (QUERY,PATH 都是以?token=xxx的形式 )
+                  tokenStrategy: PATH
+                  # 如果租户的获取策略为 path 则 获取第第几层的路径作为租户id  如 /api/shiroplus/xxx  如果值为1则租户id为 shiroplus
+                  tenantPathIndex: 1
+                  # 接口授权的请求路径从哪来开始进行匹配 如 /api/shiroplus/user 如果值为 /api 则实际接口授权的路径为/shiroplus/user
+                  authorizationPathPrefix: /api 
+  ```
+
+##### 扩展
+
+如果上述功能都无法满足你的需求 则推荐继承`HttpGatewayAuthProcessor`来进行方法重写
+
+### 元数据中心-nacos
+
+##### 快速开始
+
+- 激活shiro plus nacos 元数据中心
 
   ```
   @EnableShiroPlus
@@ -584,7 +709,7 @@ shiroplus:
 
   - 权限元数据配置
 
-    - dataId: org.codingeasy.shiroplus.permission.metadata
+    - dataId: org.codingeasy.shiroplus.permission.metadata <u>**不可改变为常量**</u>
     - group: SHIR_PLUS_METADATA
 
     ```yaml
@@ -610,7 +735,7 @@ shiroplus:
 
   - 全局元数据配置
 
-    - dataId:org.codingeasy.shiroplus.global.metadata
+    - dataId:org.codingeasy.shiroplus.global.metadata <u>**不可改变为常量**</u>
     - group:SHIR_PLUS_METADATA
 
     ```yaml
@@ -618,13 +743,17 @@ shiroplus:
         anons: /u** # 需要忽略的请求 多个逗号隔开 
         enable-authentication: true # 鉴权总开关
         enable-authorization: true #授权总开关
+    default_tenant_Id2: #租户2
+		anons: /u** # 需要忽略的请求 多个逗号隔开 
+        enable-authentication: true # 鉴权总开关
+        enable-authorization: true #授权总开关
     ```
-
+    
     
 
+### 元数据中心-shiroplus admin
 
-
-
+待完成
 
 #### 参与贡献
 
