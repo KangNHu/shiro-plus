@@ -11,7 +11,7 @@
       <div class="handle-box">
         <el-button
           type="primary"
-          icon="el-icon-edit"
+          icon="el-icon-delete"
           class="handle-del mr10"
           @click="handlingAdd"
           >新增</el-button
@@ -212,6 +212,7 @@ export default {
         .then(() => {
           ca.deletePermission(row.id).then(() => {
             this.$message.success("删除成功");
+
             //刷新列表
             this.handleSearch();
           });

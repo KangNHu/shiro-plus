@@ -1,4 +1,11 @@
 <template>
+ <el-button
+      @click="addLine"
+      type="primary"
+      icon="el-icon-edit"
+      circle
+      v-if="options.length === 0&&!dmDisabled"
+    ></el-button>
   <el-space v-for="(v, index) in options" :key="index" wrap>
     <el-input
       style="width: 100px"
@@ -25,7 +32,7 @@
       circle
     ></el-button>
     <el-button
-      v-if="(index > 0) & !dmDisabled"
+      v-if="(options.length > 1 || (options.length === 1 && !required)) && !dmDisabled"
       @click="delLine(index)"
       type="danger"
       icon="el-icon-delete"
@@ -39,14 +46,7 @@ export default {
   data() {
     return {
       options: [],
-      watch:true
     };
-  },
-  created() {
-    this.initData();
-    this.$watch("values", (newVal) => {
-       this.initData(newVal);
-    });
   },
   props: {
     values: {
@@ -66,6 +66,12 @@ export default {
       default: "请输入vlaue",
     },
   },
+  created() {
+    this.options = this.values;
+    this.$watch("values", (newVal) => {
+      this.options = newVal;
+    });
+  },
   emits: ["change"],
   methods: {
     //删除一行
@@ -80,22 +86,6 @@ export default {
       this.watch =false;
       this.$emit('change' , this.options)
     },
-    //初始化数据
-    initData(newVal){
-       if(!this.watch){
-        return;
-      }
-      let aray = newVal;
-      if (!this.dmDisabled && (!aray || aray.length == 0)) {
-        aray = [
-          {
-            key: "",
-            value: "",
-          },
-        ];
-      }
-      this.options = aray;
-    }
   },
 };
 </script>

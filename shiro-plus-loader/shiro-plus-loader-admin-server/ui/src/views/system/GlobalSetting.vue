@@ -14,9 +14,10 @@
           <el-form-item label="系统版本">
             {{ form.version }}
           </el-form-item>
-          <el-form-item label="心跳的最大时间" prop="heartbeatMaxTime">
+          <el-form-item label="权限配置变更事件的有效时间" prop="heartbeatMaxTime">
             <el-input-number
               controls-position="right"
+              @change="handleChange('eventTime', $value)"
               v-model="form.heartbeatMaxTime"
             ></el-input-number>
             <span>（单位毫秒）</span>
@@ -50,6 +51,7 @@
           <el-form-item label="登录有效时间" prop="loginValidTime">
             <el-input-number
               controls-position="right"
+              @change="handleChange('loginValidTime', $event)"
               v-model="form.loginValidTime"
             ></el-input-number>
             <span>（小时）</span>
@@ -71,15 +73,15 @@ export default {
     return {
       form: {
         version: "1.0.0",
-        heartbeatMaxTime: 0,
+        eventTime: 0,
         keyPair: "{xxxxxxxxx}",
         clientToken: "123456",
         loginValidTime: 2,
         initPassword:''
       },
       rules: {
-        heartbeatMaxTime: [
-          { required: true, message: "心跳的最大时间不能为空", trigger: "blur" },
+        eventTime: [
+          { required: true, message: "权限配置变更事件的有效时间不能为空", trigger: "blur" },
         ],
          keyPair: [
           { required: true, message: "token签名密钥不能为空", trigger: "blur" },
@@ -100,11 +102,10 @@ export default {
     this.getData();
   },
   methods: {
-    //详情 获取系统配置信息  
+    //详情 获取系统配置信息
     getData() {
       sa.getSystemInfo().then((systemInfo) => {
         this.form = systemInfo;
-        this.form.eventTime = this.form.eventTime / 3600000; // 后台为毫秒 -> 小时
         this.form.loginValidTime = this.form.loginValidTime / 60; // 后台为分钟 -> 小时
       });
     },
@@ -114,10 +115,7 @@ export default {
         if (vali) {
             let systemUpdate = {};
             for(let key in this.form){
-                systemUpdate[key] = this.form[key];     
-            }
-            if(systemUpdate.eventTime){
-                systemUpdate.eventTime = this.form.eventTime * 3600000;
+                systemUpdate[key] = this.form[key];
             }
             if(systemUpdate.loginValidTime){
                 systemUpdate.loginValidTime = this.form.loginValidTime * 60;
@@ -125,10 +123,16 @@ export default {
             sa.update(systemUpdate).then(() =>{
                 this.$message.success("编辑成功");
                 this.getData();
-            }) 
+            })
         }
       });
     },
+    //处理计数器事件
+    // name 字段名称
+    // value 变更后的值
+    handleChange(name , value){
+        console.log(name , value);
+    }
   },
 };
 </script>

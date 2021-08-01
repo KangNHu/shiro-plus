@@ -1,6 +1,7 @@
 package org.codingeasy.shiroplus.loader.admin.server.logs.route;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.Sets;
 import okhttp3.*;
 import org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer;
 import org.codingeasy.shiroplus.loader.admin.server.security.LoginInfoToken;
@@ -10,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
+import java.util.Set;
 
 /**
 * 登录路由目标  
@@ -19,6 +21,8 @@ import java.util.Map;
 public class LoginRouteTarget {
 
 	private final static Logger logger = LoggerFactory.getLogger(LoginRouteTarget.class);
+
+	private static final Set<String> LOCAL_IP = Sets.newHashSet("0:0:0:0:0:0:0:1" ,"localhost");
 
 	private static final String IP_INFO_URL = "http://ip-api.com/json/%s?lang=zh-CN";
 
@@ -35,6 +39,9 @@ public class LoginRouteTarget {
 		attributeAccess.setAttribute(LogsProducer.BUSINESS_ID_KEY , token.getPrincipal());
 		//获取ip
 		String ip = attributeAccess.getAttribute(LogsProducer.EXTEND_IP_KEY);
+		if (LOCAL_IP.contains(ip)) {
+			return "本地登录";
+		}
 		Request get = new Request
 				.Builder()
 				.get()

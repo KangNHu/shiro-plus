@@ -92,6 +92,11 @@ export default {
           icon: "el-icon-s-management",
           index: "/permissionMetadata",
           title: "权限元数据管理",
+        },
+         {
+          icon: "el-icon-s-management",
+          index: "/openApi",
+          title: "API管理",
         }
       ],
     };

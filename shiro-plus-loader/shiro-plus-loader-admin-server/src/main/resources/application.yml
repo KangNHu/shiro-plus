@@ -27,7 +27,7 @@ mybatis-plus:
   global-config:
     #数据库相关配置
     db-config:
-      update-strategy: not_empty
+      update-strategy: not_null
     banner: false
   #原生配置
   configuration:

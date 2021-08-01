@@ -80,5 +80,42 @@ export default{
             method:"post",
             data:page
         })
+    },
+
+    //open api 分页列表
+    openApiPage(page){
+        return request({
+            url:"admin/config/api/page",
+            method:"post",
+            data:page
+        })
+    },
+    //删除 open api
+    deleteOpenApi(id){
+        return request({
+            url:"/admin/config/api",
+            method:"delete",
+            params:{id:id}
+        })
+    },
+    //模糊查询open api
+    queryOpenApi(path){
+        return request({
+            url:"/admin/config/api/like",
+            method:"get",
+            params:{path:path}
+        })
+    },
+    //导入
+    importOpenApi(file){
+        let param = new FormData(); //创建form对象
+        param.append('file',file);
+        return request({
+            url:"/admin/config/api/import",
+            method:"post",
+            data:param,
+            headers:{'Content-Type':'multipart/form-data'}
+        })
     }
+
 }

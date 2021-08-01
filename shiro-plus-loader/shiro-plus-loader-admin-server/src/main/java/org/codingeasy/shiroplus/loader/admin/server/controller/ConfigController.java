@@ -7,13 +7,17 @@ import org.codingeasy.shiroplus.loader.admin.server.models.Action;
 import org.codingeasy.shiroplus.loader.admin.server.models.Page;
 import org.codingeasy.shiroplus.loader.admin.server.models.Response;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.GlobalConfigEntity;
+import org.codingeasy.shiroplus.loader.admin.server.models.entity.OpenApiEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.PermissionConfigEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.request.GlobalConfigRequest;
+import org.codingeasy.shiroplus.loader.admin.server.models.request.OpenAPiRequest;
 import org.codingeasy.shiroplus.loader.admin.server.models.request.PermissionConfigRequest;
 import org.codingeasy.shiroplus.loader.admin.server.service.ConfigService;
+import org.codingeasy.streamrecord.core.annotation.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -133,5 +137,50 @@ public class ConfigController {
 	@PutMapping("/permission")
 	public Response<Integer> updatePermission(@RequestBody @Validated(Action.Update.class) PermissionConfigEntity permissionConfigEntity){
 		return Response.ok(configService.updatePermission(permissionConfigEntity));
+	}
+
+
+	/**
+	 * 导入api
+	 * <p>这只识别swagger 生成的json 文件 具体格式可以参考 swagger api:v2/api-docs</p>
+	 * @param multipartFile swagger json的 文件对象
+	 * @return
+	 */
+	@PostMapping("/api/import")
+	public Response<Integer> importApi(@RequestParam("file") MultipartFile multipartFile){
+		return Response.ok(configService.importApi(multipartFile));
+	}
+
+	/**
+	 * api接口列表分页
+	 * @param request 请对象
+	 * @return 返回分页数据
+	 */
+	@PostMapping("/api/page")
+	public Response<Page<OpenApiEntity>> openApiPage(@RequestBody OpenAPiRequest request){
+		return Response.ok(configService.apiPage(request));
+	}
+
+
+	/**
+	 * 删除api
+	 * @param id id
+	 * @return
+	 */
+	@DeleteMapping("/api")
+	public Response<Integer> deleteOpenApi(@NotNull(message = "Id不能为空") Long id){
+		OpenApiEntity openApiEntity = new OpenApiEntity();
+		openApiEntity.setId(id);
+		return Response.ok(configService.deleteOpenApi(openApiEntity));
+	}
+
+	/**
+	 * 用于模糊查询列表
+	 * @param path  接口路径
+	 * @return 返回列表
+	 */
+	@GetMapping("/api/like")
+	public Response<List<OpenApiEntity>> likeOpenApi(String path){
+		return Response.ok(configService.likeOpenApi(path));
 	}
 }

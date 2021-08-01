@@ -15,7 +15,11 @@ public enum BusinessCode {
 	//全局元信息配置
 	GLOBAL_METADATA(4),
 	//登录
-	LOGIN(5);
+	LOGIN(5),
+	//权限元信息
+	PERMISSION_METADATA(6),
+	//open api
+	OPEN_API(7);
 
 	private int value;
 

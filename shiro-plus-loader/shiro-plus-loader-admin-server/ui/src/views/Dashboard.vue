@@ -29,6 +29,7 @@
                 v-model="logsQuery.operateId"
                 filterable
                 remote
+                clearable
                 reserve-keyword
                 placeholder="操作人"
                 :remote-method="userSelectData"

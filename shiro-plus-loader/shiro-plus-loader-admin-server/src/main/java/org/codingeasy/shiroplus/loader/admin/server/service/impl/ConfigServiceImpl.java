@@ -13,16 +13,20 @@ import org.codingeasy.shiroplus.core.metadata.GlobalMetadata;
 import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 import org.codingeasy.shiroplus.loader.admin.server.dao.*;
 import org.codingeasy.shiroplus.loader.admin.server.exception.BusinessAssert;
+import org.codingeasy.shiroplus.loader.admin.server.exception.BusinessException;
 import org.codingeasy.shiroplus.loader.admin.server.listener.ConfigEvent;
 import org.codingeasy.shiroplus.loader.admin.server.logs.LogsProducer;
 import org.codingeasy.shiroplus.loader.admin.server.models.Page;
+import org.codingeasy.shiroplus.loader.admin.server.models.SwaggerConstant;
 import org.codingeasy.shiroplus.loader.admin.server.models.dto.AuthMetadataEventWrap;
 import org.codingeasy.shiroplus.loader.admin.server.models.dto.GlobalMetadataEventDto;
 import org.codingeasy.shiroplus.loader.admin.server.models.dto.PermissionMetadataEventDto;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.*;
 import org.codingeasy.shiroplus.loader.admin.server.models.menu.CommonStatus;
 import org.codingeasy.shiroplus.loader.admin.server.models.menu.ConfigType;
+import org.codingeasy.shiroplus.loader.admin.server.models.menu.RequestMethod;
 import org.codingeasy.shiroplus.loader.admin.server.models.request.GlobalConfigRequest;
+import org.codingeasy.shiroplus.loader.admin.server.models.request.OpenAPiRequest;
 import org.codingeasy.shiroplus.loader.admin.server.models.request.PermissionConfigRequest;
 import org.codingeasy.shiroplus.loader.admin.server.service.ConfigService;
 import org.codingeasy.shiroplus.loader.admin.server.utils.UserUtils;
@@ -32,13 +36,19 @@ import org.codingeasy.streamrecord.core.annotation.RecordService;
 import org.codingeasy.streamrecord.core.annotation.Search;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StreamUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static org.codingeasy.shiroplus.loader.admin.server.models.SwaggerConstant.KEY_BASE_PATH;
+import static org.codingeasy.shiroplus.loader.admin.server.models.SwaggerConstant.KEY_PATHS;
 import static org.codingeasy.shiroplus.loader.admin.server.models.menu.CommonStatus.NORMAL;
 import static org.codingeasy.shiroplus.loader.admin.server.models.menu.CommonStatus.constant;
 import static org.codingeasy.shiroplus.loader.admin.server.models.menu.ConfigType.GLOBAL;
@@ -66,6 +76,10 @@ public class ConfigServiceImpl implements ConfigService {
 
 	@Autowired
 	private ConfigExtendDao configExtendDao;
+
+
+	@Autowired
+	private OpenApiDao openApiDao;
 
 	@Autowired
 	private EventManager eventManager;
@@ -381,6 +395,100 @@ public class ConfigServiceImpl implements ConfigService {
 		//发送更新事件
 		eventManager.asyncPublish(ConfigEvent.permissionUpdateEvent(permissionConfigEntity));
 		return 1;
+	}
+
+
+	@Record("导入Api")
+	@Override
+	public int importApi(MultipartFile multipartFile) {
+		Map<String , Object> map;
+		try {
+			InputStream inputStream = multipartFile.getInputStream();
+			String json = StreamUtils.copyToString(inputStream, Charset.defaultCharset());
+			ObjectMapper objectMapper = new ObjectMapper();
+			map = objectMapper.readValue(json, Map.class);
+		}catch (Exception e){
+			throw new BusinessException("导入文件格式错误" ,e);
+		}
+		//获取根路径
+		String rootPath = (String) map.get(KEY_BASE_PATH);
+		if (rootPath == null){
+			throw new BusinessException("导入文件格式缺少根路径");
+		}
+		//构建api对象列表
+		List<OpenApiEntity> openApiEntities = new ArrayList<>();
+		Map<String , Map<String , Map<String ,Object>>> paths = (Map<String, Map<String, Map<String, Object>>>) map.get(KEY_PATHS);
+		for (Map.Entry<String , Map<String , Map<String ,Object>>> entry : paths.entrySet()){
+			String path = entry.getKey();
+			path = rootPath + path;
+			Map<String, Map<String, Object>> methods = entry.getValue();
+			for (Map.Entry<String, Map<String, Object>> methodEntry : methods.entrySet()){
+				String method = methodEntry.getKey();
+				String summary = (String) methodEntry.getValue().get(SwaggerConstant.KEY_SUMMARY);
+				openApiEntities.add(new OpenApiEntity(path , RequestMethod.form(method), summary));
+			}
+		}
+		//批量插入
+		if (!CollectionUtils.isEmpty(openApiEntities)) {
+			openApiDao.batchInsert(openApiEntities);
+		}
+		return 1;
+	}
+
+	/**
+	 * api接口列表分页
+	 * @param request 请对象
+	 * @return 返回分页数据
+	 */
+	@Override
+	public Page<OpenApiEntity> apiPage(OpenAPiRequest request) {
+		//创建分页条件
+		com.baomidou.mybatisplus.extension.plugins.pagination.Page<OpenApiEntity> query = new com.baomidou.mybatisplus.extension.plugins.pagination.Page<>();
+		query.setSize(request.getPageSize());
+		query.setCurrent(request.getPageNo());
+		//创建查询条件
+		LambdaQueryWrapper<OpenApiEntity> queryWrapper = new QueryWrapper<OpenApiEntity>()
+				.lambda()
+				.eq(request.getMethod() != null , OpenApiEntity::getMethod , request.getMethod())
+				.like(!StringUtils.isEmpty(request.getPath()), OpenApiEntity::getPath, request.getPath());
+		return new Page<>(openApiDao.selectPage(query , queryWrapper));
+	}
+
+	/**
+	 * 删除api
+	 * @param id id
+	 * @return
+	 */
+	@Record("'删除API[path:'+#id.path+',method:'+#id.method+']' + #id.summary")
+	@Override
+	public int deleteOpenApi(OpenApiEntity id) {
+		//查询
+		OpenApiEntity openApiEntity = openApiDao.selectById(id.getId());
+		BusinessAssert.notNull(openApiEntity , "删除的api不存在");
+		id.setMethod(openApiEntity.getMethod());
+		id.setPath(openApiEntity.getPath());
+		id.setSummary(openApiEntity.getSummary());
+		return openApiDao.deleteById(id.getId());
+	}
+
+
+
+
+	/**
+	 * 用于模糊查询列表
+	 * @param path  接口路径
+	 * @return 返回列表
+	 */
+	@Override
+	public List<OpenApiEntity> likeOpenApi(String path) {
+		if (StringUtils.isEmpty(path)){
+			return new ArrayList<>();
+		}
+		return openApiDao.selectList(
+				new QueryWrapper<OpenApiEntity>()
+						.lambda()
+						.like(OpenApiEntity::getPath , path)
+		);
 	}
 
 	/**

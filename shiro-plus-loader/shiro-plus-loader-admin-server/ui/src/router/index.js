@@ -92,6 +92,15 @@ const routes = [
                 component: () => import (
                 /* webpackChunkName: "form" */
                 "../views/config/permission/AddOrUpdate.vue")
+            },{
+                path: "/openApi",
+                    name: "openApi",
+                    meta: {
+                    title: 'API管理'
+                },
+                component: () => import (
+                    /* webpackChunkName: "form" */
+                    "../views/config/api/Page.vue")
             }, {
                 path: '/404',
                 name: '404',

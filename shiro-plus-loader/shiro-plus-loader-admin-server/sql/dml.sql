@@ -13,5 +13,7 @@ INSERT INTO `shiro_plus`.`sp_role`(`id`, `name`, `code`, `description`) VALUES (
 INSERT INTO `shiro_plus`.`sp_role`(`id`, `name`, `code`, `description`) VALUES (10, '权限元数据管理(读写)', 'admin:permiMetadata:read,write', '权限元数据管理的查看和编辑权限');
 INSERT INTO `shiro_plus`.`sp_role`(`id`, `name`, `code`, `description`) VALUES (11, '客户端实例管理(读)', 'admin:instance:read', '客户端实例管理的查看权限');
 INSERT INTO `shiro_plus`.`sp_role`(`id`, `name`, `code`, `description`) VALUES (12, '客户端实例管理(读写)', 'admin:instance:read,write', '客户端实例管理的查看和编辑权限');
+INSERT INTO `shiro_plus`.`sp_role`(`id`, `name`, `code`, `description`) VALUES (13, 'API管理(读)', 'admin:openApi:read', 'API管理的查看权限');
+INSERT INTO `shiro_plus`.`sp_role`(`id`, `name`, `code`, `description`) VALUES (14, 'API管理(读写)', 'admin:openApi:read,write', 'API管理的查看和编辑权限');
 --初始化超级管理员 密码 admin123456
 INSERT INTO `shiro_plus`.`sp_user`(`id`, `username`, `password`, `nickname`, `create_tm`, `status`, `last_update_tm`, `create_by`, `update_by`) VALUES (1, 'admin', 'DBYgvkvelliqAfZ/W3dt/g==', 'admin', 1, 1, '2021-07-21 17:51:43', 1, 1);

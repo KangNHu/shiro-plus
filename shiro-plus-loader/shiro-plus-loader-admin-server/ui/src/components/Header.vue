@@ -35,9 +35,8 @@
 </template>
 <script>
 import ut from "../utils/userUtils"
-import ua from "../api/UserApi"
 import updatePassword from "../views/user/UpdatePassword.vue"
-import sa from "../api/SystemApi"
+
 export default {
     data() {
         return {
@@ -54,18 +53,6 @@ export default {
         collapse() {
             return this.$store.state.collapse;
         }
-    },
-    created(){
-        //获取当前用户信息
-        ua.getCurrentUser().then(user =>{
-            ut.setUserInfo(user)
-        })
-        //获取字典数据
-        sa.getDicts().then(dicts =>{
-            if(dicts){
-            localStorage.setItem("dicts" , JSON.stringify(dicts))
-            }
-        })
     },
     methods: {
         // 用户名下拉菜单选择事件

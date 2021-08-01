@@ -43,6 +43,16 @@ CREATE TABLE `sp_event` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='事件表 ';
 
+DROP TABLE IF EXISTS `sp_open_api`;
+CREATE TABLE `sp_open_api` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `path` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '接口路径',
+  `method` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '方法的请求方式 如 get post',
+  `summary` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `IGNORE_INDEX` (`path`,`method`)
+) ENGINE=InnoDB AUTO_INCREMENT=1897 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Api接口表';
+
 -- ----------------------------
 -- Table structure for sp_global_config
 -- ----------------------------

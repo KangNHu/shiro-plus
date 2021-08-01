@@ -2,6 +2,7 @@ package org.codingeasy.shiroplus.loader.admin.server.listener;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.event.Subscribe;
 import org.codingeasy.shiroplus.core.event.AuthMetadataEvent;
@@ -127,12 +128,14 @@ public class ConfigActiveListener {
 		String event = JsonUtils.toJsonString(authMetadataEvent);
 		//获取所有存活的客户端实例
 		List<InstanceEntity> instanceEntities = instanceDao.selectList(new QueryWrapper<>());
-		eventDao.batchInsert(
-				instanceEntities
-					.stream()
-					.map(item -> new EventEntity(event ,item.getId() , sourceType))
-					.collect(Collectors.toList())
-		);
+		if (!CollectionUtils.isEmpty(instanceEntities)) {
+			eventDao.batchInsert(
+					instanceEntities
+							.stream()
+							.map(item -> new EventEntity(event, item.getId(), sourceType))
+							.collect(Collectors.toList())
+			);
+		}
 	}
 
 }

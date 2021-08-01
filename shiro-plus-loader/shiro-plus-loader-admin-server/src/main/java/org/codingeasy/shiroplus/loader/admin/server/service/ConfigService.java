@@ -7,9 +7,12 @@ import org.codingeasy.shiroplus.core.metadata.PermissionMetadata;
 import org.codingeasy.shiroplus.loader.admin.server.models.Page;
 import org.codingeasy.shiroplus.loader.admin.server.models.dto.AuthMetadataEventWrap;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.GlobalConfigEntity;
+import org.codingeasy.shiroplus.loader.admin.server.models.entity.OpenApiEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.entity.PermissionConfigEntity;
 import org.codingeasy.shiroplus.loader.admin.server.models.request.GlobalConfigRequest;
+import org.codingeasy.shiroplus.loader.admin.server.models.request.OpenAPiRequest;
 import org.codingeasy.shiroplus.loader.admin.server.models.request.PermissionConfigRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -110,4 +113,37 @@ public interface ConfigService {
 	 * @return
 	 */
 	int updatePermission(PermissionConfigEntity permissionConfigEntity);
+
+	/**
+	 * 导入api
+	 * <p>这只识别swagger 生成的json 文件 具体格式可以参考 swagger api:v2/api-docs</p>
+	 * @param multipartFile swagger json的 文件对象
+	 * @return
+	 */
+	int importApi(MultipartFile multipartFile);
+
+
+	/**
+	 * api接口列表分页
+	 * @param request 请对象
+	 * @return 返回分页数据
+	 */
+	Page<OpenApiEntity> apiPage(OpenAPiRequest request);
+
+
+	/**
+	 * 删除api
+	 * @param id id
+	 * @return
+	 */
+	int deleteOpenApi(OpenApiEntity id);
+
+
+
+	/**
+	 * 用于模糊查询列表
+	 * @param path  接口路径
+	 * @return 返回列表
+	 */
+	List<OpenApiEntity> likeOpenApi(String path);
 }

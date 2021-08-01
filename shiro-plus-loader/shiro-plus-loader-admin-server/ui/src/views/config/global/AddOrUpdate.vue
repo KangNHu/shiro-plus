@@ -133,6 +133,8 @@ export default {
         if (global) {
           if (global.anons) {
             global.anons = global.anons.split(",");
+          }else{
+            global.anons= []
           }
           if (global.extend) {
             let extend = [];
@@ -164,11 +166,11 @@ export default {
         if (vali) {
           let global = ou.copyObject(this.form, (key, value) => {
             if (key === "anons") {
-              return value.join(",");
+              return value.filter(item => item&&item.length > 0).join(",");
             }
             if (key === "extend") {
               let extend = {};
-              value.forEach((item) => {
+              value.filter(item => item.key&&item.key.length>0).forEach((item) => {
                 extend[item.key] = item.value;
               });
               return extend;

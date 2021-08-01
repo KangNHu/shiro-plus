@@ -41,6 +41,20 @@ public enum RequestMethod {
 	}
 
 	/**
+	 * 名称转换为值
+	 * @param name 名称
+	 * @return 值
+	 */
+	public static int form(String name){
+		for (RequestMethod method : RequestMethod.values()){
+			if (method.name.equalsIgnoreCase(name)){
+				return method.value;
+			}
+		}
+		return 1;
+	}
+
+	/**
 	 * 转字典
 	 * @return
 	 */
