@@ -95,6 +95,18 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <compilerArguments>
+                        <extdirs>${project.basedir}/src/main/resources/META-INF/lib</extdirs>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+
             <!-- 插件maven-clean-plugin，用于在编译前，清除之前编译的文件、文件夹等，避免残留之前的内容 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
