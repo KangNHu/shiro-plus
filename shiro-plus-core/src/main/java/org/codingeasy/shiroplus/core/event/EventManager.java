@@ -4,6 +4,8 @@ import org.apache.shiro.event.EventBus;
 import org.apache.shiro.event.support.DefaultEventBus;
 import org.apache.shiro.event.support.EventListener;
 import org.apache.shiro.util.Assert;
+import org.codingeasy.shiroplus.core.utils.RuntimeUtils;
+import sun.rmi.runtime.RuntimeUtil;
 
 import java.util.EventObject;
 import java.util.concurrent.*;
@@ -47,8 +49,9 @@ public class EventManager {
 	 * @return 返回一个线程池
 	 */
 	public  Executor createDefaultExecutor(){
-		return new ThreadPoolExecutor(4,
-				Runtime.getRuntime().availableProcessors() +1,
+		int count = RuntimeUtils.availableProcessors(4);
+		return new ThreadPoolExecutor(count/2,
+				count + 1,
 				50000,
 				TimeUnit.MILLISECONDS,
 				new LinkedBlockingDeque<>(),
