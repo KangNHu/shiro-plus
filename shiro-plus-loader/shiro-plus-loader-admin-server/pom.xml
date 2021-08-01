@@ -85,6 +85,7 @@
                     <!-- 指定该Main Class为全局的唯一入口 -->
                     <mainClass>org.codingeasy.shiroplus.loader.admin.server.AdminServerApplication</mainClass>
                     <layout>ZIP</layout>
+                    <includeSystemScope>true</includeSystemScope>
                 </configuration>
                 <executions>
                     <execution>
