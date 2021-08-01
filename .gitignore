@@ -18,6 +18,7 @@
 *.rar
 *.iml
 .idea
+logs
 *node_modules
 *node
 *dist
