@@ -15,3 +15,8 @@
 | 权限元数据管理(读)   | admin:permiMetadata:read        | 权限元数据管理的查看权限          |
 | 权限元数据管理(读写) | admin:permiMetadata:read:write  | 权限元数据管理的查看和编辑权限    |
 
+```bash
+mvn clean package -Dmaven.test.skip=true -U
+docker build ./shiro-plus-loader/shiro-plus-loader-admin-server/ -t shiroplus/admin-server
+docker run -p 8869:8869 shiroplus/admin-server 
+```
