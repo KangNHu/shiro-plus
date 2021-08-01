@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-alpine
 RUN addgroup -S shiroplus && adduser -S shiroplus -G shiroplus
 USER shiroplus:shiroplus
 RUN mvn clean package -Dmaven.test.skip=true -U
