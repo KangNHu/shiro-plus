@@ -18,5 +18,5 @@
 ```bash
 mvn clean package -Dmaven.test.skip=true -U
 docker build ./shiro-plus-loader/shiro-plus-loader-admin-server/ -t shiroplus/admin-server
-docker run -p 8869:8869 shiroplus/admin-server 
+docker run -d -p 8869:8869 shiroplus/admin-server 
 ```

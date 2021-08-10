@@ -27,7 +27,8 @@ import javax.servlet.http.HttpServletResponse;
 @ConditionalOnProperty(
 		prefix ="shiroplus.gateway",
 		name = "enable",
-		havingValue = "true"
+		havingValue = "true",
+		matchIfMissing =true
 )
 @Import(ShiroPlusSupportConfiguration.class)
 public class ShrioPlusGatewayAutoConfiguration {
